@@ -3,29 +3,43 @@ Projeto de programação em Java referente à disciplina de Programação Orient
 
 ## Regras do Campeonato:
 • O campeonato permitirá no máximo dez jogadores (humano/máquina) e cada jogador poderá realizar até dez apostas nos jogos de sua escolha, enquanto houver saldo suficientepara tal.
+
 • Para a execução de uma rodada de apostas é necessário ao menos UM jogador participante, com saldo disponível para realização de aposta (até no máximo dez) em jogos de sua escolha (um jogo por aposta).
+
 • A cada rodada do campeonato, será perguntado a cada jogador sobre o valor a ser apostado e para qual jogo. Na sequência será realizada a rodada do jogo e a vez será passada ao próximo jogador.
+
 • Para cada jogador serão armazenados os resultados de até dez jogos realizados (do tipo General ou de Azar) com seus respectivos valores de aposta.
+
 – O resultado do Jogo de Azar compreende se o jogador ganhou ou perdeu determinadajogada, de acordo com as regras do jogo.
+
 – O resultado do Jogo General compreende os valores obtidos para as 13 jogadas. O jogador ganha a aposta se a soma dos valores das jogadas de 1 a 12 for maior que o dobro do valor obtido na jogada 13 (aleat´oria).
+
 • Quando o jogador é inserido no campeonato, o mesmo inicia com o saldo de R$ 100,00. No início de cada rodada, o jogador indicará o quanto deseja apostar. Se o jogador ganhar, este receberá a mesma quantia que apostou, caso contrário ele perderá a quantia que apostou, por exemplo:
+
 – O jogador inicialmente tinha R$ 100,00, apostou R$ 10,00 e ganhou. Então o novo saldo do jogador é de R$ 110,00. Em um segundo momento o jogador se sentiu confiante e apostou R$ 50,00 e perdeu, logo seu saldo ficou em R$ 60,00;
+
 • Poderão ser executadas n rodadas de apostas desde que sejam cumpridas as condições para cada jogador (saldo suficiente e não ultrapassar mais que dez apostas).
+
 • Em cada rodada, para cada jogo escolhido, deverão ser contabilizadas a quantidade que cada face de cada dado já fora sorteada.
+
 • A aplicação produzirá diferentes relatórios de saldos, extratos de resultado dos jogos e estatística das faces sorteadas, por tipo de jogador, por tipo de jogo, por rodadas e por total de campeonato.
 
 ## Jogo de Azar
 
 Um jogo de azar faz uso de dois dados e possui a seguinte regra: O jogador lança os dois dados:
+
 • Se a soma das faces dos dados for 7 ou 11 o jogador ganha;
+
 • Se a soma for 2, 3 ou 12 o jogador perde;
-• Se a soma obtida no primeiro lançamento de dados não for qualquer um dos valores acima, esta soma será tratada como o valor a ser buscado pelo jogador nos lançaamentos subsequentes, ou seja, o jogador só irá ganhar se ele conseguir novamente atingir a soma obtida com o primeiro lançaamento.
+
+• Se a soma obtida no primeiro lançamento de dados não for qualquer um dos valores acima, esta soma será tratada como o valor a ser buscado pelo jogador nos lançamentos subsequentes, ou seja, o jogador só irá ganhar se ele conseguir novamente atingir a soma obtida com o primeiro lançamento.
 
 ## Jogo General
 
 ### Introdução
 
 General é um jogo de dados para dois ou mais jogadores. Para jogar General são necessários cinco dados comuns (hexaédricos) e uma cartela de marcação. O objetivo do jogo é marcar o maior número de pontos, através de algumas combinações de resultados nos dados.
+
 Essa aplicação executa n (indeterminadas) partidas, cada uma com 13 rodadas, para os jogadores (humanos ou máquinas) participantes do Campeonato do Jogo General. Em toda rodada, cada jogador (humano ou máquina), por sua vez, joga os dados e, conforme o resultado obtido, rola os dados mais uma única vez, pula, ou então marca a jogada prevista em sua cartela. Uma vez marcada, aquela jogada não poderá ser repetida pelo mesmo jogador até o final da rodada.
 
 ### Regras:
