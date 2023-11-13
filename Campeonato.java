@@ -43,12 +43,13 @@ public class Campeonato implements Serializable{
     public void incluirJogador(String nome, char tipo, int i){
         // Se a posicao ja estiver livre, cria um novo jogador.
         if(players[i] == null && i < 10){
-            players[i] = new Jogador(nome, tipo);
+            players[i] = new Jogador(nome, 100, tipo);
         } 
         // Caso contrario, sobrescreve:
         else if(players[i] != null && i < players.length){
             players[i].setNome(nome);
             players[i].setTipo(tipo);
+            players[i].setDinheiroDisponivel(100);
         }      
     }
 

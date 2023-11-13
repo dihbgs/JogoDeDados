@@ -1,3 +1,3 @@
-public class Maquina{
+public class Maquina extends Jogador implements JogarComoMaquina{
     
 }

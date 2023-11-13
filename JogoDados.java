@@ -1,4 +1,4 @@
-public abstract class JogoDados{
+public class JogoDados implements Estatistica{
     int nDados;
     String nomeJogo = new String();
     float saldo;
