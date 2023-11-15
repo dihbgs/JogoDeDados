@@ -36,6 +36,9 @@ public class UsaCampeonato {
                 case 'a': // Se a escolha foi 'a', incluie-se um jogador:
                     char tipo;
                     String nome;
+                    int cpf;
+                    String agencia, conta;
+                    int banco;
                     int n = league.jogadorLivre();
 
                     if(n < league.getLength()){ //Verifica se não atingiu numero maximo de jogadores
@@ -51,8 +54,20 @@ public class UsaCampeonato {
                                 tec.nextLine();
                             }
                         }while(tipo != 'M' && tipo != 'm' && tipo != 'H' && tipo != 'h');
+
+                        if(tipo == 'h' || tipo == 'H'){
+                            System.out.println("Informe o seu cpf para cadastro: ");
+                            cpf = tec.nextInt();
+                            System.out.println("Agora as informações de sua conta bancaria.\nInforme o numero do banco: ");
+                            banco = tec.nextInt();
+                            System.out.println("Informe a agencia: ");
+                            agencia = tec.nextLine();
+                            System.out.println("Informe a conta: ");
+                            conta = tec.nextLine();
+                            league.incluirJogadorHumano(nome, tipo, cpf, banco, agencia, conta, n);
+                        }
         
-                        league.incluirJogador(nome, tipo, n);
+                        league.incluirJogadorMaquina(nome, tipo, n);
                     }
                     else{
                         System.out.println("Numero maximo de jogadores atingido!!! Nao foi possivel incluir");

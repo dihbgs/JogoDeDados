@@ -21,6 +21,10 @@ public class Jogador implements Serializable {
         this.nome = nome;
     }
 
+    public void setTipo(char tipo) {
+        this.tipo = tipo;
+    }
+
     public void setDinheiroDisponivel(double dinheiro){
         this.DinheiroDisponivel = dinheiro;
     }
