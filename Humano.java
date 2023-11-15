@@ -6,6 +6,7 @@ public class Humano extends Jogador implements JogarComoHumano{
     private String agencia = new String();
     private String conta = new String();
     private int numeroBanco;
+    private double DinheiroDisponivel;
 
     public Humano(String nome, char tipo, int cpf, String ag, String conta, int banco){
         super(nome, tipo);
@@ -13,6 +14,7 @@ public class Humano extends Jogador implements JogarComoHumano{
         this.agencia = ag;
         this.conta = conta;
         this.numeroBanco = banco;
+        this.DinheiroDisponivel = 100;
     }
 
     public void setCpf(int cpf) {
