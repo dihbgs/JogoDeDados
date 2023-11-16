@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class JogoDados {
     protected int nDados;
     protected String nomeJogo;

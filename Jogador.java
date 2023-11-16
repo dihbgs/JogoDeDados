@@ -16,6 +16,10 @@ public class Jogador implements Serializable {
         return nome;
     }
 
+    public char getTipo(){
+        return this.tipo;
+    }
+
     public void setNome(String nome) { // Altera o nome.
         this.nome = nome;
     }
