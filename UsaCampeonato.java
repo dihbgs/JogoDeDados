@@ -36,12 +36,12 @@ public class UsaCampeonato {
                 case 'a': // Se a escolha foi 'a', incluie-se um jogador:
                     char tipo;
                     String nome;
-                    int cpf;
+                    int cpf = 1234;
                     String agencia, conta;
-                    int banco;
+                    int banco = 12;
                     int n = league.jogadorLivre();
 
-                    if(n < league.getLength()){ //Verifica se não atingiu numero maximo de jogadores
+                    if(n < league.getLength()){ //Verifica se não atingiu número máximo de jogadores.
                         System.out.println("Informe o apelido(nickname) do jogador a ser adicionado: ");
                         nome = tec.nextLine();
                         
@@ -56,15 +56,38 @@ public class UsaCampeonato {
                         }while(tipo != 'M' && tipo != 'm' && tipo != 'H' && tipo != 'h');
 
                         if(tipo == 'h' || tipo == 'H'){
-                            System.out.println("Informe o seu cpf para cadastro: ");
-                            cpf = tec.nextInt();
-                            System.out.println("Agora as informações de sua conta bancaria.\nInforme o numero do banco: ");
-                            banco = tec.nextInt();
+                            int input = 0;
+
+                            do{
+                                try {
+                                    System.out.println("Informe o seu cpf para cadastro: ");
+                                    cpf = tec.nextInt();
+                                    input = 1;
+                                } catch (java.util.InputMismatchException e) {
+                                    System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro.");
+                                    tec.nextLine();
+                                    input = 0;
+                                }
+                            }while(input == 0);
+
+                            do{
+                                try {
+                                    System.out.println("Agora, por favor, passe as informações de sua conta bancária:\nInforme o numero do banco: ");
+                                    banco = tec.nextInt();
+                                    input = 1;
+                                } catch (java.util.InputMismatchException e) {
+                                    System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro.");
+                                    tec.nextLine();
+                                    input = 0;
+                                }
+                            }while(input == 0);
+
                             System.out.println("Informe a agencia: ");
+                            tec.nextLine();
                             agencia = tec.nextLine();
                             System.out.println("Informe a conta: ");
                             conta = tec.nextLine();
-                            league.incluirJogadorHumano(nome, tipo, cpf, banco, agencia, conta, n);
+                            league.incluirJogadorHumano(nome, tipo, cpf, banco, agencia, conta, league.jogadorLivre());
                         }
         
                         league.incluirJogadorMaquina(nome, tipo, n);

@@ -33,7 +33,6 @@ public class Humano extends Jogador implements JogarComoHumano{
         this.numeroBanco = numeroBanco;
     }
 
-
     public int escolherJogo(){
         Scanner tec = new Scanner(System.in);
         int escolha = 0;
