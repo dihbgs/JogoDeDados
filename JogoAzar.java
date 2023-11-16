@@ -16,10 +16,9 @@ public class JogoAzar extends JogoDados{
         Dado[] dadosJogoAzar = super.getDados();
     
         dadosJogoAzar[0].roll();
-        System.out.println("Valor do primeiro dado: " + dadosJogoAzar[0].getFaceSuperior());
-    
         dadosJogoAzar[1].roll();
-        System.out.println("Valor do segundo dado: " + dadosJogoAzar[1].getFaceSuperior());
+
+        super.imprimirDadosUmAUm();
     
         int somaFaces = dadosJogoAzar[0].getFaceSuperior() + dadosJogoAzar[1].getFaceSuperior(); 
         System.out.println("Valor total do lançamento: " + somaFaces);
@@ -53,5 +52,4 @@ public class JogoAzar extends JogoDados{
             return -this.valorAposta;
         }
     }
-    
 }

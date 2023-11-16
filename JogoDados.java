@@ -36,4 +36,13 @@ public class JogoDados {
 
         System.out.println();
     }
+
+    public void imprimirDadosUmAUm(){
+        int i = 1;
+
+        for(Dado dado : dados){
+            System.out.println("Valor do dado " + i + ":" + dado.getFaceSuperior());
+            i++;
+        }
+    }
 }

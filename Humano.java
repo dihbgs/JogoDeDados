@@ -6,14 +6,33 @@ public class Humano extends Jogador implements JogarComoHumano{
     private String agencia = new String();
     private String conta = new String();
     private int numeroBanco;
+    private double DinheiroDisponivel;
 
-    Humano(String nome, char tipo, int num, String ag, String conta, int banco){
+    public Humano(String nome, char tipo, int cpf, String ag, String conta, int banco){
         super(nome, tipo);
-        this.cpf = num;
+        this.cpf = cpf;
         this.agencia = ag;
         this.conta = conta;
         this.numeroBanco = banco;
+        this.DinheiroDisponivel = 100;
     }
+
+    public void setCpf(int cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setAgencia(String agencia) {
+        this.agencia = agencia;
+    }
+
+    public void setConta(String conta) {
+        this.conta = conta;
+    }
+
+    public void setNumeroBanco(int numeroBanco) {
+        this.numeroBanco = numeroBanco;
+    }
+
 
     public int escolherJogo(){
         Scanner tec = new Scanner(System.in);

@@ -6,7 +6,6 @@ public class Jogador implements Serializable {
     private String nome = new String();
     private char tipo;
     private JogoDados[] jogos = new JogoDados[10];
-    private double DinheiroDisponivel;
 
     public Jogador(String nome, char tipo) { // Inicializa jogador.
         this.nome = nome;
@@ -21,8 +20,8 @@ public class Jogador implements Serializable {
         this.nome = nome;
     }
 
-    public void setDinheiroDisponivel(double dinheiro){
-        this.DinheiroDisponivel = dinheiro;
+    public void setTipo(char tipo) {
+        this.tipo = tipo;
     }
 
     public String cartela(int i){ // Retorna a pontuação de uma jogada específica para a tabela final.
