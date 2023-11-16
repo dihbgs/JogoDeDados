@@ -50,7 +50,7 @@ public class Humano extends Jogador implements JogarComoHumano{
         return escolha;
     }
 
-    public int escolherJogada(JogoGeneral jogo){
+    public void escolherJogada(JogoGeneral jogo){
         Scanner teclado = new Scanner(System.in);
         char confirma;
         Random random = new Random();

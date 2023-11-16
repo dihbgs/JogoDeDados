@@ -1,11 +1,10 @@
 import java.io.Serializable;
-import java.util.Random;
-import java.util.Scanner;
 
 public class Jogador implements Serializable {
     private String nome = new String();
     private char tipo;
     private JogoDados[] jogos = new JogoDados[10];
+    JogoGeneral jogo = new JogoGeneral();
 
     public Jogador(String nome, char tipo) { // Inicializa jogador.
         this.nome = nome;
@@ -69,10 +68,9 @@ public class Jogador implements Serializable {
     public int total(){ // Calcula pontuacao total.
         return jogo.calculaTotal();
     }
-
+ 
     
-
-        // Verifica se o jogador eh maquina:
+    /*    // Verifica se o jogador eh maquina:
         if(this.tipo == 'M' || this.tipo == 'm'){
             int melhorJogada = -1;
             int melhorPontuacao = 0;
@@ -100,5 +98,5 @@ public class Jogador implements Serializable {
             System.out.println("Essa jogada gera o seguinte numero de pontos: " + melhorPontuacao);
             jogo.setJogada(melhorJogada, melhorPontuacao);
         }
-    }            
+    } */           
 }

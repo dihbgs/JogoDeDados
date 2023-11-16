@@ -1,4 +1,4 @@
-public class JogoDados {
+public class JogoDados implements Estatistica{
     protected int nDados;
     protected String nomeJogo;
     protected float saldo;
@@ -19,10 +19,41 @@ public class JogoDados {
         return this.dados;
     }
 
+    public int[] somarFacesSortedas(Dado[] dados, int retorno){
+        int[] soma = new int[6];
+        if(retorno == 0){
+            for (Dado dado : dados) {
+                soma[dado.getFaceSuperior() - 1] = soma[dado.getFaceSuperior() - 1] + 1; 
+            }
+        }
+
+        return soma;
+    }
+
+    public void imprimirEstatisticaDoCampeonato(){
+        int[] soma = somarFacesSorteadas(dados, 1);
+        int total = 0;
+
+        for(int i = 0; i < 6; i++){
+            total += soma[i];
+        }
+
+        if(total != 0){
+            System.out.println("=== ESTATÍSTICA ===");
+            for(int j = 0; j < 6; j++){
+                System.out.println("A face " + (j + 1) + " apareceu virada para cima em " + soma[j]/total + "% das jogadas. ");
+            }
+        }
+        else{
+            System.out.println("Nenhuma dado foi sorteado. ");
+        }
+    }
+
     public void rolarDados() {
         for (Dado dado : dados) {
             dado.roll();
         }
+        int[] soma = somarFacesSorteadas(dados, 0);
     }
 
     public void imprimirResultado() {
