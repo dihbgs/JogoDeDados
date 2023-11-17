@@ -68,3 +68,4 @@ public class Jogador implements Serializable {
     public int total(){ // Calcula pontuacao total.
         return jogo.calculaTotal();
     }
+}
