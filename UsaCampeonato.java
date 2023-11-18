@@ -87,10 +87,11 @@ public class UsaCampeonato {
                             agencia = tec.nextLine();
                             System.out.println("Informe a conta: ");
                             conta = tec.nextLine();
-                            league.incluirJogadorHumano(nome, tipo, cpf, banco, agencia, conta, league.jogadorLivre());
+                            league.incluirJogadorHumano(nome, tipo, cpf, banco, agencia, conta, n);
                         }
-        
-                        league.incluirJogadorMaquina(nome, tipo, n);
+                        else{
+                            league.incluirJogadorMaquina(nome, tipo, n);
+                        }
                     }
                     else{
                         System.out.println("Numero maximo de jogadores atingido!!! Nao foi possivel incluir");
@@ -117,7 +118,6 @@ public class UsaCampeonato {
                     break;
                 case 'd': // Se a escolha foi 'd', mostra-se a cartela:
                     league.mostrarCartela();
-    
                     break;
                 case 'e': // Se a escolha foi 'e', grava-se a partida em arquivo:
                     System.out.println("..::Gravando em arquivo::..");

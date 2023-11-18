@@ -69,7 +69,7 @@ public class Campeonato implements Serializable{
     public boolean removerJogador(String nome){        
         // Percorre array de jogador, procurando pelo nome. Caso encontre, retorna true. Caso nao, retorna falso:
         if(this.players != null){
-            for(int i = 0; i < 5; i++){
+            for(int i = 0; i < 10; i++){
                 if(this.players[i] != null){
                     if(this.players[i].getNome().equals(nome)){
                         this.players[i] = null;
