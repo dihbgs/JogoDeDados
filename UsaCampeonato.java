@@ -16,7 +16,7 @@ public class UsaCampeonato {
         System.out.println("e - Gravar os resultados em arquivo"); 
         System.out.println("f - Ler os dados em arquivo"); 
         System.out.println("g - Sair do jogo"); 
-        System.out.println("j - Mostrar tabela de jogadores");
+        System.out.println("j - Mostrar lista de jogadores");
         System.out.println("r - Mostrar regras do jogo");
 
         while(sair == 0){
@@ -43,8 +43,17 @@ public class UsaCampeonato {
 
                     if(n < league.getLength()){ //Verifica se não atingiu número máximo de jogadores.
                         System.out.println("Informe o apelido(nickname) do jogador a ser adicionado: ");
-                        nome = tec.nextLine();
-                        
+                        int livre;
+                        do{
+                            nome = tec.nextLine();
+                            livre = league.nomeLivre(nome);
+
+                            if(livre != 1){
+                                System.out.println("O nome informado já está sendo utilizado. Por favor, escolha outro: ");
+                            }
+
+                        }while(livre != 1);
+                           
                         do{
                             System.out.println("Informe o tipo do jogador(H - Humano ou M - Maquina): ");
                             tipo = tec.next().charAt(0);
@@ -181,7 +190,7 @@ public class UsaCampeonato {
                     System.out.println("e - Gravar os resultados em arquivo"); 
                     System.out.println("f - Ler os dados em arquivo"); 
                     System.out.println("g - Sair do jogo");
-                    System.out.println("j - Mostrar tabela de jogadores"); 
+                    System.out.println("j - Mostrar lista de jogadores"); 
                     System.out.println("r - Mostrar regras do jogo");
                     break;
                 default:

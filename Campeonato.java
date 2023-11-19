@@ -14,14 +14,27 @@ public class Campeonato implements Serializable{
     }
 
     // Acha um indice livre para adicionar um jogador novo: 
-    public int jogadorLivre(){
+    public int jogadorLivre() {
+        int i = 0;
+    
+        while (i < players.length && players[i] != null && players[i].getNome() != null) {
+            i++;
+        }
+    
+        return i;
+    }
+
+    public int nomeLivre(String nome){
         int i = 0;
 
-        while(i <= 9 && players[i] != null && players[i].getNome() != null){
+        while (i < players.length && players[i] != null && players[i].getNome() != null) {
+            if (players[i].getNome().equalsIgnoreCase(nome)) {
+                return -1; // Retorna -1 se o nome já existir
+            }
             i++;
         }
 
-        return i;
+        return 1; // Caso contrário, retorna 1.
     }
 
     // Verifica se ha jogadores registrados ou nao:
@@ -82,7 +95,7 @@ public class Campeonato implements Serializable{
         return false;
     }
 
-    // Mostra tabela de jogadores:
+    // Mostra lista de jogadores:
     public void mostrarJogadores(){
         int cont = 1;
         String s = new String();
@@ -130,17 +143,35 @@ public class Campeonato implements Serializable{
                 }
             }
 
-            // Como sao 13 as jogadas permitidas, cada partida tera 13 rodadas:
-            for (int rodada = 1; rodada <= 13; rodada++) {
-                System.out.println("\n-.-.-.-.-.-.-.-.-.-.-.-.-.-\nRodada " + rodada + "\n-.-.-.-.-.-.-.-.-.-.-.-.-.-");
-
-                // Loop para permitir que cada jogador realize sua jogada:
-                for (Jogador jogador : players) {
+            for (Jogador jogador : players) {
                     if(jogador != null){
-                        jogador.escolherJogada();
+                        if(jogador instanceof Humano){
+                            int escolha = jogador.escolherJogo();
+
+                            if(escolha == 1){ // O jogador escolheu o Jogo General.
+
+                            }
+                            else if(escolha == 2){ // O jogador escolheu o Jogo de Azar.
+
+                            }
+                        }
+                        else if(jogador instanceof Maquina){
+                            
+                        }
                     }     
                 }
-            }
+
+            // // Como sao 13 as jogadas permitidas, cada partida tera 13 rodadas:
+            // for (int rodada = 1; rodada <= 13; rodada++) {
+            //     System.out.println("\n-.-.-.-.-.-.-.-.-.-.-.-.-.-\nRodada " + rodada + "\n-.-.-.-.-.-.-.-.-.-.-.-.-.-");
+
+            //     // Loop para permitir que cada jogador realize sua jogada:
+            //     for (Jogador jogador : players) {
+            //         if(jogador != null){
+            //             jogador.escolherJogada();
+            //         }     
+            //     }
+            // }
             
             // Para definir o ganhador, calcula-se qual jogador conseguiu o maior numero de pontos:
             for (int k = 0; k < 10; k++){

@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class Jogador implements Serializable {
+public abstract class Jogador implements Serializable {
     private String nome = new String();
     private char tipo;
     private JogoDados[] jogos = new JogoDados[10];

@@ -1,4 +1,4 @@
-public class JogoDados implements Estatistica{
+public abstract class JogoDados implements Estatistica{
     protected int nDados;
     protected String nomeJogo;
     protected float saldo;
