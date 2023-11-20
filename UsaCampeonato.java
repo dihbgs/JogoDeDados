@@ -12,12 +12,14 @@ public class UsaCampeonato {
         System.out.println("a - Incluir jogador"); 
         System.out.println("b - Remover jogador"); 
         System.out.println("c - Executar rodada"); 
-        System.out.println("d - Mostrar cartela de resultados"); 
-        System.out.println("e - Gravar os resultados em arquivo"); 
-        System.out.println("f - Ler os dados em arquivo"); 
-        System.out.println("g - Sair do jogo"); 
-        System.out.println("j - Mostrar lista de jogadores");
-        System.out.println("r - Mostrar regras do jogo");
+        System.out.println("d - Imprimir saldos"); 
+        System.out.println("e - Imprimir extratos");
+        System.out.println("f - Imprimir estatísticas"); 
+        System.out.println("g - Gravar os resultados em arquivo"); 
+        System.out.println("h - Ler os dados em arquivo"); 
+        System.out.println("i - Mostrar lista de jogadores");
+        System.out.println("j - Mostrar regras do jogo");
+        System.out.println("k - Sair da aplicação");
 
         while(sair == 0){
             // Escolhe-se uma opcao do menu. Se for invalida, informa-se o usuario e esse informa uma nova escolha.
@@ -25,15 +27,15 @@ public class UsaCampeonato {
                 System.out.println("Escolha a sua opcao (m mostra o menu novamente): ");
                 op = tec.next().charAt(0);
     
-                if (op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e' && op != 'f' && op != 'g' && op != 'm' && op != 'j' && op != 'r'){
+                if (op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e' && op != 'f' && op != 'g' && op != 'h' && op != 'i' && op != 'j' && op != 'k' && op != 'm'){
                     System.out.println("Opcao invalida! Tente novamente.");
                 }
-            }while(op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e' && op != 'f' && op != 'g' && op != 'm' && op != 'j' && op != 'r');
+            }while(op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e' && op != 'f' && op != 'g' && op != 'h' && op != 'i' && op != 'j' && op != 'k' && op != 'm');
             
             tec.nextLine(); // Limpa o buffer do teclado.
     
             switch(op){
-                case 'a': // Se a escolha foi 'a', incluie-se um jogador:
+                case 'a': // Se a escolha foi 'a', inclui-se um jogador:
                     char tipo;
                     String nome;
                     int cpf = 1234;
@@ -41,7 +43,7 @@ public class UsaCampeonato {
                     int banco = 12;
                     int n = league.jogadorLivre();
 
-                    if(n < league.getLength()){ //Verifica se não atingiu número máximo de jogadores.
+                    if(n < league.getLength()){ // Verifica se não atingiu número máximo de jogadores.
                         System.out.println("Informe o apelido(nickname) do jogador a ser adicionado: ");
                         int livre;
                         do{
@@ -125,29 +127,30 @@ public class UsaCampeonato {
                 case 'c': // Se a escolha foi 'c', executa-se uma nova rodada:
                     league.iniciarCampeonato();
                     break;
-                case 'd': // Se a escolha foi 'd', mostra-se a cartela:
-                    league.mostrarCartela();
+                case 'd': // Se a escolha foi 'd', imprimem-se os saldos:
+                    league.mostrarSaldos();
                     break;
-                case 'e': // Se a escolha foi 'e', grava-se a partida em arquivo:
+                case 'e': // Se a escolha foi 'd', imprimem-se os extratos:
+                    league.mostrarExtratos();
+                    break;
+                case 'f': // Se a escolha foi 'd', imprimem-se as estatísticas:
+                    league.mostrarEstatisticas();
+                    break;
+                case 'g': // Se a escolha foi 'g', grava-se a partida em arquivo:
                     System.out.println("..::Gravando em arquivo::..");
                     league.gravarEmArquivo();
                     System.out.println("Gravacao completa!");
     
                     break;
-                case 'f': // Se a escolha foi 'f', lê-se os dados salvos em arquivo:
+                case 'h': // Se a escolha foi 'h', lê-se os dados salvos em arquivo:
                     league.lerDoArquivo();
     
                     break;
-                case 'g': // Se a escolha foi 'g', sai da aplicacao:
-                    sair = 1;
-                    System.out.println("Saindo do jogo...até a próxima! ");
-
-                    break;
-                case 'j': // Se a escolha foi 'j', mostra-se os jogadores que já foram registrados:
+                case 'i': // Se a escolha foi 'i', mostra-se os jogadores que já foram registrados:
                     league.mostrarJogadores();
 
                     break;
-                case 'r': // Se a escolha for 'r', mostra-se as regras do jogo:
+                case 'j': // Se a escolha for 'j', mostra-se as regras do jogo:
                     System.out.println(" #--- Regras ---#\n" + 
                             "\n" + 
                             "(1) Sendo 13 o número de jogadas possíveis e o número máximo de linhas para cada coluna na cartela de marcação, uma rodada consiste de 13 jogadas para cada jogador.\r\n" + 
@@ -181,17 +184,24 @@ public class UsaCampeonato {
                             "(6) Ao final de 13 rodadas, com a cartela toda preenchida, somam-se os valores de cada coluna, e o jogador que obtiver mais pontos será considerado o vencedor.\r\n" + 
                             " ");
                     break;
+                case 'k': // Se a escolha foi 'k', sai da aplicacao:
+                    sair = 1;
+                    System.out.println("Saindo do jogo...até a próxima! ");
+
+                    break;
                 case 'm': // Se a escolha foi 'm', mostra-se o menu novamente:
                     System.out.println(":..::..: Menu interativo :..::..: ");
-                    System.out.println("a - Incluir jogador");
-                    System.out.println("b - Remover jogador");
+                    System.out.println("a - Incluir jogador"); 
+                    System.out.println("b - Remover jogador"); 
                     System.out.println("c - Executar rodada"); 
-                    System.out.println("d - Mostrar cartela de resultados"); 
-                    System.out.println("e - Gravar os resultados em arquivo"); 
-                    System.out.println("f - Ler os dados em arquivo"); 
-                    System.out.println("g - Sair do jogo");
-                    System.out.println("j - Mostrar lista de jogadores"); 
-                    System.out.println("r - Mostrar regras do jogo");
+                    System.out.println("d - Imprimir saldos"); 
+                    System.out.println("e - Imprimir extratos");
+                    System.out.println("f - Imprimir estatísticas"); 
+                    System.out.println("g - Gravar os resultados em arquivo"); 
+                    System.out.println("h - Ler os dados em arquivo"); 
+                    System.out.println("i - Mostrar lista de jogadores");
+                    System.out.println("j - Mostrar regras do jogo");
+                    System.out.println("k - Sair da aplicação");
                     break;
                 default:
                     System.out.println("ERRO");

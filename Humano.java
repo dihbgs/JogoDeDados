@@ -40,10 +40,21 @@ public class Humano extends Jogador implements JogarComoHumano{
     public int escolherJogo(){
         Scanner tec = new Scanner(System.in);
         int escolha = 0;
+        int input = 0;
 
         System.out.println("Escolha um jogo para fazer sua aposta(1 para o Jogo General ou 2 para o Jogo de Azar): ");
         do{
             escolha = tec.nextInt();
+            do{
+                try {
+                    escolha = tec.nextInt();
+                    input = 1;
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro.");
+                    tec.nextLine();
+                    input = 0;
+                }
+            }while(input == 0);
 
             if(escolha != 1 || escolha != 2){
                 System.out.println("Escolha inválida. Por favor escolha ou o Jogo General(1) ou o Jogo de Azar(2). \nInforme sua escolha: ");
@@ -65,16 +76,33 @@ public class Humano extends Jogador implements JogarComoHumano{
             int guia = 0; 
             int escolha = 0;
             int rolou = 0; // Variavel que marca se o jogador ja rolou os dados uma segunda vez.
+            int input = 0;
 
             while(guia == 0){ // O guia grava se a jogada foi ou nao confirmada.
                 do{ 
                     if(rolou == 0){
-                        System.out.println("Escolha uma jogada de 1 a 13 (digite 0 para pular a vez ou 14 para rolar os dados novamente): ");
-                        escolha = teclado.nextInt();
+                        do{
+                            try {
+                                System.out.println("Escolha uma jogada de 1 a 13 (digite 0 para pular a vez ou 14 para rolar os dados novamente): ");
+                                escolha = teclado.nextInt();
+                                input = 1;
+                            } catch (java.util.InputMismatchException e) {
+                                System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro.");
+                                tec.nextLine();
+                                input = 0;
+                            }
+                        }while(input == 0);
                     }
                     else if(rolou == 1){
-                        System.out.println("Escolha uma jogada de 1 a 13 (digite 0 para pular a vez): ");
-                        escolha = teclado.nextInt();
+                        try {
+                            System.out.println("Escolha uma jogada de 1 a 13 (digite 0 para pular a vez): ");
+                            escolha = teclado.nextInt();
+                            input = 1;
+                        } catch (java.util.InputMismatchException e) {
+                            System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro.");
+                            tec.nextLine();
+                            input = 0;
+                        }
                     }
                     
                     if(escolha < 0 || escolha > 14){

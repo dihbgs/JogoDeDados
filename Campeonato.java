@@ -285,4 +285,16 @@ public class Campeonato implements Serializable{
         
         System.out.println(s);
     }
+
+    public void mostrarSaldos(){
+
+    }
+
+    public void mostrarExtratos(){
+        
+    }
+
+    public void mostrarEstatisticas(){
+        
+    }
 }

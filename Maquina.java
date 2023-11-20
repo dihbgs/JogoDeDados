@@ -5,6 +5,21 @@ public class Maquina extends Jogador implements JogarComoMaquina{
         super(nome, tipo);
     }
 
+    public int escolherJogo(){
+        Random random = new Random();
+        int escolha = random.nextInt(2) + 1;
+
+        System.out.println("O jogo escolhido pela máquina foi o ");
+        if(escolha == 1){
+            System.out.println("Jogo General. ");
+        }
+        else if(escolha == 2){
+            System.out.println("Jogo de Azar. ");
+        }
+
+        return escolha;
+    }
+
     public int aplicarEstrategia(){
         int melhorPontuacao = 0;
         
