@@ -37,7 +37,7 @@ public class Humano extends Jogador implements JogarComoHumano{
         return conta;
     }
 
-    public int escolherJogo(){
+    public void escolherJogo(){
         Scanner tec = new Scanner(System.in);
         int escolha = 0;
         int input = 0;
@@ -61,7 +61,7 @@ public class Humano extends Jogador implements JogarComoHumano{
             }
         }while(escolha != 1 || escolha != 2);
 
-        return escolha;
+        this.escolhaJogo = escolha;
     }
 
     public void escolherJogada(JogoGeneral jogo){

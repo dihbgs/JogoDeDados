@@ -5,6 +5,8 @@ public abstract class Jogador implements Serializable {
     private char tipo;
     private JogoDados[] jogos = new JogoDados[10];
     JogoGeneral jogo = new JogoGeneral();
+    int escolhaJogo;
+
 
     public Jogador(String nome, char tipo) { // Inicializa jogador.
         this.nome = nome;
