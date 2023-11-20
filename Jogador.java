@@ -3,14 +3,16 @@ import java.io.Serializable;
 public abstract class Jogador implements Serializable {
     private String nome = new String();
     private char tipo;
-    private JogoDados[] jogos = new JogoDados[10];
-    JogoGeneral jogo = new JogoGeneral();
+    private JogoDados[] jogos;
+    JogoGeneral jogo;
     int escolhaJogo;
 
 
     public Jogador(String nome, char tipo) { // Inicializa jogador.
         this.nome = nome;
         this.tipo = tipo;
+        this.jogos = new JogoDados[10];
+        this.jogo = new JogoGeneral();
     }
 
     public String getNome() { // Retorna o nome.

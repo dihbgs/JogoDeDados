@@ -88,7 +88,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                                 input = 1;
                             } catch (java.util.InputMismatchException e) {
                                 System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro.");
-                                tec.nextLine();
+                                teclado.nextLine();
                                 input = 0;
                             }
                         }while(input == 0);
@@ -100,7 +100,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                             input = 1;
                         } catch (java.util.InputMismatchException e) {
                             System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro.");
-                            tec.nextLine();
+                            teclado.nextLine();
                             input = 0;
                         }
                     }

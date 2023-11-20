@@ -1,8 +1,9 @@
 public class JogoGeneral extends JogoDados{
-    private int[] jogadas = new int[13];
+    private int[] jogadas;
 
     public JogoGeneral(){
         super(5, "Jogo General");
+        this.jogadas = new int[13]; 
         
         for(int i = 0 ; i < 13 ; i++) { 
 			jogadas[i] = -1;

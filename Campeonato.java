@@ -18,14 +18,27 @@ public class Campeonato implements Serializable{
     }
 
     // Acha um indice livre para adicionar um jogador novo: 
-    public int jogadorLivre(){
+    public int jogadorLivre() {
         int i = 0;
 
-        while(i <= 9 && players[i] != null && players[i].getNome() != null){
+        while (i < players.length && players[i] != null && players[i].getNome() != null) {
             i++;
         }
 
         return i;
+    }
+
+    public int nomeLivre(String nome){
+        int i = 0;
+
+        while (i < players.length && players[i] != null && players[i].getNome() != null) {
+            if (players[i].getNome().equalsIgnoreCase(nome)) {
+                return -1; // Retorna -1 se o nome já existir
+            }
+            i++;
+        }
+
+        return 1; // Caso contrário, retorna 1.
     }
 
     // Verifica se ha jogadores registrados ou nao:
@@ -86,7 +99,7 @@ public class Campeonato implements Serializable{
         return false;
     }
 
-    // Mostra tabela de jogadores:
+    // Mostra a lista de jogadores:
     public void mostrarJogadores(){
         int cont = 1;
         String s = new String();
@@ -295,7 +308,7 @@ public class Campeonato implements Serializable{
     }
 
     public void mostrarSaldos(){
-
+        for(Jogador j )
     }
 
     public void mostrarExtratos(){
