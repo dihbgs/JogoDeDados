@@ -6,7 +6,11 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class Campeonato implements Serializable{
-    private Jogador[] players = new Jogador[10];
+    private Jogador[] players;
+
+    public Campeonato(){
+        players = new Jogador[10];
+    }
 
     // Retorna o tamanho do vetor players(a quantidade de jogadores que eh permitido adicionar):
     public int getLength(){
