@@ -54,4 +54,8 @@ public class Maquina extends Jogador implements JogarComoMaquina{
 
         return melhorPontuacao;
     }
+
+    public void escolherJogo(){
+        
+    }
 }

@@ -145,8 +145,16 @@ public class Campeonato implements Serializable{
             //cada jogador escolhe seu jogo
             for(int i = 0; i<10; i++){
                 if(players[i]!=null){
-                    players[i].escolherJogo();
-                    if(players[i].escolhaJogo == 1)
+                    if(players[i].getTipo()=='h'){
+                        Humano h = (Humano)players[i];
+                        players[i].setEscolhaJogo(h.escolherJogo());
+                    }
+                    else{
+                        Maquina m = (Maquina)players[i];
+                        players[i].setEscolhaJogo(m.escolherJogo());
+                    }
+
+                    if(players[i].getEscolhaJogo() == 1)
                         contJogoG++;
                     else
                         contJogoA++;
@@ -158,7 +166,7 @@ public class Campeonato implements Serializable{
                 System.out.println("Jogadores de Jogo General, se preparem...");
 
                 for(int i = 0; i<10;i++){
-                    if(players[i].escolhaJogo==1){
+                    if(players[i].getEscolhaJogo()==1){
     
                         for(Jogador jog : players){
                             if(jog != null){
@@ -200,7 +208,7 @@ public class Campeonato implements Serializable{
                 System.out.println("Jogadores do Jogo de Azar se preparem...");
 
                 for(int i=0; i<10; i++){
-                    if(players[i].escolhaJogo == 2){
+                    if(players[i].getEscolhaJogo() == 2){
     
                     }
                 }
