@@ -117,6 +117,7 @@ public class Campeonato implements Serializable{
     // Inicia a partida do jogo General:
     public void iniciarCampeonato(){
         int maior = 0, tot = 0, maiorInd = 0;
+        int contJogoG = 0, contJogoA = 0;
 
         // Se nenhum jogador tiver sido registrado, a partida nao sera iniciada:
         if(this.jogadorVazio()){
@@ -124,37 +125,71 @@ public class Campeonato implements Serializable{
         }
         // Se tiver ao menos um jogador registrado, o jogo sera iniciado:
         else{
-            for(Jogador jog : players){
-                if(jog != null){
-                    jog.inicializarPartida(); // Todas as jogadas precisam ser anuladas para uma nova partida ser iniciada.
+            //cada jogador escolhe seu jogo
+            for(int i = 0; i<10; i++){
+                if(players[i]!=null){
+                    players[i].escolherJogo();
+                    if(players[i].escolhaJogo == 1)
+                        contJogoG++;
+                    else
+                        contJogoA++;
                 }
             }
 
-            // Como sao 13 as jogadas permitidas, cada partida tera 13 rodadas:
-            for (int rodada = 1; rodada <= 13; rodada++) {
-                System.out.println("\n-.-.-.-.-.-.-.-.-.-.-.-.-.-\nRodada " + rodada + "\n-.-.-.-.-.-.-.-.-.-.-.-.-.-");
+            //todos os jogadores de jogo general, se houverem, jogam
+            if(contJogoG!=0){
+                System.out.println("Jogadores de Jogo General, se preparem...");
 
-                // Loop para permitir que cada jogador realize sua jogada:
-                for (Jogador jogador : players) {
-                    if(jogador != null){
-                        jogador.escolherJogada();
-                    }     
-                }
-            }
+                for(int i = 0; i<10;i++){
+                    if(players[i].escolhaJogo==1){
+    
+                        for(Jogador jog : players){
+                            if(jog != null){
+                                jog.inicializarPartida(); // Todas as jogadas precisam ser anuladas para uma nova partida ser iniciada.
+                            }
+                        }
             
-            // Para definir o ganhador, calcula-se qual jogador conseguiu o maior numero de pontos:
-            for (int k = 0; k < 10; k++){
-                if(this.players[k] != null){
-                    tot = this.players[k].total();
-                    if(tot > maior){
-                        maior = tot;
-                        maiorInd = k;
+                        // Como sao 13 as jogadas permitidas, cada partida tera 13 rodadas:
+                        for (int rodada = 1; rodada <= 13; rodada++) {
+                            System.out.println("\n-.-.-.-.-.-.-.-.-.-.-.-.-.-\nRodada " + rodada + "\n-.-.-.-.-.-.-.-.-.-.-.-.-.-");
+            
+                            // Loop para permitir que cada jogador realize sua jogada:
+                            for (Jogador jogador : players) {
+                                if(jogador != null){
+                                    jogador.escolherJogada();
+                                }     
+                            }
+                        }
+                        
+                        // Para definir o ganhador, calcula-se qual jogador conseguiu o maior numero de pontos:
+                        for (int k = 0; k < 10; k++){
+                            if(this.players[k] != null){
+                                tot = this.players[k].total();
+                                if(tot > maior){
+                                    maior = tot;
+                                    maiorInd = k;
+                                }
+                            }
+                        }
+                
+                        // Informa-se o vencedor:
+                        System.out.println("\nQuem venceu foi " + this.players[maiorInd].getNome() + ", com " + maior + " pontos. ");
                     }
                 }
             }
+
+            //todos os jogadores de jogo de azar, se houverem, jogam
+            if(contJogoA!=0){
+                System.out.println("Jogadores do Jogo de Azar se preparem...");
+
+                for(int i=0; i<10; i++){
+                    if(players[i].escolhaJogo == 2){
     
-            // Informa-se o vencedor:
-            System.out.println("\nQuem venceu foi " + this.players[maiorInd].getNome() + ", com " + maior + " pontos. ");
+                    }
+                }
+            }
+
+
         }
     }
 
