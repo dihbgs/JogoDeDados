@@ -5,7 +5,7 @@ public abstract class Jogador implements Serializable {
     private char tipo;
     private JogoDados[] jogos = new JogoDados[10];
     JogoGeneral jogo = new JogoGeneral();
-    int escolhaJogo;
+    private int escolhaJogo;
 
 
     public Jogador(String nome, char tipo) { // Inicializa jogador.
@@ -27,6 +27,14 @@ public abstract class Jogador implements Serializable {
 
     public void setTipo(char tipo) {
         this.tipo = tipo;
+    }
+
+    public void setEscolhaJogo(int escolhaJogo) {
+        this.escolhaJogo = escolhaJogo;
+    }
+    
+    public int getEscolhaJogo() {
+        return escolhaJogo;
     }
 
     public String cartela(int i){ // Retorna a pontuação de uma jogada específica para a tabela final.
