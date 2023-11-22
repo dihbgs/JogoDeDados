@@ -131,7 +131,8 @@ public class Campeonato implements Serializable{
         }
         
     }
-    // Inicia a partida do jogo General:
+
+    // Inicia a partida, marcando o jogo que cada jogador escolheu e então, executando as rodadas:
     public void iniciarCampeonato(){
         int maior = 0, tot = 0, maiorInd = 0;
         int contJogoG = 0, contJogoA = 0;
@@ -165,51 +166,68 @@ public class Campeonato implements Serializable{
             if(contJogoG!=0){
                 System.out.println("Jogadores de Jogo General, se preparem...");
 
-                for(int i = 0; i<10;i++){
-                    if(players[i].getEscolhaJogo()==1){
-    
-                        for(Jogador jog : players){
-                            if(jog != null){
-                                jog.inicializarPartida(); // Todas as jogadas precisam ser anuladas para uma nova partida ser iniciada.
-                            }
-                        }
-            
-                        // Como sao 13 as jogadas permitidas, cada partida tera 13 rodadas:
-                        for (int rodada = 1; rodada <= 13; rodada++) {
-                            System.out.println("\n-.-.-.-.-.-.-.-.-.-.-.-.-.-\nRodada " + rodada + "\n-.-.-.-.-.-.-.-.-.-.-.-.-.-");
-            
-                            // Loop para permitir que cada jogador realize sua jogada:
-                            for (Jogador jogador : players) {
-                                if(jogador != null){
-                                    jogador.escolherJogada();
-                                }     
-                            }
-                        }
-                        
-                        // Para definir o ganhador, calcula-se qual jogador conseguiu o maior numero de pontos:
-                        for (int k = 0; k < 10; k++){
-                            if(this.players[k] != null){
-                                tot = this.players[k].total();
-                                if(tot > maior){
-                                    maior = tot;
-                                    maiorInd = k;
+                for(int i = 0; i<10; i++){
+                    if(players[i] != null){     
+                        if(players[i].getEscolhaJogo()==1){
+        
+                            for(Jogador jog : players){
+                                if(jog != null){
+                                    jog.inicializarPartida(); // Todas as jogadas precisam ser anuladas para uma nova partida ser iniciada.
                                 }
                             }
-                        }
                 
-                        // Informa-se o vencedor:
-                        System.out.println("\nQuem venceu foi " + this.players[maiorInd].getNome() + ", com " + maior + " pontos. ");
+                            // Como sao 13 as jogadas permitidas, cada partida tera 13 rodadas:
+                            for (int rodada = 1; rodada <= 13; rodada++) {
+                                System.out.println("\n-.-.-.-.-.-.-.-.-.-.-.-.-.-\nRodada " + rodada + "\n-.-.-.-.-.-.-.-.-.-.-.-.-.-");
+                
+                                // Loop para permitir que cada jogador realize sua jogada:
+                                for (Jogador jogador : players) {
+                                    if(jogador != null){
+                                        if(jogador instanceof Humano){
+                                            Humano h = (Humano)jogador;
+                                            h.escolherJogada();
+                                        }
+                                        else if(jogador instanceof Maquina){
+                                            Maquina m = (Maquina) jogador;
+                                            m.aplicarEstrategia();
+                                        }
+                                    }     
+                                }
+                            }
+                            
+                            // Para definir o ganhador, calcula-se qual jogador conseguiu o maior numero de pontos:
+                            for (int k = 0; k < 10; k++){
+                                if(this.players[k] != null){
+                                    tot = this.players[k].total();
+                                    if(tot > maior){
+                                        maior = tot;
+                                        maiorInd = k;
+                                    }
+                                }
+                            }
+                    
+                            // Informa-se o vencedor:
+                            System.out.println("\nQuem venceu foi " + this.players[maiorInd].getNome() + ", com " + maior + " pontos. ");
+                        }
                     }
                 }
             }
 
-            //todos os jogadores de jogo de azar, se houverem, jogam
+            // Todos os jogadores de jogo de azar, se houverem, jogam
             if(contJogoA!=0){
                 System.out.println("Jogadores do Jogo de Azar se preparem...");
 
-                for(int i=0; i<10; i++){
-                    if(players[i].getEscolhaJogo() == 2){
-    
+                for(int i = 0; i < 10; i++){
+                    if(players[i] != null){
+                        if(players[i].getEscolhaJogo() == 2){
+                            if(players[i] instanceof Humano){
+                                Humano h = (Humano)players[i];
+                                h.executarJogoDeAzar();
+                            }
+                            else if(players[i] instanceof Maquina){
+                                Maquina m = (Maquina) players[i];
+                            }                
+                        }
                     }
                 }
             }
@@ -316,7 +334,7 @@ public class Campeonato implements Serializable{
     }
 
     public void mostrarSaldos(){
-        for(Jogador j )
+
     }
 
     public void mostrarExtratos(){

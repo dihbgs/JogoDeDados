@@ -21,6 +21,7 @@ public class Maquina extends Jogador implements JogarComoMaquina{
     }
 
     public int aplicarEstrategia(){
+        JogoGeneral jogo = new JogoGeneral();
         int melhorPontuacao = 0;
         
         // Verifica se o jogador eh maquina:
@@ -47,7 +48,8 @@ public class Maquina extends Jogador implements JogarComoMaquina{
                 }
                 melhorPontuacao = 0;
             }
-                        
+            
+            System.out.println(mostraJogadasExecutadas());
             System.out.println("Essa jogada gera o seguinte numero de pontos: " + melhorPontuacao);
             jogo.setJogada(melhorJogada, melhorPontuacao);
         }
@@ -55,7 +57,4 @@ public class Maquina extends Jogador implements JogarComoMaquina{
         return melhorPontuacao;
     }
 
-    public void escolherJogo(){
-        
-    }
 }

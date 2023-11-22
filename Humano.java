@@ -64,7 +64,8 @@ public class Humano extends Jogador implements JogarComoHumano{
         return escolha;
     }
 
-    public void escolherJogada(JogoGeneral jogo){
+    public void escolherJogada(){
+        JogoGeneral jogo = new JogoGeneral();
         Scanner teclado = new Scanner(System.in);
         char confirma;
         Random random = new Random();
@@ -167,5 +168,11 @@ public class Humano extends Jogador implements JogarComoHumano{
                     }
                 }
             }
-    }                           
+    } 
+    
+    public void executarJogoDeAzar(){
+        JogoAzar jogo = new JogoAzar();
+        jogo.executarRegrasJogo(1);
+    }
+
 }

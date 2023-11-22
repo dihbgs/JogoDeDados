@@ -2,5 +2,5 @@ public interface JogarComoHumano{
 
     public int escolherJogo();
 
-    public void escolherJogada(JogoGeneral jogo);
+    public void escolherJogada();
 }
