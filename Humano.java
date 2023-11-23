@@ -68,7 +68,30 @@ public class Humano extends Jogador implements JogarComoHumano{
         String s = jogo.toString(); 
  
         System.out.printf(s);
-     }
+    }
+
+    public String cartela(int i){ // Retorna a pontuação de uma jogada específica para a tabela final.
+        String s = new String();
+        s = jogo.montarTabela(i);
+        return s;
+    }
+
+    public String cartela2(JogoGeneral jogo, int i){ // Retorna pontuação de uma jogada específica para as tabelas intermediárias.
+        String s = new String();
+        s = jogo.montarTabela2(i);
+        return s;
+    }
+
+    public String mostraJogadasExecutadas(JogoGeneral jogo){
+        String s = new String();
+
+        s = "1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)\n";
+
+        for(int i = 1; i <= 13; i++){
+            s = s + this.cartela2(jogo, i);
+        }
+        return s;
+    }
 
     public void escolherJogada(){
         JogoGeneral jogo = new JogoGeneral();
@@ -77,7 +100,7 @@ public class Humano extends Jogador implements JogarComoHumano{
         Random random = new Random();
 
         System.out.println("\n" + super.getNome() + ", é a sua vez.\nRolando os dados... ");
-        this.jogada();
+        this.jogada(jogo);
         System.out.println(mostraJogadasExecutadas());
         
             int guia = 0; 
@@ -138,7 +161,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                 // ele ganha uma unica chance de fazer isso:
                 else if(escolha == 14 && rolou == 0){ 
                     this.jogada(jogo);
-                    System.out.println(mostraJogadasExecutadas());
+                    System.out.println(mostraJogadasExecutadas(jogo));
                     rolou = 1;
                 }
                 else if(escolha == 14 && rolou == 1){
@@ -146,7 +169,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                 }
                 else{
                     // Verificar se a jogada é válida:
-                    if (validar(escolha)) {
+                    if (jogo.validarJogada(escolha)) {
                         // Calcular a pontuação da jogada:
                         int pontuacao = jogo.pontuarJogada(escolha);
 
