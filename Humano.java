@@ -44,7 +44,6 @@ public class Humano extends Jogador implements JogarComoHumano{
 
         System.out.println("Escolha um jogo para fazer sua aposta(1 para o Jogo General ou 2 para o Jogo de Azar): ");
         do{
-            escolha = tec.nextInt();
             do{
                 try {
                     escolha = tec.nextInt();
@@ -56,13 +55,20 @@ public class Humano extends Jogador implements JogarComoHumano{
                 }
             }while(input == 0);
 
-            if(escolha != 1 || escolha != 2){
+            if(escolha != 1 && escolha != 2){
                 System.out.println("Escolha inválida. Por favor escolha ou o Jogo General(1) ou o Jogo de Azar(2). \nInforme sua escolha: ");
             }
-        }while(escolha != 1 || escolha != 2);
+        }while(escolha != 1 && escolha != 2);
 
         return escolha;
     }
+
+    public void jogada(JogoGeneral jogo){ // Efetua uma jogada, rolando os dados e imprimindo.
+        jogo.rolarDados();
+        String s = jogo.toString(); 
+ 
+        System.out.printf(s);
+     }
 
     public void escolherJogada(){
         JogoGeneral jogo = new JogoGeneral();
@@ -84,7 +90,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                     if(rolou == 0){
                         do{
                             try {
-                                System.out.println("Escolha uma jogada de 1 a 13 (digite 0 para pular a vez ou 14 para rolar os dados novamente): ");
+                                System.out.println(super.getNome() + ", escolha uma jogada de 1 a 13 (digite 0 para pular a vez ou 14 para rolar os dados novamente): ");
                                 escolha = teclado.nextInt();
                                 input = 1;
                             } catch (java.util.InputMismatchException e) {
@@ -119,9 +125,10 @@ public class Humano extends Jogador implements JogarComoHumano{
             
                 if (escolha == 0) { // Caso pule a vez:
                     int jogadaAleatoria;
+
                     do {
                         jogadaAleatoria = random.nextInt(13) + 1;
-                    } while (!this.validar(jogadaAleatoria));
+                    } while (!jogo.validarJogada(jogadaAleatoria));
                 
                     System.out.println("Você pulou a vez. Sua jogada aleatória zerada foi: " + jogadaAleatoria);
                     jogo.setJogada(jogadaAleatoria, 0); // Escolhe-se uma jogada aleatoria e atribui zero a ela.
@@ -130,7 +137,7 @@ public class Humano extends Jogador implements JogarComoHumano{
                 // Se o jogador escolher rolar os dados novamente,
                 // ele ganha uma unica chance de fazer isso:
                 else if(escolha == 14 && rolou == 0){ 
-                    this.jogada();
+                    this.jogada(jogo);
                     System.out.println(mostraJogadasExecutadas());
                     rolou = 1;
                 }

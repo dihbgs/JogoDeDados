@@ -57,4 +57,9 @@ public class Maquina extends Jogador implements JogarComoMaquina{
         return melhorPontuacao;
     }
 
+    public void executarJogoDeAzar(){
+        JogoAzar jogo = new JogoAzar();
+        jogo.executarRegrasJogo(1);
+    }
+
 }

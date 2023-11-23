@@ -3,15 +3,14 @@ import java.io.Serializable;
 public abstract class Jogador implements Serializable {
     private String nome = new String();
     private char tipo;
-    private JogoDados[] jogos;
+    private JogoDados[] jogosCompletos;
     JogoGeneral jogo;
     private int escolhaJogo;
-
 
     public Jogador(String nome, char tipo) { // Inicializa jogador.
         this.nome = nome;
         this.tipo = tipo;
-        this.jogos = new JogoDados[10];
+        this.jogosCompletos = new JogoDados[10];
         this.jogo = new JogoGeneral();
     }
 
@@ -37,6 +36,22 @@ public abstract class Jogador implements Serializable {
     
     public int getEscolhaJogo() {
         return escolhaJogo;
+    }
+
+    public int getIndiceLivre(){
+        int i = 0;
+
+        while(jogosCompletos[i] != null){
+            i++;
+        }
+
+        return i;
+    }
+
+    public void adicionarJogo(int rodada, JogoDados jogoAtual) {
+        if ((rodada >= 0 && rodada < 10) && this.jogosCompletos[i] == null) {
+            this.jogosCompletos[rodada] = resultado;
+        }
     }
 
     public String cartela(int i){ // Retorna a pontuação de uma jogada específica para a tabela final.
@@ -80,4 +95,5 @@ public abstract class Jogador implements Serializable {
     public int total(){ // Calcula pontuacao total.
         return jogo.calculaTotal();
     }
+    
 }

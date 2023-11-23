@@ -1,7 +1,7 @@
 public interface Estatistica{
     public static final short numFaces = 6;
 
-    public int [] somarFacesSortedas(Dado[] dados, int retorno);
+    public int [] somarFacesSorteadas(Dado[] dados, int retorno);
 
     public void imprimirEstatisticaDoCampeonato();
 }

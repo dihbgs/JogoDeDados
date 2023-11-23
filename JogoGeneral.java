@@ -20,7 +20,7 @@ public class JogoGeneral extends JogoDados{
         this.jogadas[i - 1] = pontuacao;    // Marca a pontuacao da jogada em sua posicao no vetor.
     }
 
-     public String toString(){ // Imprime os valores dos dados.
+    public String toString(){ // Imprime os valores dos dados.
         int i;
         String str = new String();
         Dado[] dadosJogoGeneral = super.getDados();

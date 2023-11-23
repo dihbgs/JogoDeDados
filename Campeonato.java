@@ -166,7 +166,7 @@ public class Campeonato implements Serializable{
             if(contJogoG!=0){
                 System.out.println("Jogadores de Jogo General, se preparem...");
 
-                for(int i = 0; i<10; i++){
+                for(int i = 0; i < 10; i++){
                     if(players[i] != null){     
                         if(players[i].getEscolhaJogo()==1){
         
@@ -226,6 +226,7 @@ public class Campeonato implements Serializable{
                             }
                             else if(players[i] instanceof Maquina){
                                 Maquina m = (Maquina) players[i];
+                                m.executarJogoDeAzar();
                             }                
                         }
                     }

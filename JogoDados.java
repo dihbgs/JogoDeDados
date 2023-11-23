@@ -19,7 +19,7 @@ public abstract class JogoDados implements Estatistica{
         return this.dados;
     }
 
-    public int[] somarFacesSortedas(Dado[] dados, int retorno){
+    public int[] somarFacesSorteadas(Dado[] dados, int retorno){
         int[] soma = new int[6];
         if(retorno == 0){
             for (Dado dado : dados) {
@@ -53,6 +53,7 @@ public abstract class JogoDados implements Estatistica{
         for (Dado dado : dados) {
             dado.roll();
         }
+
         int[] soma = somarFacesSorteadas(dados, 0);
     }
 
@@ -70,7 +71,7 @@ public abstract class JogoDados implements Estatistica{
         int i = 1;
 
         for(Dado dado : dados){
-            System.out.println("Valor do dado " + i + ":" + dado.getFaceSuperior());
+            System.out.println("Valor do dado " + i + ": " + dado.getFaceSuperior());
             i++;
         }
     }
