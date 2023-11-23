@@ -168,7 +168,7 @@ public class Campeonato implements Serializable{
 
                 for(int i = 0; i < 10; i++){
                     if(players[i] != null){     
-                        if(players[i].getEscolhaJogo()==1){
+                        if(players[i].getEscolhaJogo() == 1){
         
                             for(Jogador jog : players){
                                 if(jog != null){

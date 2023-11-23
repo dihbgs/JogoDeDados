@@ -1,8 +1,11 @@
 import java.util.Random;
 
 public class Maquina extends Jogador implements JogarComoMaquina{
+    private JogoGeneral jogo;
+
     public Maquina(String nome, char tipo){
         super(nome, tipo);
+        jogo = new JogoGeneral();
     }
 
     public int escolherJogo(){
@@ -21,7 +24,8 @@ public class Maquina extends Jogador implements JogarComoMaquina{
     }
 
     public int aplicarEstrategia(){
-        JogoGeneral jogo = new JogoGeneral();
+        System.out.println("\n" + super.getNome() + ", é a sua vez.\nRolando os dados... ");
+        super.jogada(jogo);
         int melhorPontuacao = 0;
         
         // Verifica se o jogador eh maquina:
@@ -30,7 +34,7 @@ public class Maquina extends Jogador implements JogarComoMaquina{
             
             // Percorre jogadas para determinar qual a melhor(que rende maior pontuacao):
             for (int choice = 1; choice <= 13; choice++) {
-                if (validar(choice)) {
+                if (jogo.validarJogada(choice)) {
                     int pontuacao = jogo.pontuarJogada(choice);
                     if (pontuacao > melhorPontuacao) {
                         melhorPontuacao = pontuacao;
@@ -43,13 +47,13 @@ public class Maquina extends Jogador implements JogarComoMaquina{
             if(melhorJogada == -1){
                 Random random = new Random();
                 melhorJogada = random.nextInt(13) + 1;
-                while(!validar(melhorJogada)){
+                while(!jogo.validarJogada(melhorJogada)){
                     melhorJogada = random.nextInt(13) + 1;
                 }
                 melhorPontuacao = 0;
             }
             
-            System.out.println(mostraJogadasExecutadas());
+            System.out.println(mostraJogadasExecutadas(jogo));
             System.out.println("Essa jogada gera o seguinte numero de pontos: " + melhorPontuacao);
             jogo.setJogada(melhorJogada, melhorPontuacao);
         }
