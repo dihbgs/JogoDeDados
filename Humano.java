@@ -7,7 +7,8 @@ public class Humano extends Jogador implements JogarComoHumano{
     private String conta = new String();
     private int numeroBanco;
     private double DinheiroDisponivel;
-    private JogoGeneral jogo;
+    private JogoGeneral jogoG;
+    private JogoAzar jogoA;
 
     public Humano(String nome, char tipo, int cpf, String ag, String conta, int banco){
         super(nome, tipo);
@@ -16,7 +17,8 @@ public class Humano extends Jogador implements JogarComoHumano{
         this.conta = conta;
         this.numeroBanco = banco;
         this.DinheiroDisponivel = 100;
-        this.jogo = new JogoGeneral();
+        this.jogoG = new JogoGeneral();
+        this.jogoA = new JogoAzar();
     }
 
     public void setCpf(int cpf) {
@@ -67,7 +69,7 @@ public class Humano extends Jogador implements JogarComoHumano{
 
     public String cartela(int i){ // Retorna a pontuação de uma jogada específica para a tabela final.
         String s = new String();
-        s = jogo.montarTabela(i);
+        s = jogoG.montarTabela(i);
         return s;
     }
 
@@ -77,8 +79,8 @@ public class Humano extends Jogador implements JogarComoHumano{
         Random random = new Random();
 
         System.out.println("\n" + super.getNome() + ", é a sua vez.\nRolando os dados... ");
-        this.jogada(jogo);
-        System.out.println(mostraJogadasExecutadas(jogo));
+        this.jogada(jogoG);
+        System.out.println(mostraJogadasExecutadas(jogoG));
         
         int guia = 0; 
         int escolha = 0;
@@ -128,17 +130,17 @@ public class Humano extends Jogador implements JogarComoHumano{
 
                 do {
                     jogadaAleatoria = random.nextInt(13) + 1;
-                } while (!jogo.validarJogada(jogadaAleatoria));
+                } while (!jogoG.validarJogada(jogadaAleatoria));
                 
                 System.out.println("Você pulou a vez. Sua jogada aleatória zerada foi: " + jogadaAleatoria);
-                jogo.setJogada(jogadaAleatoria, 0); // Escolhe-se uma jogada aleatoria e atribui zero a ela.
+                jogoG.setJogada(jogadaAleatoria, 0); // Escolhe-se uma jogada aleatoria e atribui zero a ela.
                 guia = 1;
             }
             // Se o jogador escolher rolar os dados novamente,
             // ele ganha uma unica chance de fazer isso:
             else if(escolha == 14 && rolou == 0){ 
-                this.jogada(jogo);
-                System.out.println(mostraJogadasExecutadas(jogo));
+                this.jogada(jogoG);
+                System.out.println(mostraJogadasExecutadas(jogoG));
                 rolou = 1;
             }
             else if(escolha == 14 && rolou == 1){
@@ -146,9 +148,9 @@ public class Humano extends Jogador implements JogarComoHumano{
             }
             else{
                 // Verificar se a jogada é válida:
-                if (jogo.validarJogada(escolha)) {
+                if (jogoG.validarJogada(escolha)) {
                     // Calcular a pontuação da jogada:
-                    int pontuacao = jogo.pontuarJogada(escolha);
+                    int pontuacao = jogoG.pontuarJogada(escolha);
 
                     System.out.println("Essa jogada gera o seguinte numero de pontos: " + pontuacao);
                     // O jogador deve decidir se quer validar a jogada:
@@ -160,7 +162,7 @@ public class Humano extends Jogador implements JogarComoHumano{
 
                     // Se o jogador confirmar, a escolha sera validada e a ponntuacao, gravada:
                     if(confirma == 'S' || confirma == 's'){
-                        jogo.setJogada(escolha, pontuacao);
+                        jogoG.setJogada(escolha, pontuacao);
                         guia = 1;
                     }
                     // Se a jogada for negada, outra sera pedida.
@@ -178,8 +180,18 @@ public class Humano extends Jogador implements JogarComoHumano{
     } 
     
     public void executarJogoDeAzar(){
-        JogoAzar jogo = new JogoAzar();
-        jogo.executarRegrasJogo(1);
+        jogoA.executarRegrasJogo(1);
+    }
+
+    public void adicionarJogo(){
+        super.adicionarJogoNoVetor(super.getIndiceLivre(), jogo);
+
+        if(getEscolhaJogo() == 1){
+            this.jogoG = new JogoGeneral();
+        }
+        else if(getEscolhaJogo() == 2){
+            this.jogoA = new JogoAzar();
+        }
     }
 
 }

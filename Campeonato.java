@@ -232,6 +232,14 @@ public class Campeonato implements Serializable{
                     }
                 }
             }
+
+            for(Jogador j : players){
+                if(j instanceof Humano){
+                    Humano h = (Humano) j;
+                    h.adicionarJogo();
+                }
+            }
+            
         }
     }
 

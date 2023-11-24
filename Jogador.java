@@ -48,7 +48,7 @@ public abstract class Jogador implements Serializable {
         return i;
     }
 
-    public void adicionarJogo(int i, JogoDados jogoAtual) {
+    public void adicionarJogoNoVetor(int i, JogoDados jogoAtual) {
         if ((i >= 0 && i < 10) && this.jogosCompletos[i] == null && i < 10) {
             this.jogosCompletos[i] = jogoAtual;
         }
