@@ -116,7 +116,12 @@ public class UsaCampeonato {
                     
                     break;
                 case 'c': // Se a escolha foi 'c', executa-se uma nova rodada:
-                    league.iniciarCampeonato();
+                    if(league.aindaHaJogosASeremExecutados() == true){
+                        league.iniciarCampeonato();
+                    }
+                    else{
+                        System.out.println("Não é mais possível realizar uma rodada. ");
+                    }
                     break;
                 case 'd': // Se a escolha foi 'd', imprimem-se os saldos:
                     league.mostrarSaldos();

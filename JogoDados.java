@@ -1,13 +1,11 @@
 public abstract class JogoDados implements Estatistica{
-    protected int nDados;
-    protected String nomeJogo;
-    protected float saldo;
-    protected Dado[] dados;
+    private int nDados;
+    private String nomeJogo;
+    private Dado[] dados;
 
     public JogoDados(int nDados, String nomeJogo) {
         this.nDados = nDados;
         this.nomeJogo = nomeJogo;
-        this.saldo = 100.0f; // Saldo inicial é 100.0
         this.dados = new Dado[nDados];
 
         for (int i = 0; i < nDados; i++) {

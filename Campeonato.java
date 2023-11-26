@@ -137,122 +137,116 @@ public class Campeonato implements Serializable{
         int maior = 0, tot = 0, maiorInd = 0;
         int contJogoG = 0, contJogoA = 0;
 
-        for(int a = 0; a < 10; a++){
-            maior = 0; 
-            tot = 0; 
-            maiorInd = 0;
-            contJogoG = 0;
-            contJogoA = 0;
-            
-            // Se nenhum jogador tiver sido registrado, a partida nao sera iniciada:
-            if(this.jogadorVazio()){
-                System.out.println("Nenhum jogador foi registrado! ");
-            }
-            // Se tiver ao menos um jogador registrado, o jogo sera iniciado:
-            else{
-                //cada jogador escolhe seu jogo
-                for(int i = 0; i < 10; i++){
-                    if(players[i]!=null){
-                        if(players[i].getTipo()=='h'){
-                            Humano h = (Humano)players[i];
-                            players[i].setEscolhaJogo(h.escolherJogo());
-                        }
-                        else{
-                            Maquina m = (Maquina)players[i];
-                            players[i].setEscolhaJogo(m.escolherJogo());
-                        }
-
-                        if(players[i].getEscolhaJogo() == 1)
-                            contJogoG++;
-                        else
-                            contJogoA++;
+        // Se nenhum jogador tiver sido registrado, a partida nao sera iniciada:
+        if(this.jogadorVazio()){
+            System.out.println("Nenhum jogador foi registrado! ");
+        }
+        // Se tiver ao menos um jogador registrado, o jogo sera iniciado:
+        else{
+            //cada jogador escolhe seu jogo
+            for(int i = 0; i < 10; i++){
+                if(players[i] != null){
+                    if((players[i].getTipo() == 'h' || players[i].getTipo() == 'H') && players[i].getSaldo() > 0){
+                        Humano h = (Humano)players[i];
+                        players[i].setEscolhaJogo(h.escolherJogo());
+                        players[i].setValorDaAposta(h.apostar());
                     }
+                    else if((players[i].getTipo() == 'm' || players[i].getTipo() == 'M') && players[i].getSaldo() > 0){
+                        Maquina m = (Maquina)players[i];
+                        players[i].setEscolhaJogo(m.escolherJogo());
+                        players[i].setValorDaAposta(m.apostar());
+                    }
+
+                    if(players[i].getEscolhaJogo() == 1)
+                        contJogoG++;
+                    else
+                        contJogoA++;
                 }
+            }
 
-                //todos os jogadores de jogo general, se houverem, jogam
-                if(contJogoG != 0){
-                    System.out.println("Jogadores de Jogo General, se preparem...");
-                    int jaAdicionou = 0;
+            //todos os jogadores de jogo general, se houverem, jogam
+            if(contJogoG != 0){
+                System.out.println("Jogadores de Jogo General, se preparem...");
+                int jaAdicionou = 0;
 
-                    // Como sao 13 as jogadas permitidas, cada partida tera 13 rodadas:
-                    for (int rodada = 1; rodada <= 13; rodada++) {
-                        System.out.println("\n-.-.-.-.-.-.-.-.-.-.-.-.-.-\nRodada " + rodada + "\n-.-.-.-.-.-.-.-.-.-.-.-.-.-");
+                // Como sao 13 as jogadas permitidas, cada partida tera 13 rodadas:
+                for (int rodada = 1; rodada <= 13; rodada++) {
+                    System.out.println("\n-.-.-.-.-.-.-.-.-.-.-.-.-.-\nRodada " + rodada + "\n-.-.-.-.-.-.-.-.-.-.-.-.-.-");
                     
-                        // Loop para permitir que cada jogador realize sua jogada:
-                        for (Jogador jogador : players) {
-                            if(jogador != null){
-                                if(jogador.getEscolhaJogo() == 1){          
-                                    if(jogador instanceof Humano){
-                                        JogoGeneral jogoG;
-                                        if(jaAdicionou == 0){
-                                            jogoG = inicializarJogoG(jogador);
-                                        }
-                                        else{
-                                            jogoG = (JogoGeneral)jogador.getJogoAtual();
-                                        }
-
-                                        Humano h = (Humano)jogador;
-                                        h.escolherJogada(jogoG);
+                    // Loop para permitir que cada jogador realize sua jogada:
+                    for (Jogador jogador : players) {
+                        if(jogador != null){
+                            if(jogador.getEscolhaJogo() == 1 && jogador.getSaldo() > 0){          
+                                if(jogador instanceof Humano){
+                                    JogoGeneral jogoG;
+                                    if(jaAdicionou == 0){
+                                        jogoG = inicializarJogoG(jogador);
                                     }
-                                    else if(jogador instanceof Maquina){
-                                        JogoGeneral jogoG;
-                                        if(jaAdicionou == 0){
-                                            jogoG = inicializarJogoG(jogador);
-                                        }
-                                        else{
-                                            jogoG = (JogoGeneral)jogador.getJogoAtual();
-                                        }
-
-                                        Maquina m = (Maquina) jogador;
-                                        m.aplicarEstrategia(jogoG);
+                                    else{
+                                        jogoG = (JogoGeneral)jogador.getJogoAtual();
                                     }
-                                }    
-                            }     
-                        }
-                        jaAdicionou = 1;
-                    }
-                
-                    // Para definir o ganhador, calcula-se qual jogador conseguiu o maior numero de pontos:
-                    for (int k = 0; k < 10; k++){
-                        if(this.players[k] != null){
-                            if(players[k].getEscolhaJogo() == 1){
-                                tot = this.players[k].total((JogoGeneral)this.players[k].getJogoAtual());
-                                if(tot > maior){
-                                    maior = tot;
-                                    maiorInd = k;
+
+                                    Humano h = (Humano)jogador;
+                                    h.escolherJogada(jogoG);
                                 }
+                                else if(jogador instanceof Maquina){
+                                    JogoGeneral jogoG;
+                                    if(jaAdicionou == 0){
+                                        jogoG = inicializarJogoG(jogador);
+                                    }
+                                    else{
+                                        jogoG = (JogoGeneral)jogador.getJogoAtual();
+                                    }
+
+                                    Maquina m = (Maquina) jogador;
+                                    m.aplicarEstrategia(jogoG);
+                                }
+                            }    
+                        }     
+                    }
+                    jaAdicionou = 1;
+                }
+                
+                // Para definir o ganhador, calcula-se qual jogador conseguiu o maior numero de pontos:
+                for (int k = 0; k < 10; k++){
+                    if(this.players[k] != null){
+                        if(players[k].getEscolhaJogo() == 1 && players[k].getSaldo() > 0){
+                            tot = this.players[k].total((JogoGeneral)this.players[k].getJogoAtual());
+                            if(tot > maior){
+                                maior = tot;
+                                maiorInd = k;
                             }
                         }
                     }
-                        
-                    // Informa-se o vencedor:
-                    System.out.println("\nQuem venceu foi " + this.players[maiorInd].getNome() + ", com " + maior + " pontos. ");
                 }
                         
-                // Todos os jogadores de jogo de azar, se houverem, jogam
-                if(contJogoA != 0){
-                    System.out.println("\nJogadores do Jogo de Azar se preparem...");
+                // Informa-se o vencedor:
+                System.out.println("\nQuem venceu foi " + this.players[maiorInd].getNome() + ", com " + maior + " pontos. ");
+            }
+                        
+            // Todos os jogadores de jogo de azar, se houverem, jogam
+            if(contJogoA != 0){
+                System.out.println("\nJogadores do Jogo de Azar se preparem...");
 
-                    for(int i = 0; i < 10; i++){
-                        if(players[i] != null){
-                            if(players[i].getEscolhaJogo() == 2){
-                                System.out.println("\nÉ a vez de " + players[i].getNome() + ":");
+                for(int i = 0; i < 10; i++){
+                    if(players[i] != null && players[i].getSaldo() > 0){
+                        if(players[i].getEscolhaJogo() == 2){
+                            System.out.println("\nÉ a vez de " + players[i].getNome() + ":");
 
-                                if(players[i] instanceof Humano){
-                                    Humano h = (Humano)players[i];
-                                    JogoAzar jogoA = inicializarJogoA(h);
-                                    h.executarJogoDeAzar(jogoA);
-                                }
-                                else if(players[i] instanceof Maquina){
-                                    Maquina m = (Maquina) players[i];
-                                    JogoAzar jogoA = inicializarJogoA(m);
-                                    m.executarJogoDeAzar(jogoA);
-                                }                
+                            if(players[i] instanceof Humano){
+                                Humano h = (Humano)players[i];
+                                JogoAzar jogoA = inicializarJogoA(h);
+                                h.executarJogoDeAzar(jogoA);
                             }
+                            else if(players[i] instanceof Maquina){
+                                Maquina m = (Maquina) players[i];
+                                JogoAzar jogoA = inicializarJogoA(m);
+                                m.executarJogoDeAzar(jogoA);
+                            }                
                         }
                     }
-                }      
-            }
+                }
+            }      
         }
     }
 
@@ -364,6 +358,19 @@ public class Campeonato implements Serializable{
         
         System.out.println(s);
     } */
+
+    public boolean aindaHaJogosASeremExecutados(){
+        for(Jogador jogador: players){
+            if(jogador != null){
+                boolean verificador = jogador.verificaJogosLivres();
+
+                if(verificador == false){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
     public void mostrarSaldos(){
 

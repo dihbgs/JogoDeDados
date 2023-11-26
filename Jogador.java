@@ -4,14 +4,15 @@ public abstract class Jogador implements Serializable {
     private String nome = new String();
     private char tipo;
     private JogoDados[] jogosAdicionados;
-    JogoGeneral jogo;
     private int escolhaJogo;
+    private float saldo;
+    private float valorDaAposta;
 
     public Jogador(String nome, char tipo) { // Inicializa jogador.
         this.nome = nome;
         this.tipo = tipo;
         this.jogosAdicionados = new JogoDados[10];
-        this.jogo = new JogoGeneral();
+        this.saldo = 100.0f; // Saldo inicial é 100.0
     }
 
     public String getNome() { // Retorna o nome.
@@ -38,14 +39,16 @@ public abstract class Jogador implements Serializable {
         return escolhaJogo;
     }
 
-    public JogoDados getJogoAtual(){
-        int i = 0;
+    public float getSaldo(){
+        return this.saldo;
+    }
 
-        while(jogosAdicionados[i] != null && i < 10){
-            i++;
-        }
+    public float getValorDaAposta(){
+        return this.valorDaAposta;
+    }
 
-        return this.jogosAdicionados[i - 1];
+    public void setValorDaAposta(float aposta){
+        this.valorDaAposta = aposta;
     }
 
     public int getIndiceLivre(){
@@ -58,6 +61,10 @@ public abstract class Jogador implements Serializable {
         return i;
     }
 
+    public JogoDados getJogoAtual(){
+        return this.jogosAdicionados[getIndiceLivre() - 1];
+    }
+
     public void adicionarJogoNoVetor(JogoDados jogoAtual) {
         int i = getIndiceLivre();
 
@@ -66,7 +73,7 @@ public abstract class Jogador implements Serializable {
         }
     }
 
-    public String cartela(int i){ // Retorna a pontuação de uma jogada específica para a tabela final.
+    public String cartela(JogoGeneral jogo, int i){ // Retorna a pontuação de uma jogada específica para a tabela final.
         String s = new String();
         s = jogo.montarTabela(i);
         return s;
@@ -96,12 +103,17 @@ public abstract class Jogador implements Serializable {
         System.out.printf(s);
     }
 
-    public boolean validar(int escolha){ // Valida a jogada.
-        return jogo.validarJogada(escolha);
-    }
-
     public int total(JogoGeneral jogoG){ // Calcula pontuacao total.
         return jogoG.calculaTotal();
     }
-    
+
+    public boolean verificaJogosLivres(){
+        for(JogoDados jogo: jogosAdicionados){
+            if(jogo == null){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

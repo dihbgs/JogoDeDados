@@ -11,10 +11,10 @@ public class Maquina extends Jogador implements JogarComoMaquina{
 
         System.out.println("O jogo escolhido pela máquina " + super.getNome() + " foi o ");
         if(escolha == 1){
-            System.out.println("Jogo General. ");
+            System.out.print("Jogo General. ");
         }
         else if(escolha == 2){
-            System.out.println("Jogo de Azar. ");
+            System.out.print("Jogo de Azar. ");
         }
 
         return escolha;
@@ -60,6 +60,15 @@ public class Maquina extends Jogador implements JogarComoMaquina{
 
     public void executarJogoDeAzar(JogoAzar jogoA){
         jogoA.executarRegrasJogo(1);
+    }
+
+    public float apostar(){
+        Random random = new Random();
+        float aposta = random.nextFloat(super.getSaldo());
+        String apostaCom2Caracteres = String.format("%.02f", aposta);
+        System.out.printf("\nA máquina " + super.getNome() + " apostou R$" + apostaCom2Caracteres + " nesta rodada. ");
+
+        return aposta;
     }
 
 }

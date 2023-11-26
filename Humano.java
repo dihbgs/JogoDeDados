@@ -178,4 +178,24 @@ public class Humano extends Jogador implements JogarComoHumano{
     public void executarJogoDeAzar(JogoAzar jogoA){
         jogoA.executarRegrasJogo(1);
     }
+
+    public float apostar(){
+        Scanner teclado = new Scanner(System.in);
+        float aposta = 0.0f;
+
+        System.out.println("Insira o valor você gostaria de apostar nesta rodada do jogo escolhido (máximo de" + super.getSaldo() +  "): ");
+        int input = 0;
+        do{
+            try {
+                aposta = teclado.nextFloat(); 
+                input = 1;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro ou decimal.");
+                teclado.nextLine();
+                input = 0;
+            }
+        }while(input == 0);
+
+        return aposta;
+    }
 }
