@@ -1,4 +1,4 @@
 public interface JogarComoMaquina{
     
-    public int aplicarEstrategia();
+    public int aplicarEstrategia(JogoGeneral jogoG);
 }

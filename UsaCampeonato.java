@@ -38,7 +38,7 @@ public class UsaCampeonato {
                 case 'a': // Se a escolha foi 'a', inclui-se um jogador:
                     char tipo;
                     String nome;
-                    int cpf = 1234;
+                    String cpf = "12345678910";
                     String agencia, conta;
                     int banco = 12;
                     int n = league.jogadorLivre();
@@ -69,18 +69,9 @@ public class UsaCampeonato {
                         if(tipo == 'h' || tipo == 'H'){
                             int input = 0;
 
-                            do{
-                                try {
-                                    System.out.println("Informe o seu cpf para cadastro: ");
-                                    cpf = tec.nextInt();
-                                    input = 1;
-                                } catch (java.util.InputMismatchException e) {
-                                    System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro.");
-                                    tec.nextLine();
-                                    input = 0;
-                                }
-                            }while(input == 0);
-
+                            System.out.println("Informe o seu cpf para cadastro: ");
+                            cpf = tec.nextLine();
+                            
                             do{
                                 try {
                                     System.out.println("Agora, por favor, passe as informações de sua conta bancária:\nInforme o numero do banco: ");

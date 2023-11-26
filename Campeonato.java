@@ -57,7 +57,7 @@ public class Campeonato implements Serializable{
     }
 
     // Inclui jogadores pelo indice encontrado por jogadorLivre():
-    public void incluirJogadorHumano(String nome, char tipo, int cpf, int banco, String agencia, String conta, int i){
+    public void incluirJogadorHumano(String nome, char tipo, String cpf, int banco, String agencia, String conta, int i){
         // Se a posicao ja estiver livre, cria um novo jogador.
         if(players[i] == null && i < 10){
             players[i] = new Humano(nome, tipo, cpf, agencia, conta, banco);
@@ -137,110 +137,135 @@ public class Campeonato implements Serializable{
         int maior = 0, tot = 0, maiorInd = 0;
         int contJogoG = 0, contJogoA = 0;
 
-        // Se nenhum jogador tiver sido registrado, a partida nao sera iniciada:
-        if(this.jogadorVazio()){
-            System.out.println("Nenhum jogador foi registrado! ");
-        }
-        // Se tiver ao menos um jogador registrado, o jogo sera iniciado:
-        else{
-            //cada jogador escolhe seu jogo
-            for(int i = 0; i<10; i++){
-                if(players[i]!=null){
-                    if(players[i].getTipo()=='h'){
-                        Humano h = (Humano)players[i];
-                        players[i].setEscolhaJogo(h.escolherJogo());
-                    }
-                    else{
-                        Maquina m = (Maquina)players[i];
-                        players[i].setEscolhaJogo(m.escolherJogo());
-                    }
-
-                    if(players[i].getEscolhaJogo() == 1)
-                        contJogoG++;
-                    else
-                        contJogoA++;
-                }
-            }
-
-            //todos os jogadores de jogo general, se houverem, jogam
-            if(contJogoG!=0){
-                System.out.println("Jogadores de Jogo General, se preparem...");
-
-                for(int i = 0; i < 10; i++){
-                    if(players[i] != null){     
-                        if(players[i].getEscolhaJogo() == 1){
-        
-                            for(Jogador jog : players){
-                                if(jog != null){
-                                    jog.inicializarPartida(); // Todas as jogadas precisam ser anuladas para uma nova partida ser iniciada.
-                                }
-                            }
-                
-                            // Como sao 13 as jogadas permitidas, cada partida tera 13 rodadas:
-                            for (int rodada = 1; rodada <= 13; rodada++) {
-                                System.out.println("\n-.-.-.-.-.-.-.-.-.-.-.-.-.-\nRodada " + rodada + "\n-.-.-.-.-.-.-.-.-.-.-.-.-.-");
-                
-                                // Loop para permitir que cada jogador realize sua jogada:
-                                for (Jogador jogador : players) {
-                                    if(jogador != null){
-                                        if(jogador instanceof Humano){
-                                            Humano h = (Humano)jogador;
-                                            h.escolherJogada();
-                                        }
-                                        else if(jogador instanceof Maquina){
-                                            Maquina m = (Maquina) jogador;
-                                            m.aplicarEstrategia();
-                                        }
-                                    }     
-                                }
-                            }
-                            
-                            // Para definir o ganhador, calcula-se qual jogador conseguiu o maior numero de pontos:
-                            for (int k = 0; k < 10; k++){
-                                if(this.players[k] != null){
-                                    tot = this.players[k].total();
-                                    if(tot > maior){
-                                        maior = tot;
-                                        maiorInd = k;
-                                    }
-                                }
-                            }
-                    
-                            // Informa-se o vencedor:
-                            System.out.println("\nQuem venceu foi " + this.players[maiorInd].getNome() + ", com " + maior + " pontos. ");
-                        }
-                    }
-                }
-            }
-
-            // Todos os jogadores de jogo de azar, se houverem, jogam
-            if(contJogoA!=0){
-                System.out.println("Jogadores do Jogo de Azar se preparem...");
-
-                for(int i = 0; i < 10; i++){
-                    if(players[i] != null){
-                        if(players[i].getEscolhaJogo() == 2){
-                            if(players[i] instanceof Humano){
-                                Humano h = (Humano)players[i];
-                                h.executarJogoDeAzar();
-                            }
-                            else if(players[i] instanceof Maquina){
-                                Maquina m = (Maquina) players[i];
-                                m.executarJogoDeAzar();
-                            }                
-                        }
-                    }
-                }
-            }
-
-            for(Jogador j : players){
-                if(j instanceof Humano){
-                    Humano h = (Humano) j;
-                    h.adicionarJogo();
-                }
-            }
+        for(int a = 0; a < 10; a++){
+            maior = 0; 
+            tot = 0; 
+            maiorInd = 0;
+            contJogoG = 0;
+            contJogoA = 0;
             
+            // Se nenhum jogador tiver sido registrado, a partida nao sera iniciada:
+            if(this.jogadorVazio()){
+                System.out.println("Nenhum jogador foi registrado! ");
+            }
+            // Se tiver ao menos um jogador registrado, o jogo sera iniciado:
+            else{
+                //cada jogador escolhe seu jogo
+                for(int i = 0; i < 10; i++){
+                    if(players[i]!=null){
+                        if(players[i].getTipo()=='h'){
+                            Humano h = (Humano)players[i];
+                            players[i].setEscolhaJogo(h.escolherJogo());
+                        }
+                        else{
+                            Maquina m = (Maquina)players[i];
+                            players[i].setEscolhaJogo(m.escolherJogo());
+                        }
+
+                        if(players[i].getEscolhaJogo() == 1)
+                            contJogoG++;
+                        else
+                            contJogoA++;
+                    }
+                }
+
+                //todos os jogadores de jogo general, se houverem, jogam
+                if(contJogoG != 0){
+                    System.out.println("Jogadores de Jogo General, se preparem...");
+                    int jaAdicionou = 0;
+
+                    // Como sao 13 as jogadas permitidas, cada partida tera 13 rodadas:
+                    for (int rodada = 1; rodada <= 13; rodada++) {
+                        System.out.println("\n-.-.-.-.-.-.-.-.-.-.-.-.-.-\nRodada " + rodada + "\n-.-.-.-.-.-.-.-.-.-.-.-.-.-");
+                    
+                        // Loop para permitir que cada jogador realize sua jogada:
+                        for (Jogador jogador : players) {
+                            if(jogador != null){
+                                if(jogador.getEscolhaJogo() == 1){          
+                                    if(jogador instanceof Humano){
+                                        JogoGeneral jogoG;
+                                        if(jaAdicionou == 0){
+                                            jogoG = inicializarJogoG(jogador);
+                                        }
+                                        else{
+                                            jogoG = (JogoGeneral)jogador.getJogoAtual();
+                                        }
+
+                                        Humano h = (Humano)jogador;
+                                        h.escolherJogada(jogoG);
+                                    }
+                                    else if(jogador instanceof Maquina){
+                                        JogoGeneral jogoG;
+                                        if(jaAdicionou == 0){
+                                            jogoG = inicializarJogoG(jogador);
+                                        }
+                                        else{
+                                            jogoG = (JogoGeneral)jogador.getJogoAtual();
+                                        }
+
+                                        Maquina m = (Maquina) jogador;
+                                        m.aplicarEstrategia(jogoG);
+                                    }
+                                }    
+                            }     
+                        }
+                        jaAdicionou = 1;
+                    }
+                
+                    // Para definir o ganhador, calcula-se qual jogador conseguiu o maior numero de pontos:
+                    for (int k = 0; k < 10; k++){
+                        if(this.players[k] != null){
+                            if(players[k].getEscolhaJogo() == 1){
+                                tot = this.players[k].total((JogoGeneral)this.players[k].getJogoAtual());
+                                if(tot > maior){
+                                    maior = tot;
+                                    maiorInd = k;
+                                }
+                            }
+                        }
+                    }
+                        
+                    // Informa-se o vencedor:
+                    System.out.println("\nQuem venceu foi " + this.players[maiorInd].getNome() + ", com " + maior + " pontos. ");
+                }
+                        
+                // Todos os jogadores de jogo de azar, se houverem, jogam
+                if(contJogoA != 0){
+                    System.out.println("\nJogadores do Jogo de Azar se preparem...");
+
+                    for(int i = 0; i < 10; i++){
+                        if(players[i] != null){
+                            if(players[i].getEscolhaJogo() == 2){
+                                System.out.println("\nÉ a vez de " + players[i].getNome() + ":");
+
+                                if(players[i] instanceof Humano){
+                                    Humano h = (Humano)players[i];
+                                    JogoAzar jogoA = inicializarJogoA(h);
+                                    h.executarJogoDeAzar(jogoA);
+                                }
+                                else if(players[i] instanceof Maquina){
+                                    Maquina m = (Maquina) players[i];
+                                    JogoAzar jogoA = inicializarJogoA(m);
+                                    m.executarJogoDeAzar(jogoA);
+                                }                
+                            }
+                        }
+                    }
+                }      
+            }
         }
+    }
+
+    public JogoGeneral inicializarJogoG(Jogador j){
+        JogoGeneral jogo = new JogoGeneral();
+        j.adicionarJogoNoVetor(jogo);
+        return jogo;
+    }
+
+    public JogoAzar inicializarJogoA(Jogador j){
+        JogoAzar jogo = new JogoAzar();
+        j.adicionarJogoNoVetor(jogo);
+        return jogo;
     }
 
     // O seguinte metodo grava os dados de uma partida em arquivo:
@@ -272,7 +297,7 @@ public class Campeonato implements Serializable{
 			players = (Jogador[])oin.readObject();
 			oin.close();
 			fin.close();
-            mostrarCartela(); // A cartela imprimira todas os jogadores, jogadas e pontuacoes da partida salva.
+            //mostrarCartela(); // A cartela imprimira todas os jogadores, jogadas e pontuacoes da partida salva.
 		}catch (Exception ex) {
 			System.err.println("erro: " + ex.toString());
 		}
@@ -280,7 +305,7 @@ public class Campeonato implements Serializable{
 
     /* O seguinte metodo vai imprimir uma tabela cujos conteudos sao o nome dos jogadores,
        seus tipos, pontuacoes por rodada, e pontuacao total: */
-    public void mostrarCartela(){
+    /*public void mostrarCartela(){
         String s = new String();
 
         System.out.print("---- Cartela de Resultados ----\n         |    \t");
@@ -338,7 +363,7 @@ public class Campeonato implements Serializable{
         }
         
         System.out.println(s);
-    }
+    } */
 
     public void mostrarSaldos(){
 

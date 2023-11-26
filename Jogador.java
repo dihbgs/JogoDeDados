@@ -3,14 +3,14 @@ import java.io.Serializable;
 public abstract class Jogador implements Serializable {
     private String nome = new String();
     private char tipo;
-    private JogoDados[] jogosCompletos;
+    private JogoDados[] jogosAdicionados;
     JogoGeneral jogo;
     private int escolhaJogo;
 
     public Jogador(String nome, char tipo) { // Inicializa jogador.
         this.nome = nome;
         this.tipo = tipo;
-        this.jogosCompletos = new JogoDados[10];
+        this.jogosAdicionados = new JogoDados[10];
         this.jogo = new JogoGeneral();
     }
 
@@ -38,19 +38,31 @@ public abstract class Jogador implements Serializable {
         return escolhaJogo;
     }
 
+    public JogoDados getJogoAtual(){
+        int i = 0;
+
+        while(jogosAdicionados[i] != null && i < 10){
+            i++;
+        }
+
+        return this.jogosAdicionados[i - 1];
+    }
+
     public int getIndiceLivre(){
         int i = 0;
 
-        while(jogosCompletos[i] != null && i < 10){
+        while(jogosAdicionados[i] != null && i < 10){
             i++;
         }
 
         return i;
     }
 
-    public void adicionarJogoNoVetor(int i, JogoDados jogoAtual) {
-        if ((i >= 0 && i < 10) && this.jogosCompletos[i] == null && i < 10) {
-            this.jogosCompletos[i] = jogoAtual;
+    public void adicionarJogoNoVetor(JogoDados jogoAtual) {
+        int i = getIndiceLivre();
+
+        if ((i >= 0 && i < 10) && this.jogosAdicionados[i] == null && i < 10) {
+            this.jogosAdicionados[i] = jogoAtual;
         }
     }
 
@@ -77,10 +89,6 @@ public abstract class Jogador implements Serializable {
         return s;
     }
 
-    public void inicializarPartida(){
-        jogo.inicializarJogadas();
-    }
-
     public void jogada(JogoGeneral jogo){ // Efetua uma jogada, rolando os dados e imprimindo.
         jogo.rolarDados();
         String s = jogo.toString(); 
@@ -92,8 +100,8 @@ public abstract class Jogador implements Serializable {
         return jogo.validarJogada(escolha);
     }
 
-    public int total(){ // Calcula pontuacao total.
-        return jogo.calculaTotal();
+    public int total(JogoGeneral jogoG){ // Calcula pontuacao total.
+        return jogoG.calculaTotal();
     }
     
 }

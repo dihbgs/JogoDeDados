@@ -2,26 +2,22 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Humano extends Jogador implements JogarComoHumano{
-    private int cpf;
+    private String cpf;
     private String agencia = new String();
     private String conta = new String();
     private int numeroBanco;
     private double DinheiroDisponivel;
-    private JogoGeneral jogoG;
-    private JogoAzar jogoA;
 
-    public Humano(String nome, char tipo, int cpf, String ag, String conta, int banco){
+    public Humano(String nome, char tipo, String cpf, String ag, String conta, int banco){
         super(nome, tipo);
         this.cpf = cpf;
         this.agencia = ag;
         this.conta = conta;
         this.numeroBanco = banco;
         this.DinheiroDisponivel = 100;
-        this.jogoG = new JogoGeneral();
-        this.jogoA = new JogoAzar();
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -67,13 +63,13 @@ public class Humano extends Jogador implements JogarComoHumano{
         return escolha;
     }
 
-    public String cartela(int i){ // Retorna a pontuação de uma jogada específica para a tabela final.
+    public String cartela(int i, JogoGeneral jogoG){ // Retorna a pontuação de uma jogada específica para a tabela final.
         String s = new String();
         s = jogoG.montarTabela(i);
         return s;
     }
 
-    public void escolherJogada(){
+    public void escolherJogada(JogoGeneral jogoG){
         Scanner teclado = new Scanner(System.in);
         char confirma;
         Random random = new Random();
@@ -179,19 +175,7 @@ public class Humano extends Jogador implements JogarComoHumano{
         }
     } 
     
-    public void executarJogoDeAzar(){
+    public void executarJogoDeAzar(JogoAzar jogoA){
         jogoA.executarRegrasJogo(1);
     }
-
-    public void adicionarJogo(){
-        super.adicionarJogoNoVetor(super.getIndiceLivre(), jogo);
-
-        if(getEscolhaJogo() == 1){
-            this.jogoG = new JogoGeneral();
-        }
-        else if(getEscolhaJogo() == 2){
-            this.jogoA = new JogoAzar();
-        }
-    }
-
 }
