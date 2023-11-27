@@ -7,12 +7,15 @@ public abstract class Jogador implements Serializable {
     private int escolhaJogo;
     private float saldo;
     private float valorDaAposta;
+    private float[] apostas;
 
     public Jogador(String nome, char tipo) { // Inicializa jogador.
         this.nome = nome;
         this.tipo = tipo;
         this.jogosAdicionados = new JogoDados[10];
         this.saldo = 100.0f; // Saldo inicial é 100.0
+        this.valorDaAposta = 0.0f;
+        this.apostas = new float[10];
     }
 
     public String getNome() { // Retorna o nome.
@@ -49,6 +52,10 @@ public abstract class Jogador implements Serializable {
 
     public void setValorDaAposta(float aposta){
         this.valorDaAposta = aposta;
+    }
+    
+    public void setApostas(int i, float aposta){
+        this.apostas[i] = aposta;
     }
 
     public int getIndiceLivre(){
@@ -116,4 +123,23 @@ public abstract class Jogador implements Serializable {
 
         return false;
     }
+
+    public int getIndiceLivreExtrato(){
+        int i = 0;
+
+        while(this.apostas[i] != 0 && i < 10){
+            i++;
+        }
+
+        return i;
+    }
+
+    public void imprimirHistoricoDeApostas(){
+        for(int i = 0; i < 10; i++){
+            if(this.apostas[i] != 0){
+                System.out.println(this.apostas[i]);
+            }
+        }
+    }
+
 }

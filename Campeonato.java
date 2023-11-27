@@ -377,7 +377,12 @@ public class Campeonato implements Serializable{
     }
 
     public void mostrarExtratos(){
-        
+        for(Jogador jogador : players){
+            if(jogador != null){
+                System.out.println("\n=== Extrato de " + jogador.getNome() + " ===");
+                jogador.imprimirHistoricoDeApostas();
+            }
+        }
     }
 
     public void mostrarEstatisticas(){

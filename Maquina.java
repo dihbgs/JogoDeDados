@@ -9,12 +9,12 @@ public class Maquina extends Jogador implements JogarComoMaquina{
         Random random = new Random();
         int escolha = random.nextInt(2) + 1;
 
-        System.out.println("O jogo escolhido pela máquina " + super.getNome() + " foi o ");
+        System.out.print("O jogo escolhido pela máquina " + super.getNome() + " foi o ");
         if(escolha == 1){
-            System.out.print("Jogo General. ");
+            System.out.println("Jogo General. ");
         }
         else if(escolha == 2){
-            System.out.print("Jogo de Azar. ");
+            System.out.println("Jogo de Azar. ");
         }
 
         return escolha;
@@ -66,7 +66,8 @@ public class Maquina extends Jogador implements JogarComoMaquina{
         Random random = new Random();
         float aposta = random.nextFloat(super.getSaldo());
         String apostaCom2Caracteres = String.format("%.02f", aposta);
-        System.out.printf("\nA máquina " + super.getNome() + " apostou R$" + apostaCom2Caracteres + " nesta rodada. ");
+        System.out.println("\nA máquina " + super.getNome() + " apostou R$" + apostaCom2Caracteres + " nesta rodada. ");
+        super.setApostas(getIndiceLivreExtrato(), aposta);
 
         return aposta;
     }

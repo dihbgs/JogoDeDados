@@ -183,18 +183,16 @@ public class Humano extends Jogador implements JogarComoHumano{
         Scanner teclado = new Scanner(System.in);
         float aposta = 0.0f;
 
-        System.out.println("Insira o valor você gostaria de apostar nesta rodada do jogo escolhido (máximo de" + super.getSaldo() +  "): ");
-        int input = 0;
+        System.out.println("Insira o valor você gostaria de apostar nesta rodada do jogo escolhido (máximo de R$" + super.getSaldo() +  "): ");
         do{
-            try {
-                aposta = teclado.nextFloat(); 
-                input = 1;
-            } catch (java.util.InputMismatchException e) {
-                System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro ou decimal.");
-                teclado.nextLine();
-                input = 0;
+            aposta = teclado.nextFloat(); 
+    
+            if(aposta  <= 0 || aposta > super.getSaldo()){
+                System.out.println("Aposta inválida. Por favor, digite um número inteiro ou decimal entre 0 e o seu saldo.");
             }
-        }while(input == 0);
+        }while(aposta  <= 0 || aposta > super.getSaldo());
+
+        super.setApostas(getIndiceLivreExtrato(), aposta);
 
         return aposta;
     }
