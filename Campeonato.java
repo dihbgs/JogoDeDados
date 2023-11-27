@@ -156,6 +156,9 @@ public class Campeonato implements Serializable{
                         players[i].setEscolhaJogo(m.escolherJogo());
                         players[i].setValorDaAposta(m.apostar());
                     }
+                    else if(players[i].getSaldo() <= 0){
+                        players[i].setValorDaAposta(0);
+                    }
 
                     if(players[i].getEscolhaJogo() == 1)
                         contJogoG++;
@@ -207,21 +210,20 @@ public class Campeonato implements Serializable{
                     jaAdicionou = 1;
                 }
                 
-                // Para definir o ganhador, calcula-se qual jogador conseguiu o maior numero de pontos:
+                System.out.println("\nOs vencedores do Jogo General foram: ");
                 for (int k = 0; k < 10; k++){
                     if(this.players[k] != null){
                         if(players[k].getEscolhaJogo() == 1 && players[k].getSaldo() > 0){
-                            tot = this.players[k].total((JogoGeneral)this.players[k].getJogoAtual());
-                            if(tot > maior){
-                                maior = tot;
-                                maiorInd = k;
+                            if(players[k].resultado((JogoGeneral)players[k].getJogoAtual()) == true){
+                                System.out.println(players[k].getNome());
+                                players[k].atualizarSaldo(true);
+                            }
+                            else{
+                                players[k].atualizarSaldo(false);
                             }
                         }
                     }
                 }
-                        
-                // Informa-se o vencedor:
-                System.out.println("\nQuem venceu foi " + this.players[maiorInd].getNome() + ", com " + maior + " pontos. ");
             }
                         
             // Todos os jogadores de jogo de azar, se houverem, jogam
@@ -236,12 +238,14 @@ public class Campeonato implements Serializable{
                             if(players[i] instanceof Humano){
                                 Humano h = (Humano)players[i];
                                 JogoAzar jogoA = inicializarJogoA(h);
-                                h.executarJogoDeAzar(jogoA);
+                                boolean resultadoH = h.executarJogoDeAzar(jogoA);
+                                players[i].atualizarSaldo(resultadoH);
                             }
                             else if(players[i] instanceof Maquina){
                                 Maquina m = (Maquina) players[i];
                                 JogoAzar jogoA = inicializarJogoA(m);
-                                m.executarJogoDeAzar(jogoA);
+                                boolean resultadoM = m.executarJogoDeAzar(jogoA);
+                                players[i].atualizarSaldo(resultadoM);
                             }                
                         }
                     }
@@ -296,69 +300,7 @@ public class Campeonato implements Serializable{
 			System.err.println("erro: " + ex.toString());
 		}
     }
-
-    /* O seguinte metodo vai imprimir uma tabela cujos conteudos sao o nome dos jogadores,
-       seus tipos, pontuacoes por rodada, e pontuacao total: */
-    /*public void mostrarCartela(){
-        String s = new String();
-
-        System.out.print("---- Cartela de Resultados ----\n         |    \t");
-
-        for(int i = 0; i < players.length; i++){
-            if(players[i] != null){
-                s = s + players[i].getNome() + "(" + players[i].getTipo() + ")\t|\t";
-            }
-        }
-        System.out.println(s +"\n");
-        
-        for(int j = 1; j <= 13; j++){
-            s = "";
-            s = s + j;
-            if(j == 7){
-                s = s + "(T)  ";
-            }
-            else if(j == 8){
-                s = s + "(Q)  ";
-            }
-            else if(j == 9){
-                s = s + "(F)  ";
-            }
-            else if(j == 10){
-                s = s + "(S+)";
-            }
-            else if(j == 11){
-                s = s + "(S-)";
-            }
-            else if(j == 12){
-                s = s + "(G) ";
-            }
-            else if(j == 13){
-                s = s + "(X) ";
-            }
-            else{
-                s = s + "     ";
-            }
-
-            s = s + "   |   \t";
-            for(int i = 0; i < players.length; i++){
-                if(players[i]!= null){
-                    s += players[i].cartela(j);
-                }
-            }
-            s = s + "\n";
-            System.out.println(s);
-        }
-        s = "------------------------------------\n Total   |   \t";
-
-        for(int i = 0; i < players.length; i++){
-            if(players[i]!= null){
-                s += players[i].total() + "\t|\t";
-            }
-        }
-        
-        System.out.println(s);
-    } */
-
+    
     public boolean aindaHaJogosASeremExecutados(){
         for(Jogador jogador: players){
             if(jogador != null){
@@ -373,7 +315,13 @@ public class Campeonato implements Serializable{
     }
 
     public void mostrarSaldos(){
+        System.out.println("=== SALDOS DOS JOGADORES ===");
 
+        for(Jogador jogador : players){
+            if(jogador != null){
+                System.out.println(jogador.getNome() + ": " + jogador.getSaldo());
+            }
+        }
     }
 
     public void mostrarExtratos(){

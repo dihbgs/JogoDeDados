@@ -175,15 +175,21 @@ public class JogoGeneral extends JogoDados{
         return 0;
     }
    
-    // O seguinte metodo calcula a pontuacao total de um jogador:
-    public int calculaTotal(){
-        int total = 0;
+    // O seguinte metodo calcula se o jogador venceu o jogo general (pontuou nas 
+    // outras jogadas mais que o dobro do que pontuou na jogada aleatória):
+    public boolean calculaResultado(){
+        int totalDe1a12 = 0;
+        int i;
 
-        for(int i = 0; i < 13; i++){
-            total += this.jogadas[i];
+        for(i = 0; i < 12; i++){
+            totalDe1a12 += this.jogadas[i];
         }
 
-        return total;
+        if(totalDe1a12 > 2*this.jogadas[i]){
+            return true;
+        }
+
+        return false;
     }
 
     // O seguinte metodo grava em string a pontuacao de uma jogada especifica:

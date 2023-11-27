@@ -58,8 +58,8 @@ public class Maquina extends Jogador implements JogarComoMaquina{
         return melhorPontuacao;
     }
 
-    public void executarJogoDeAzar(JogoAzar jogoA){
-        jogoA.executarRegrasJogo(1);
+    public boolean executarJogoDeAzar(JogoAzar jogoA){
+        return jogoA.executarRegrasJogo();
     }
 
     public float apostar(){

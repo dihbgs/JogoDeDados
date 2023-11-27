@@ -1,18 +1,12 @@
 public class JogoAzar extends JogoDados{
-    private float valorAposta;
+    private boolean valorAposta;
 
     public JogoAzar(){
         super(2, "Jogo de Azar");
-        this.valorAposta = 1;
+        this.valorAposta = true;
     }
 
-    public JogoAzar(float aposta){
-        super(2, "Jogo de Azar");
-        this.valorAposta = aposta;
-    }
-
-    public float executarRegrasJogo(float a){
-        this.valorAposta = a;
+    public boolean executarRegrasJogo(){
         Dado[] dadosJogoAzar = super.getDados();
     
         dadosJogoAzar[0].roll();
@@ -25,11 +19,11 @@ public class JogoAzar extends JogoDados{
     
         if(somaFaces == 7 || somaFaces == 11){
             System.out.println("O jogador ganhou a aposta! ");
-            return this.valorAposta;
+            return true;
         }
         else if(somaFaces == 2 || somaFaces == 3 || somaFaces == 12){ 
             System.out.println("Que pena... O jogador perdeu a aposta. ");
-            return -this.valorAposta;
+            return false;
         }
         else{
             System.out.println("Valor a ser encontrado: " + somaFaces);
@@ -44,12 +38,12 @@ public class JogoAzar extends JogoDados{
     
                 if(total == somaFaces){
                     System.out.println("Parabéns! O jogador ganhou! ");
-                    return this.valorAposta;
+                    return true;
                 }
             }
     
             System.out.println("Infelizmente, o jogador perdeu. ");
-            return -this.valorAposta;
+            return false;
         }
     }
 

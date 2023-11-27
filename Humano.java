@@ -175,8 +175,8 @@ public class Humano extends Jogador implements JogarComoHumano{
         }
     } 
     
-    public void executarJogoDeAzar(JogoAzar jogoA){
-        jogoA.executarRegrasJogo(1);
+    public boolean executarJogoDeAzar(JogoAzar jogoA){
+        return jogoA.executarRegrasJogo();
     }
 
     public float apostar(){

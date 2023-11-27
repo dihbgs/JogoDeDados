@@ -58,6 +58,15 @@ public abstract class Jogador implements Serializable {
         this.apostas[i] = aposta;
     }
 
+    public void atualizarSaldo(boolean resultadoDaAposta){
+        if(resultadoDaAposta == true){
+            this.saldo += this.valorDaAposta;
+        }
+        else if (resultadoDaAposta == false){
+            this.saldo -= this.valorDaAposta;
+        }
+    }
+
     public int getIndiceLivre(){
         int i = 0;
 
@@ -110,8 +119,8 @@ public abstract class Jogador implements Serializable {
         System.out.printf(s);
     }
 
-    public int total(JogoGeneral jogoG){ // Calcula pontuacao total.
-        return jogoG.calculaTotal();
+    public boolean resultado(JogoGeneral jogoG){ // Calcula pontuacao total.
+        return jogoG.calculaResultado();
     }
 
     public boolean verificaJogosLivres(){
