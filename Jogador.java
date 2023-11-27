@@ -34,6 +34,10 @@ public abstract class Jogador implements Serializable {
         this.tipo = tipo;
     }
 
+    public JogoDados[] getJogos (){
+        return this.jogosAdicionados;
+    }
+
     public void setEscolhaJogo(int escolhaJogo) {
         this.escolhaJogo = escolhaJogo;
     }
@@ -150,5 +154,4 @@ public abstract class Jogador implements Serializable {
             }
         }
     }
-
 }

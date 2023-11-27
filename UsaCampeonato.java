@@ -39,8 +39,6 @@ public class UsaCampeonato {
                     char tipo;
                     String nome;
                     String cpf = "12345678910";
-                    String agencia, conta;
-                    int banco = 12;
                     int n = league.jogadorLivre();
 
                     if(n < league.getLength()){ // Verifica se não atingiu número máximo de jogadores.
@@ -67,29 +65,10 @@ public class UsaCampeonato {
                         }while(tipo != 'M' && tipo != 'm' && tipo != 'H' && tipo != 'h');
 
                         if(tipo == 'h' || tipo == 'H'){
-                            int input = 0;
-
                             System.out.println("Informe o seu cpf para cadastro: ");
                             cpf = tec.nextLine();
                             
-                            do{
-                                try {
-                                    System.out.println("Agora, por favor, passe as informações de sua conta bancária:\nInforme o numero do banco: ");
-                                    banco = tec.nextInt();
-                                    input = 1;
-                                } catch (java.util.InputMismatchException e) {
-                                    System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro.");
-                                    tec.nextLine();
-                                    input = 0;
-                                }
-                            }while(input == 0);
-
-                            System.out.println("Informe a agencia: ");
-                            tec.nextLine();
-                            agencia = tec.nextLine();
-                            System.out.println("Informe a conta: ");
-                            conta = tec.nextLine();
-                            league.incluirJogadorHumano(nome, tipo, cpf, banco, agencia, conta, n);
+                            league.incluirJogadorHumano(nome, tipo, cpf, n);
                         }
                         else{
                             league.incluirJogadorMaquina(nome, tipo, n);
@@ -124,10 +103,46 @@ public class UsaCampeonato {
                     }
                     break;
                 case 'd': // Se a escolha foi 'd', imprimem-se os saldos:
-                    league.mostrarSaldos();
+                    System.out.println("Se você gostaria de ver os saldos de todos os jogadores, digite 0. Se quiser ver apenas dos jogadores humanos, digite 1. Se quiser ver apenas das máquinas, digite 2: ");
+                    int escolha = 0;
+                    int input = 0;
+
+                    do{
+                        try {
+                            escolha = tec.nextInt();
+                            input = 1;
+                        } catch (java.util.InputMismatchException e) {
+                            System.out.println("Erro: Entrada inválida. Por favor, digite 0, 1 ou 2.");
+                            tec.nextLine();
+                            input = 0;
+                        }
+                    }while(input == 0 && (escolha != 0 || escolha != 1 || escolha != 2));
+
+                    if(escolha == 0){
+                        league.mostrarSaldosTotais();
+                    }
+                    else{
+                        league.mostrarSaldosParciais(escolha);
+                    }
+                    
                     break;
-                case 'e': // Se a escolha foi 'd', imprimem-se os extratos:
-                    league.mostrarExtratos();
+                case 'e': // Se a escolha foi 'e', imprimem-se os extratos:
+                    System.out.println("Se você gostaria de ver os extratos de jogos de todos os jogadores, digite 0. Se quiser ver apenas dos jogadores humanos, digite 1. Se quiser ver apenas das máquinas, digite 2: ");
+                    int esc = 0;
+                    int input2 = 0;
+
+                    do{
+                        try {
+                            esc = tec.nextInt();
+                            input2 = 1;
+                        } catch (java.util.InputMismatchException e) {
+                            System.out.println("Erro: Entrada inválida. Por favor, digite 0, 1 ou 2.");
+                            tec.nextLine();
+                            input2 = 0;
+                        }
+                    }while(input2 == 0 && (esc != 0 || esc != 1 || esc != 2));
+
+                    league.mostrarExtratos(esc);
                     break;
                 case 'f': // Se a escolha foi 'd', imprimem-se as estatísticas:
                     league.mostrarEstatisticas();

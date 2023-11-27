@@ -9,7 +9,7 @@ public class Maquina extends Jogador implements JogarComoMaquina{
         Random random = new Random();
         int escolha = random.nextInt(2) + 1;
 
-        System.out.print("O jogo escolhido pela máquina " + super.getNome() + " foi o ");
+        System.out.println("\nO jogo escolhido pela máquina " + super.getNome() + " foi o ");
         if(escolha == 1){
             System.out.println("Jogo General. ");
         }
@@ -21,7 +21,7 @@ public class Maquina extends Jogador implements JogarComoMaquina{
     }
 
     public int aplicarEstrategia(JogoGeneral jogoG){
-        System.out.println("\n" + super.getNome() + ", é a sua vez.\nRolando os dados... ");
+        System.out.println(super.getNome() + ", é a sua vez.\nRolando os dados... ");
         super.jogada(jogoG);
         int melhorPontuacao = 0;
         

@@ -1,9 +1,6 @@
 public class JogoAzar extends JogoDados{
-    private boolean valorAposta;
-
     public JogoAzar(){
         super(2, "Jogo de Azar");
-        this.valorAposta = true;
     }
 
     public boolean executarRegrasJogo(){

@@ -3,38 +3,14 @@ import java.util.Scanner;
 
 public class Humano extends Jogador implements JogarComoHumano{
     private String cpf;
-    private String agencia = new String();
-    private String conta = new String();
-    private int numeroBanco;
-    private double DinheiroDisponivel;
 
-    public Humano(String nome, char tipo, String cpf, String ag, String conta, int banco){
+    public Humano(String nome, char tipo, String cpf){
         super(nome, tipo);
         this.cpf = cpf;
-        this.agencia = ag;
-        this.conta = conta;
-        this.numeroBanco = banco;
-        this.DinheiroDisponivel = 100;
     }
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public void setAgencia(String agencia) {
-        this.agencia = agencia;
-    }
-
-    public void setConta(String conta) {
-        this.conta = conta;
-    }
-
-    public void setNumeroBanco(int numeroBanco) {
-        this.numeroBanco = numeroBanco;
-    }
-
-    public String getConta() {
-        return conta;
     }
 
     public int escolherJogo(){

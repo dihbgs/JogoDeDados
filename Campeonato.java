@@ -57,10 +57,10 @@ public class Campeonato implements Serializable{
     }
 
     // Inclui jogadores pelo indice encontrado por jogadorLivre():
-    public void incluirJogadorHumano(String nome, char tipo, String cpf, int banco, String agencia, String conta, int i){
+    public void incluirJogadorHumano(String nome, char tipo, String cpf, int i){
         // Se a posicao ja estiver livre, cria um novo jogador.
         if(players[i] == null && i < 10){
-            players[i] = new Humano(nome, tipo, cpf, agencia, conta, banco);
+            players[i] = new Humano(nome, tipo, cpf);
         } 
         // Caso contrario, sobrescreve:
         else if((players[i] != null && i < players.length) || i==10){
@@ -134,7 +134,6 @@ public class Campeonato implements Serializable{
 
     // Inicia a partida, marcando o jogo que cada jogador escolheu e então, executando as rodadas:
     public void iniciarCampeonato(){
-        int maior = 0, tot = 0, maiorInd = 0;
         int contJogoG = 0, contJogoA = 0;
 
         // Se nenhum jogador tiver sido registrado, a partida nao sera iniciada:
@@ -143,6 +142,8 @@ public class Campeonato implements Serializable{
         }
         // Se tiver ao menos um jogador registrado, o jogo sera iniciado:
         else{
+            contJogoG = 0;
+            contJogoA = 0;
             //cada jogador escolhe seu jogo
             for(int i = 0; i < 10; i++){
                 if(players[i] != null){
@@ -314,22 +315,82 @@ public class Campeonato implements Serializable{
         return true;
     }
 
-    public void mostrarSaldos(){
-        System.out.println("=== SALDOS DOS JOGADORES ===");
+    public void mostrarSaldosTotais(){
+        if(!this.jogadorVazio()){
+            System.out.println("=== SALDOS DOS JOGADORES ===");
 
-        for(Jogador jogador : players){
-            if(jogador != null){
-                System.out.println(jogador.getNome() + ": " + jogador.getSaldo());
+            for(Jogador jogador : players){
+                if(jogador != null){
+                    System.out.println(jogador.getNome() + ": " + String.format("%.02f", jogador.getSaldo()));
+                }
             }
+        }
+        else{
+            System.out.println("Não há nenhum saldo, pois não há jogadores registrados. ");
         }
     }
 
-    public void mostrarExtratos(){
-        for(Jogador jogador : players){
-            if(jogador != null){
-                System.out.println("\n=== Extrato de " + jogador.getNome() + " ===");
-                jogador.imprimirHistoricoDeApostas();
+    public void mostrarSaldosParciais(int escolha){
+        int cont = 0;
+
+        if(!this.jogadorVazio()){
+            if(escolha == 1){
+                System.out.println("=== SALDOS DOS JOGADORES HUMANOS ===");
+                for(Jogador jogador : players){
+                    if(jogador != null){
+                        if(jogador instanceof Humano){
+                            System.out.println(jogador.getNome() + ": " + String.format("%.02f", jogador.getSaldo()));
+                            cont ++;
+                        }
+                    }
+                }
             }
+            else if(escolha == 2){
+                System.out.println("=== SALDOS DOS JOGADORES MÁQUINAS ===");
+                for(Jogador jogador : players){
+                    if(jogador != null){
+                        if(jogador instanceof Maquina){
+                            System.out.println(jogador.getNome() + ": " + String.format("%.02f", jogador.getSaldo()));
+                            cont ++;
+                        }
+                    }
+                }
+            }
+
+            if(cont == 0){
+                System.out.println("Não há saldos disponíveis. ");
+            }
+        }else{
+            System.out.println("Não há nenhum saldo, pois não há jogadores registrados. ");
+        }
+    }
+
+    public void mostrarExtratos(int escolha){
+        if(!this.jogadorVazio()){
+            if(escolha == 0){
+                for(Jogador jogador : players){
+                    if(jogador != null){
+
+                    }
+                }
+            }
+            else if (escolha == 1){
+                for(Jogador jogador : players){
+                    if(jogador != null && jogador instanceof Humano){
+
+                    }
+                }
+            }
+            else if(escolha == 2){
+                for(Jogador jogador : players){
+                    if(jogador != null && jogador instanceof Maquina){
+
+                    }
+                }
+            }
+        }
+        else{
+            System.out.println("Não há jogadores para a exibição de extratos. ");
         }
     }
 
