@@ -8,6 +8,7 @@ public abstract class Jogador implements Serializable {
     private float saldo;
     private float valorDaAposta;
     private float[] apostas;
+    private boolean estaCheio;
 
     public Jogador(String nome, char tipo) { // Inicializa jogador.
         this.nome = nome;
@@ -17,6 +18,7 @@ public abstract class Jogador implements Serializable {
         this.saldo = 100.0f; // Saldo inicial é de R$100.00.
         this.valorDaAposta = 0.0f;
         this.apostas = new float[10];
+        this.estaCheio = false;
     }
 
     // Métodos getters:
@@ -42,6 +44,10 @@ public abstract class Jogador implements Serializable {
 
     public float getValorDaAposta(){
         return this.valorDaAposta;
+    }
+
+    public boolean getEstaCheio(){
+        return this.estaCheio;
     }
 
     // Métodos setters:
@@ -73,6 +79,10 @@ public abstract class Jogador implements Serializable {
         }
         else if (resultadoDaAposta == false){
             this.saldo -= this.valorDaAposta;
+
+            if(this.saldo < 0){
+                this.saldo = 0;
+            }
         }
     }
 
@@ -136,12 +146,15 @@ public abstract class Jogador implements Serializable {
 
     // Verifica se ainda é possível adicionar algum jogo para o jogador. Retorna 'true' se pode e 'false' se não.
     public boolean verificaJogosLivres(){
-        for(JogoDados jogo: jogosAdicionados){
-            if(jogo == null){
-                return true;
+        if(this.estaCheio == false){
+            for(JogoDados jogo: jogosAdicionados){
+                if(jogo == null){
+                    return true;
+                }
             }
         }
 
+        this.estaCheio = true;
         return false;
     }
 

@@ -147,12 +147,12 @@ public class Campeonato implements Serializable{
             //cada jogador escolhe seu jogo
             for(int i = 0; i < 10; i++){
                 if(players[i] != null){
-                    if((players[i].getTipo() == 'h' || players[i].getTipo() == 'H') && players[i].getSaldo() > 0){
+                    if((players[i].getTipo() == 'h' || players[i].getTipo() == 'H') && players[i].getSaldo() > 0 && players[i].verificaJogosLivres()){
                         Humano h = (Humano)players[i];
                         players[i].setEscolhaJogo(h.escolherJogo());
                         players[i].setValorDaAposta(h.apostar());
                     }
-                    else if((players[i].getTipo() == 'm' || players[i].getTipo() == 'M') && players[i].getSaldo() > 0){
+                    else if((players[i].getTipo() == 'm' || players[i].getTipo() == 'M') && players[i].getSaldo() > 0 && players[i].verificaJogosLivres()){
                         Maquina m = (Maquina)players[i];
                         players[i].setEscolhaJogo(m.escolherJogo());
                         players[i].setValorDaAposta(m.apostar());
@@ -161,9 +161,9 @@ public class Campeonato implements Serializable{
                         players[i].setValorDaAposta(0);
                     }
 
-                    if(players[i].getEscolhaJogo() == 1)
+                    if(players[i].getEscolhaJogo() == 1 && players[i].verificaJogosLivres() && players[i].getSaldo() > 0)
                         contJogoG++;
-                    else
+                    else if(players[i].getEscolhaJogo() == 2 && players[i].verificaJogosLivres() && players[i].getSaldo() > 0)
                         contJogoA++;
                 }
             }
@@ -180,7 +180,7 @@ public class Campeonato implements Serializable{
                     // Loop para permitir que cada jogador realize sua jogada:
                     for (Jogador jogador : players) {
                         if(jogador != null){
-                            if(jogador.getEscolhaJogo() == 1 && jogador.getSaldo() > 0){          
+                            if(jogador.getEscolhaJogo() == 1 && jogador.getSaldo() > 0 && !jogador.getEstaCheio()){          
                                 if(jogador instanceof Humano){
                                     JogoGeneral jogoG;
                                     if(jaAdicionou == 0){
@@ -214,7 +214,7 @@ public class Campeonato implements Serializable{
                 System.out.println("\nOs vencedores do Jogo General foram: ");
                 for (int k = 0; k < 10; k++){
                     if(this.players[k] != null){
-                        if(players[k].getEscolhaJogo() == 1 && players[k].getSaldo() > 0){
+                        if(players[k].getEscolhaJogo() == 1 && players[k].getSaldo() > 0 && !players[k].getEstaCheio()){
                             if(players[k].resultado((JogoGeneral)players[k].getJogoAtual()) == true){
                                 System.out.println(players[k].getNome());
                                 players[k].atualizarSaldo(true);
@@ -307,12 +307,12 @@ public class Campeonato implements Serializable{
             if(jogador != null){
                 boolean verificador = jogador.verificaJogosLivres();
 
-                if(verificador == false){
-                    return false;
+                if(verificador == true){
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     public void mostrarSaldosTotais(){
