@@ -18,6 +18,10 @@ public abstract class Jogador implements Serializable {
         this.apostas = new float[10];
     }
 
+    public JogoDados[] getJogosAdicionados() {
+        return jogosAdicionados;
+    }
+
     public String getNome() { // Retorna o nome.
         return nome;
     }

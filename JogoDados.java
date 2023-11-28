@@ -2,15 +2,28 @@ public abstract class JogoDados implements Estatistica{
     private int nDados;
     private String nomeJogo;
     private Dado[] dados;
+    private int[] facesRoladas;
 
     public JogoDados(int nDados, String nomeJogo) {
         this.nDados = nDados;
         this.nomeJogo = nomeJogo;
         this.dados = new Dado[nDados];
+        this.facesRoladas = new int[6];
+        for(int i=0;i<6;i++){
+            facesRoladas[i]=0;
+        }
 
         for (int i = 0; i < nDados; i++) {
             this.dados[i] = new Dado();
         }
+    }
+
+    public void atualizarEstatisticaDeDados(int i){
+        this.facesRoladas[i-1] = this.facesRoladas[i-1]+1;
+    }
+
+    public int[] getFacesRoladas() {
+        return facesRoladas;
     }
 
     public Dado[] getDados(){
@@ -50,6 +63,7 @@ public abstract class JogoDados implements Estatistica{
     public void rolarDados() {
         for (Dado dado : dados) {
             dado.roll();
+            atualizarEstatisticaDeDados(dado.getFaceSuperior());
         }
 
         int[] soma = somarFacesSorteadas(dados, 0);

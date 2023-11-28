@@ -396,5 +396,129 @@ public class Campeonato implements Serializable{
 
     public void mostrarEstatisticas(){
         
+        int[] dadosJogos = {0,0,0,0,0,0};
+        int[] dadosGeneral = {0,0,0,0,0,0};
+        int[] dadosAzar = {0,0,0,0,0,0};
+        int[] dadosHumanos = {0,0,0,0,0,0};
+        int[] dadosMaquinas = {0,0,0,0,0,0};
+
+        
+
+        System.out.println("========= Estatisticas ========");
+
+        System.out.println("\nDados no campeonato\n");
+        for(Jogador jogador : players){
+            if(jogador != null){
+                JogoDados[] jogos = jogador.getJogosAdicionados();
+                
+                for(int k=0;k<jogador.getIndiceLivre();k++){
+                    JogoDados j = jogos[k];
+                    for(int i=0;i<6;i++){
+                        dadosJogos[i] = dadosJogos[i] + j.getFacesRoladas()[i];
+                    }
+                }
+            }
+        }
+        System.out.println("Numero do dado\tQuantia rolada");
+        for(int i =0; i<6;i++){
+            System.out.println("\t" + (i+1) + "\t\t" + dadosJogos[i]);
+        }
+
+        System.out.println("\nDados no Jogo General\n");
+        for(Jogador jogador : players){
+            if(jogador != null){
+                JogoDados[] jogos = jogador.getJogosAdicionados();
+                
+                for(int k=0; k<jogador.getIndiceLivre(); k++){
+                    if(jogos[k] instanceof JogoGeneral){
+                        JogoDados j = jogos[k];
+                        for(int i=0;i<6;i++){
+                            dadosGeneral[i] = dadosGeneral[i] + j.getFacesRoladas()[i];
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("Numero do dado\tQuantia rolada");
+        for(int i =0; i<6;i++){
+            System.out.println("\t" + (i+1) + "\t\t" + dadosGeneral[i]);
+        }
+
+        System.out.println("\nDados no Jogo de Azar\n");
+        for(Jogador jogador : players){
+            if(jogador != null){
+                JogoDados[] jogos = jogador.getJogosAdicionados();
+                
+                for(int k=0; k<jogador.getIndiceLivre(); k++){
+                    if(jogos[k] instanceof JogoAzar){
+                        JogoDados j = jogos[k];
+                        for(int i=0;i<6;i++){
+                            dadosAzar[i] = dadosAzar[i] + j.getFacesRoladas()[i];
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("Numero do dado\tQuantia rolada");
+        for(int i =0; i<6;i++){
+            System.out.println("\t" + (i+1) + "\t\t" + dadosAzar[i]);
+        }
+
+        System.out.println("\nDados por humanos\n");
+        for(Jogador jogador : players){
+            if(jogador != null && jogador instanceof Humano){
+                JogoDados[] jogos = jogador.getJogosAdicionados();
+                
+                for(int k=0;k<jogador.getIndiceLivre();k++){
+                    JogoDados j = jogos[k];
+                    for(int i=0;i<6;i++){
+                        dadosHumanos[i] = dadosHumanos[i] + j.getFacesRoladas()[i];
+                    }
+                }
+            }
+        }
+        System.out.println("Numero do dado\tQuantia rolada");
+        for(int i =0; i<6;i++){
+            System.out.println("\t" + (i+1) + "\t\t" + dadosHumanos[i]);
+        }
+
+        System.out.println("\nDados por maquinas\n");
+        for(Jogador jogador : players){
+            if(jogador != null && jogador instanceof Maquina){
+                JogoDados[] jogos = jogador.getJogosAdicionados();
+                
+                for(int k=0;k<jogador.getIndiceLivre();k++){
+                    JogoDados j = jogos[k];
+                    for(int i=0;i<6;i++){
+                        dadosMaquinas[i] = dadosMaquinas[i] + j.getFacesRoladas()[i];
+                    }
+                }
+            }
+        }
+        System.out.println("Numero do dado\tQuantia rolada");
+        for(int i =0; i<6;i++){
+            System.out.println("\t" + (i+1) + "\t\t" + dadosMaquinas[i]);
+        }
+        
+        System.out.println("\nDados por jogador");
+        for(Jogador jogador : players){
+            if(jogador != null){
+                int[] dadosJogador = {0,0,0,0,0,0};
+                System.out.println("\nJogador " + jogador.getNome() + " - " + jogador.getTipo());
+                JogoDados[] jogos = jogador.getJogosAdicionados();
+                
+                for(int k=0;k<jogador.getIndiceLivre();k++){
+                    JogoDados j = jogos[k];
+                    for(int i=0;i<6;i++){
+                        dadosJogador[i] = dadosJogador[i] + j.getFacesRoladas()[i];
+                    }
+                }
+
+                System.out.println("Numero do dado\tQuantia rolada");
+                for(int i =0; i<6;i++){
+                    System.out.println("\t" + (i+1) + "\t\t" + dadosJogador[i]);
+                }
+            }
+        }
     }
 }

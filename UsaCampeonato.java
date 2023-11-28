@@ -64,6 +64,7 @@ public class UsaCampeonato {
                             }
                         }while(tipo != 'M' && tipo != 'm' && tipo != 'H' && tipo != 'h');
 
+                        tec.nextLine();
                         if(tipo == 'h' || tipo == 'H'){
                             System.out.println("Informe o seu cpf para cadastro: ");
                             cpf = tec.nextLine();
