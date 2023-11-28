@@ -13,41 +13,27 @@ public abstract class Jogador implements Serializable {
         this.nome = nome;
         this.tipo = tipo;
         this.jogosAdicionados = new JogoDados[10];
-        this.saldo = 100.0f; // Saldo inicial é 100.0
+        this.escolhaJogo = 1;
+        this.saldo = 100.0f; // Saldo inicial é de R$100.00.
         this.valorDaAposta = 0.0f;
         this.apostas = new float[10];
     }
 
-    public JogoDados[] getJogosAdicionados() {
-        return jogosAdicionados;
-    }
-
+    // Métodos getters:
     public String getNome() { // Retorna o nome.
-        return nome;
+        return this.nome;
     }
 
     public char getTipo(){
         return this.tipo;
     }
 
-    public void setNome(String nome) { // Altera o nome.
-        this.nome = nome;
-    }
-
-    public void setTipo(char tipo) {
-        this.tipo = tipo;
-    }
-
-    public JogoDados[] getJogos (){
+    public JogoDados[] getJogosAdicionados() {
         return this.jogosAdicionados;
     }
 
-    public void setEscolhaJogo(int escolhaJogo) {
-        this.escolhaJogo = escolhaJogo;
-    }
-    
     public int getEscolhaJogo() {
-        return escolhaJogo;
+        return this.escolhaJogo;
     }
 
     public float getSaldo(){
@@ -58,6 +44,20 @@ public abstract class Jogador implements Serializable {
         return this.valorDaAposta;
     }
 
+    // Métodos setters:
+
+    public void setNome(String nome) { // Altera o nome.
+        this.nome = nome;
+    }
+
+    public void setTipo(char tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setEscolhaJogo(int escolhaJogo) {
+        this.escolhaJogo = escolhaJogo;
+    }
+
     public void setValorDaAposta(float aposta){
         this.valorDaAposta = aposta;
     }
@@ -66,6 +66,7 @@ public abstract class Jogador implements Serializable {
         this.apostas[i] = aposta;
     }
 
+    // Este método diminui ou aumenta o saldo de acordo com a vitória (true) ou derrota (false) do jogador em sua aposta:
     public void atualizarSaldo(boolean resultadoDaAposta){
         if(resultadoDaAposta == true){
             this.saldo += this.valorDaAposta;
@@ -75,40 +76,42 @@ public abstract class Jogador implements Serializable {
         }
     }
 
+    // Este método encontra o próximo índice livre do vetor jogosAdicionados:
     public int getIndiceLivre(){
         int i = 0;
 
-        while(jogosAdicionados[i] != null && i < 10){
+        while(i < 10 && jogosAdicionados[i] != null){
             i++;
         }
 
         return i;
     }
 
+    // O jogo que está sendo rodado é o anterior ao próximo livre do vetor jogosAdicionados. 
+    // Este método o busca e o retorna:
     public JogoDados getJogoAtual(){
-        return this.jogosAdicionados[getIndiceLivre() - 1];
+        int indice = getIndiceLivre() - 1;
+
+        return this.jogosAdicionados[indice];
     }
 
+    // Este método adiciona um novo jogo no vetor jogosAdcionados:
     public void adicionarJogoNoVetor(JogoDados jogoAtual) {
         int i = getIndiceLivre();
 
-        if ((i >= 0 && i < 10) && this.jogosAdicionados[i] == null && i < 10) {
+        if (i >= 0 && i < 10 && this.jogosAdicionados[i] == null) {
             this.jogosAdicionados[i] = jogoAtual;
         }
     }
 
-    public String cartela(JogoGeneral jogo, int i){ // Retorna a pontuação de uma jogada específica para a tabela final.
-        String s = new String();
-        s = jogo.montarTabela(i);
-        return s;
-    }
-
-    public String cartela2(JogoGeneral jogo, int i){ // Retorna pontuação de uma jogada específica para as tabelas intermediárias.
+    // Retorna pontuação de uma jogada específica para as tabelas intermediárias:
+    public String cartela2(JogoGeneral jogo, int i){ 
         String s = new String();
         s = jogo.montarTabela2(i);
         return s;
     }
 
+    // Mostra a tabela intermediária do Jogo General que está sendo executado:
     public String mostraJogadasExecutadas(JogoGeneral jogo){
         String s = new String();
 
@@ -127,10 +130,11 @@ public abstract class Jogador implements Serializable {
         System.out.printf(s);
     }
 
-    public boolean resultado(JogoGeneral jogoG){ // Calcula pontuacao total.
+    public boolean resultado(JogoGeneral jogoG){ // Retorna o resultado do Jogo General ('true' para vitória, 'false' para derota).
         return jogoG.calculaResultado();
     }
 
+    // Verifica se ainda é possível adicionar algum jogo para o jogador. Retorna 'true' se pode e 'false' se não.
     public boolean verificaJogosLivres(){
         for(JogoDados jogo: jogosAdicionados){
             if(jogo == null){
@@ -141,21 +145,4 @@ public abstract class Jogador implements Serializable {
         return false;
     }
 
-    public int getIndiceLivreExtrato(){
-        int i = 0;
-
-        while(this.apostas[i] != 0 && i < 10){
-            i++;
-        }
-
-        return i;
-    }
-
-    public void imprimirHistoricoDeApostas(){
-        for(int i = 0; i < 10; i++){
-            if(this.apostas[i] != 0){
-                System.out.println(this.apostas[i]);
-            }
-        }
-    }
 }

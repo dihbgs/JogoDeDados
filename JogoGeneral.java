@@ -1,6 +1,7 @@
 public class JogoGeneral extends JogoDados{
     private int[] jogadas;
 
+    // Método construtor da classe JogoAzar, inicializando sua superclasse JogoDados, bem como seus próprios atributos:
     public JogoGeneral(){
         super(5, "Jogo General");
         this.jogadas = new int[13]; 
@@ -10,14 +11,14 @@ public class JogoGeneral extends JogoDados{
 		}
     }
 
+    public void setJogada(int i, int pontuacao){
+        this.jogadas[i - 1] = pontuacao;    // Marca a pontuacao da jogada em sua posicao no vetor.
+    }
+
     public void inicializarJogadas(){
         for(int j = 0; j < 13; j++){
             this.jogadas[j] = -1;   // Se o indice marca -1, significa que a jogada ainda nao foi realizada.
         }
-    }
-
-    public void setJogada(int i, int pontuacao){
-        this.jogadas[i - 1] = pontuacao;    // Marca a pontuacao da jogada em sua posicao no vetor.
     }
 
     public String toString(){ // Imprime os valores dos dados.
@@ -41,7 +42,7 @@ public class JogoGeneral extends JogoDados{
         return str;
     }
 
-    // O seguinte metodo retorna false para jogadas ja executadas e true para as disponiveis:
+    // O seguinte método retorna 'false' para jogadas já executadas e 'true' para as disponiveis:
     public boolean validarJogada(int n){
         if(jogadas[n - 1] == -1){
             return true;
@@ -175,8 +176,9 @@ public class JogoGeneral extends JogoDados{
         return 0;
     }
    
-    // O seguinte metodo calcula se o jogador venceu o jogo general (pontuou nas 
-    // outras jogadas mais que o dobro do que pontuou na jogada aleatória):
+    // O seguinte método calcula se o jogador venceu o Jogo General (pontuou nas 
+    // outras jogadas mais que o dobro do que pontuou na jogada aleatória). Retorna
+    // 'true' se sim, ou 'false' caso tenha perdido:
     public boolean calculaResultado(){
         int totalDe1a12 = 0;
         int i;
@@ -206,7 +208,7 @@ public class JogoGeneral extends JogoDados{
         return s;
     }
 
-    // O seguinte metodo, como o anterior, grava em string a pontuacao de uma jogada, mas com uma formatacao diferente:
+    // O seguinte método, como o anterior, grava em string a pontuacao de uma jogada, mas com uma formatação diferente:
     public String montarTabela2(int i){
         String s = new String();
 

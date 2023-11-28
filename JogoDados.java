@@ -8,19 +8,19 @@ public abstract class JogoDados implements Estatistica{
         this.nDados = nDados;
         this.nomeJogo = nomeJogo;
         this.dados = new Dado[nDados];
-        this.facesRoladas = new int[6];
-        for(int i=0;i<6;i++){
-            facesRoladas[i]=0;
-        }
 
         for (int i = 0; i < nDados; i++) {
             this.dados[i] = new Dado();
         }
+
+        this.facesRoladas = new int[6];
+
+        for(int i = 0; i < 6; i++){
+            facesRoladas[i] = 0;
+        }
     }
 
-    public void atualizarEstatisticaDeDados(int i){
-        this.facesRoladas[i-1] = this.facesRoladas[i-1]+1;
-    }
+    // Métodos getters:
 
     public int[] getFacesRoladas() {
         return facesRoladas;
@@ -30,48 +30,21 @@ public abstract class JogoDados implements Estatistica{
         return this.dados;
     }
 
-    public int[] somarFacesSorteadas(Dado[] dados, int retorno){
-        int[] soma = new int[6];
-        if(retorno == 0){
-            for (Dado dado : dados) {
-                soma[dado.getFaceSuperior() - 1] = soma[dado.getFaceSuperior() - 1] + 1; 
-            }
-        }
-
-        return soma;
+    // Método que soma um ao índice representante de uma face do dado toda vez que ela é sorteada:
+    public void atualizarEstatisticaDeDados(int i){
+        this.facesRoladas[i - 1] = this.facesRoladas[i - 1] + 1;
     }
 
-    public void imprimirEstatisticaDoCampeonato(){
-        int[] soma = somarFacesSorteadas(dados, 1);
-        int total = 0;
-
-        for(int i = 0; i < 6; i++){
-            total += soma[i];
-        }
-
-        if(total != 0){
-            System.out.println("=== ESTATÍSTICA ===");
-            for(int j = 0; j < 6; j++){
-                System.out.println("A face " + (j + 1) + " apareceu virada para cima em " + soma[j]/total + "% das jogadas. ");
-            }
-        }
-        else{
-            System.out.println("Nenhuma dado foi sorteado. ");
-        }
-    }
-
+    // Método que rola os dados e grava seus resultado no vetor facesRoladas para futuro cálculo de estatística:
     public void rolarDados() {
         for (Dado dado : dados) {
             dado.roll();
             atualizarEstatisticaDeDados(dado.getFaceSuperior());
         }
-
-        int[] soma = somarFacesSorteadas(dados, 0);
     }
 
+    // Método que imprime os resultados do sorteio dos dados:
     public void imprimirResultado() {
-        System.out.println("Resultado do " + nomeJogo + ":");
-
         for (Dado dado : dados) {
             System.out.print(dado.getFaceSuperior() + " ");
         }

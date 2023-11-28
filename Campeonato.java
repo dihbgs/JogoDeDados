@@ -317,7 +317,7 @@ public class Campeonato implements Serializable{
 
     public void mostrarSaldosTotais(){
         if(!this.jogadorVazio()){
-            System.out.println("=== SALDOS DOS JOGADORES ===");
+            System.out.println("\n=== SALDOS DOS JOGADORES ===");
 
             for(Jogador jogador : players){
                 if(jogador != null){
@@ -335,7 +335,7 @@ public class Campeonato implements Serializable{
 
         if(!this.jogadorVazio()){
             if(escolha == 1){
-                System.out.println("=== SALDOS DOS JOGADORES HUMANOS ===");
+                System.out.println("\n=== SALDOS DOS JOGADORES HUMANOS ===");
                 for(Jogador jogador : players){
                     if(jogador != null){
                         if(jogador instanceof Humano){
@@ -346,7 +346,7 @@ public class Campeonato implements Serializable{
                 }
             }
             else if(escolha == 2){
-                System.out.println("=== SALDOS DOS JOGADORES MÁQUINAS ===");
+                System.out.println("\n=== SALDOS DOS JOGADORES MÁQUINAS ===");
                 for(Jogador jogador : players){
                     if(jogador != null){
                         if(jogador instanceof Maquina){
@@ -370,7 +370,7 @@ public class Campeonato implements Serializable{
             if(escolha == 0){
                 for(Jogador jogador : players){
                     if(jogador != null){
-
+                        
                     }
                 }
             }

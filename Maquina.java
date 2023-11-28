@@ -9,7 +9,7 @@ public class Maquina extends Jogador implements JogarComoMaquina{
         Random random = new Random();
         int escolha = random.nextInt(2) + 1;
 
-        System.out.println("\nO jogo escolhido pela máquina " + super.getNome() + " foi o ");
+        System.out.print("\nO jogo escolhido pela máquina " + super.getNome() + " foi o ");
         if(escolha == 1){
             System.out.println("Jogo General. ");
         }
@@ -21,7 +21,7 @@ public class Maquina extends Jogador implements JogarComoMaquina{
     }
 
     public int aplicarEstrategia(JogoGeneral jogoG){
-        System.out.println(super.getNome() + ", é a sua vez.\nRolando os dados... ");
+        System.out.println("\n" + super.getNome() + ", é a sua vez.\nRolando os dados... ");
         super.jogada(jogoG);
         int melhorPontuacao = 0;
         
@@ -51,7 +51,7 @@ public class Maquina extends Jogador implements JogarComoMaquina{
             }
             
             System.out.println(mostraJogadasExecutadas(jogoG));
-            System.out.println("Essa jogada gera o seguinte numero de pontos: " + melhorPontuacao);
+            System.out.println("Essa jogada (" + melhorJogada+ ") gera o seguinte numero de pontos: " + melhorPontuacao);
             jogoG.setJogada(melhorJogada, melhorPontuacao);
         }
 
@@ -65,9 +65,8 @@ public class Maquina extends Jogador implements JogarComoMaquina{
     public float apostar(){
         Random random = new Random();
         float aposta = random.nextFloat(super.getSaldo());
-        String apostaCom2Caracteres = String.format("%.02f", aposta);
-        System.out.println("\nA máquina " + super.getNome() + " apostou R$" + apostaCom2Caracteres + " nesta rodada. ");
-        super.setApostas(getIndiceLivreExtrato(), aposta);
+        System.out.println("A máquina " + super.getNome() + " apostou R$" + String.format("%.02f", aposta) + " nesta rodada. ");
+        super.setApostas(getIndiceLivre(), aposta);
 
         return aposta;
     }

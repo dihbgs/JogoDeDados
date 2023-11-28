@@ -24,7 +24,7 @@ public class UsaCampeonato {
         while(sair == 0){
             // Escolhe-se uma opcao do menu. Se for invalida, informa-se o usuario e esse informa uma nova escolha.
             do{
-                System.out.println("Escolha a sua opcao (m mostra o menu novamente): ");
+                System.out.println("\nEscolha a sua opcao (m mostra o menu novamente): ");
                 op = tec.next().charAt(0);
     
                 if (op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e' && op != 'f' && op != 'g' && op != 'h' && op != 'i' && op != 'j' && op != 'k' && op != 'm'){
@@ -76,7 +76,7 @@ public class UsaCampeonato {
                         }
                     }
                     else{
-                        System.out.println("Numero maximo de jogadores atingido!!! Nao foi possivel incluir");
+                        System.out.println("Numero maximo de jogadores atingido!!! Nao foi possivel incluir.");
                     }
                     
                     break;
@@ -104,7 +104,7 @@ public class UsaCampeonato {
                     }
                     break;
                 case 'd': // Se a escolha foi 'd', imprimem-se os saldos:
-                    System.out.println("Se você gostaria de ver os saldos de todos os jogadores, digite 0. Se quiser ver apenas dos jogadores humanos, digite 1. Se quiser ver apenas das máquinas, digite 2: ");
+                    System.out.print("Se você gostaria de ver os saldos de todos os jogadores, digite 0. \nSe quiser ver apenas dos jogadores humanos, digite 1. \nSe quiser ver apenas das máquinas, digite 2.\nSua escolha: ");
                     int escolha = 0;
                     int input = 0;
 
@@ -128,7 +128,7 @@ public class UsaCampeonato {
                     
                     break;
                 case 'e': // Se a escolha foi 'e', imprimem-se os extratos:
-                    System.out.println("Se você gostaria de ver os extratos de jogos de todos os jogadores, digite 0. Se quiser ver apenas dos jogadores humanos, digite 1. Se quiser ver apenas das máquinas, digite 2: ");
+                    System.out.print("Se você gostaria de ver os extratos de jogos de todos os jogadores, digite 0. \nSe quiser ver apenas dos jogadores humanos, digite 1. \nSe quiser ver apenas das máquinas, digite 2.\nSua esolha: ");
                     int esc = 0;
                     int input2 = 0;
 

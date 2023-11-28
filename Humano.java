@@ -13,12 +13,14 @@ public class Humano extends Jogador implements JogarComoHumano{
         this.cpf = cpf;
     }
 
+    // Implementação do método escolherJogo(), que está declarado na interface JogarComoHumano. 
+    // Ele retornará o jogo escolhido pelo jogador, sendo 1 para o Jogo General e 2 para o Jogo de Azar:
     public int escolherJogo(){
         Scanner tec = new Scanner(System.in);
         int escolha = 0;
         int input = 0;
 
-        System.out.println(super.getNome() + ", escolha um jogo para fazer sua aposta(1 para o Jogo General ou 2 para o Jogo de Azar): ");
+        System.out.println("\n" + super.getNome() + ", escolha um jogo para fazer sua aposta(1 para o Jogo General ou 2 para o Jogo de Azar): ");
         do{
             do{
                 try {
@@ -32,7 +34,7 @@ public class Humano extends Jogador implements JogarComoHumano{
             }while(input == 0);
 
             if(escolha != 1 && escolha != 2){
-                System.out.println("Escolha inválida. Por favor escolha ou o Jogo General(1) ou o Jogo de Azar(2). \nInforme sua escolha: ");
+                System.out.println("Escolha inválida. Por favor escolha ou o Jogo General(1) ou o Jogo de Azar(2). \nInforme sua nova escolha: ");
             }
         }while(escolha != 1 && escolha != 2);
 
@@ -168,7 +170,7 @@ public class Humano extends Jogador implements JogarComoHumano{
             }
         }while(aposta  <= 0 || aposta > super.getSaldo());
 
-        super.setApostas(getIndiceLivreExtrato(), aposta);
+        super.setApostas(getIndiceLivre(), aposta);
 
         return aposta;
     }
