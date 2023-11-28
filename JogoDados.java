@@ -1,4 +1,6 @@
-public abstract class JogoDados implements Estatistica{
+import java.io.Serializable;
+
+public abstract class JogoDados implements Estatistica, Serializable{
     private String nomeJogo;
     private Dado[] dados;
     private int[] facesRoladas;
@@ -29,7 +31,7 @@ public abstract class JogoDados implements Estatistica{
     }
 
     // Método que soma um ao índice representante de uma face do dado toda vez que ela é sorteada:
-    public void atualizarEstatisticaDeDados(int i){
+    public void somarFacesSorteadas(int i){
         this.facesRoladas[i - 1] = this.facesRoladas[i - 1] + 1;
     }
 
@@ -37,7 +39,7 @@ public abstract class JogoDados implements Estatistica{
     public void rolarDados() {
         for (Dado dado : dados) {
             dado.roll();
-            atualizarEstatisticaDeDados(dado.getFaceSuperior());
+            somarFacesSorteadas(dado.getFaceSuperior());
         }
     }
 

@@ -216,11 +216,23 @@ public class Campeonato implements Serializable{
                     if(this.players[k] != null){
                         if(players[k].getEscolhaJogo() == 1 && players[k].getSaldo() > 0 && !players[k].getEstaCheio()){
                             if(players[k].resultado((JogoGeneral)players[k].getJogoAtual()) == true){
-                                System.out.println(players[k].getNome());
                                 players[k].atualizarSaldo(true);
+                                System.out.println(players[k].getNome() + " - saldo atual: R$" + String.format("%.02f", players[k].getSaldo()));
                             }
                             else{
                                 players[k].atualizarSaldo(false);
+                            }
+                        }
+                    }
+                }
+
+                System.out.println();
+
+                for (Jogador jogador : players){
+                    if(jogador != null){
+                        if(jogador.getEscolhaJogo() == 1 && jogador.getSaldo() > 0 && !jogador.getEstaCheio()){
+                            if(jogador.resultado((JogoGeneral)jogador.getJogoAtual()) == false){
+                                System.out.println("Infelizmente, " + jogador.getNome() + " perdeu - saldo atual: R$" + String.format("%.02f", jogador.getSaldo()));
                             }
                         }
                     }
@@ -241,12 +253,14 @@ public class Campeonato implements Serializable{
                                 JogoAzar jogoA = inicializarJogoA(h);
                                 boolean resultadoH = h.executarJogoDeAzar(jogoA);
                                 players[i].atualizarSaldo(resultadoH);
+                                System.out.println("Saldo de " + players[i].getNome() + " após essa rodada: " + String.format("%.02f", players[i].getSaldo()));
                             }
                             else if(players[i] instanceof Maquina){
                                 Maquina m = (Maquina) players[i];
                                 JogoAzar jogoA = inicializarJogoA(m);
                                 boolean resultadoM = m.executarJogoDeAzar(jogoA);
                                 players[i].atualizarSaldo(resultadoM);
+                                System.out.println("Saldo de " + players[i].getNome() + " após essa rodada: " + String.format("%.02f", players[i].getSaldo()));
                             }                
                         }
                     }
@@ -296,7 +310,7 @@ public class Campeonato implements Serializable{
 			players = (Jogador[])oin.readObject();
 			oin.close();
 			fin.close();
-            //mostrarCartela(); // A cartela imprimira todas os jogadores, jogadas e pontuacoes da partida salva.
+            mostrarSaldosTotais();
 		}catch (Exception ex) {
 			System.err.println("erro: " + ex.toString());
 		}

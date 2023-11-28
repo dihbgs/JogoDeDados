@@ -13,8 +13,8 @@ public class JogoAzar extends JogoDados{
         dadosJogoAzar[1].roll();
 
         // Gravam-se as faces sorteadas para futuro cálculo de estatística:
-        atualizarEstatisticaDeDados(dadosJogoAzar[0].getFaceSuperior());
-        atualizarEstatisticaDeDados(dadosJogoAzar[1].getFaceSuperior());
+        somarFacesSorteadas(dadosJogoAzar[0].getFaceSuperior());
+        somarFacesSorteadas(dadosJogoAzar[1].getFaceSuperior());
         
         // Mostra-se para o usuário os valores dos dados:
         imprimirResultado();
@@ -40,8 +40,8 @@ public class JogoAzar extends JogoDados{
             for(int i = 0; i < 3; i++){
                 dadosJogoAzar[0].roll();
                 dadosJogoAzar[1].roll(); 
-                atualizarEstatisticaDeDados(dadosJogoAzar[0].getFaceSuperior());
-                atualizarEstatisticaDeDados(dadosJogoAzar[1].getFaceSuperior());
+                somarFacesSorteadas(dadosJogoAzar[0].getFaceSuperior());
+                somarFacesSorteadas(dadosJogoAzar[1].getFaceSuperior());
                 System.out.println("Valores dos dados do novo lançamento(" + (i + 2) + "): " + dadosJogoAzar[0].getFaceSuperior() + " e " + dadosJogoAzar[1].getFaceSuperior());
     
                 int total = dadosJogoAzar[0].getFaceSuperior() + dadosJogoAzar[1].getFaceSuperior();
