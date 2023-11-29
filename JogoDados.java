@@ -1,21 +1,19 @@
 import java.io.Serializable;
 
 public abstract class JogoDados implements Serializable, Estatistica{
-    private String nomeJogo;
     private Dado[] dados;
     private int[] facesRoladas;
 
-    public JogoDados(int nDados, String nomeJogo) {
-        this.nomeJogo = nomeJogo;
+    public JogoDados(int nDados) {
         this.dados = new Dado[nDados];
 
         for (int i = 0; i < nDados; i++) {
             this.dados[i] = new Dado();
         }
 
-        this.facesRoladas = new int[6];
+        this.facesRoladas = new int[numFaces];
 
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < numFaces; i++){
             facesRoladas[i] = 0;
         }
     }
@@ -43,12 +41,6 @@ public abstract class JogoDados implements Serializable, Estatistica{
         }
     }
 
-    // Método que imprime os resultados do sorteio dos dados:
-    public void imprimirResultado() {
-        for (Dado dado : dados) {
-            System.out.print(dado.getFaceSuperior() + " ");
-        }
-
-        System.out.println();
-    }
+    // Método abstrato que imprime os resultados do sorteio dos dados, a ser implementado por suas subclasses:
+    public abstract void imprimirResultado();
 }

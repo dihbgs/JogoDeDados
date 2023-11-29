@@ -113,18 +113,13 @@ public class UsaCampeonato {
                             escolha = tec.nextInt();
                             input = 1;
                         } catch (java.util.InputMismatchException e) {
-                            System.out.println("Erro: Entrada inválida. Por favor, digite 0, 1 ou 2.");
+                            System.out.println("Erro: Entrada inválida. Por favor, digite 0, 1 ou 2. ");
                             tec.nextLine();
                             input = 0;
                         }
                     }while(input == 0 && (escolha != 0 || escolha != 1 || escolha != 2));
 
-                    if(escolha == 0){
-                        league.mostrarSaldosTotais();
-                    }
-                    else{
-                        league.mostrarSaldosParciais(escolha);
-                    }
+                    league.mostrarSaldos(escolha);
                     
                     break;
                 case 'e': // Se a escolha foi 'e', imprimem-se os extratos:

@@ -1,7 +1,7 @@
 public class JogoAzar extends JogoDados{
     // Método construtor da classe JogoAzar, inicializando sua superclasse JogoDados:
     public JogoAzar(){
-        super(2, "Jogo de Azar");
+        super(2);
     }
 
     // Método que efetivamente faz o Jogo de Azar ser executado, retornando 'true' no caso de uma vitória e 'false' no de uma derrota.

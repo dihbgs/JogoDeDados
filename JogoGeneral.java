@@ -3,7 +3,7 @@ public class JogoGeneral extends JogoDados{
 
     // Método construtor da classe JogoAzar, inicializando sua superclasse JogoDados, bem como seus próprios atributos:
     public JogoGeneral(){
-        super(5, "Jogo General");
+        super(5);
         this.jogadas = new int[13]; 
         
         for(int i = 0 ; i < 13 ; i++) { 
@@ -21,7 +21,7 @@ public class JogoGeneral extends JogoDados{
         }
     }
 
-    public String toString(){ // Imprime os valores dos dados.
+    public void imprimirResultado(){ // Imprime os valores dos dados.
         int i;
         String str = new String();
         Dado[] dadosJogoGeneral = super.getDados();
@@ -39,7 +39,7 @@ public class JogoGeneral extends JogoDados{
             }
         }
 
-        return str;
+        System.out.println(str);
     }
 
     // O seguinte método retorna 'false' para jogadas já executadas e 'true' para as disponiveis:

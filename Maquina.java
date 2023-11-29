@@ -5,6 +5,7 @@ public class Maquina extends Jogador{
         super(nome, tipo);
     }
 
+    // Este método sorteia um número alatório entre 1 e 2 para definir a escolha de jogo de uma máquina:
     public int escolherJogo(){
         Random random = new Random();
         int escolha = random.nextInt(2) + 1;
@@ -20,6 +21,22 @@ public class Maquina extends Jogador{
         return escolha;
     }
 
+    // Este método sorteará um valor random entre 0.1 e o saldo do jogador máquina e o definirá como sua aposta:
+    public float apostar(){
+        if(super.getSaldo() > 0){
+            Random random = new Random();
+            float aposta = random.nextFloat(super.getSaldo()) + (float)0.1;
+            System.out.println("A máquina " + super.getNome() + " apostou R$" + String.format("%.02f", aposta) + " nesta rodada. ");
+            super.setApostas(getIndiceLivre(), aposta);
+
+            return aposta;
+        }
+
+        return 0;
+    }
+
+    // Implementação do método aplicarEstrategia(), definido na interface JogarComoMaquina.
+    // Para o Jogo General, a máquina escolherá a jogada de maior pontuação da rodada e retornará esse valor:
     public int aplicarEstrategia(JogoGeneral jogoG){
         System.out.println("\n" + super.getNome() + ", é a sua vez.\nRolando os dados... ");
         super.jogada(jogoG);
@@ -58,17 +75,8 @@ public class Maquina extends Jogador{
         return melhorPontuacao;
     }
 
+    // Este método retorna 'true' no caso de vitória do jogador no Jogo de Azar ou 'false' no caso de derrota: 
     public boolean executarJogoDeAzar(JogoAzar jogoA){
         return jogoA.executarRegrasJogo();
     }
-
-    public float apostar(){
-        Random random = new Random();
-        float aposta = random.nextFloat(super.getSaldo());
-        System.out.println("A máquina " + super.getNome() + " apostou R$" + String.format("%.02f", aposta) + " nesta rodada. ");
-        super.setApostas(getIndiceLivre(), aposta);
-
-        return aposta;
-    }
-
 }
