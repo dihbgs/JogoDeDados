@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Maquina extends Jogador implements JogarComoMaquina{
+public class Maquina extends Jogador{
     public Maquina(String nome, char tipo){
         super(nome, tipo);
     }

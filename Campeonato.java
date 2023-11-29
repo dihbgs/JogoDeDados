@@ -226,13 +226,11 @@ public class Campeonato implements Serializable{
                     }
                 }
 
-                System.out.println();
-
                 for (Jogador jogador : players){
                     if(jogador != null){
                         if(jogador.getEscolhaJogo() == 1 && jogador.getSaldo() > 0 && !jogador.getEstaCheio()){
                             if(jogador.resultado((JogoGeneral)jogador.getJogoAtual()) == false){
-                                System.out.println("Infelizmente, " + jogador.getNome() + " perdeu - saldo atual: R$" + String.format("%.02f", jogador.getSaldo()));
+                                System.out.println("\nInfelizmente, " + jogador.getNome() + " perdeu - saldo atual: R$" + String.format("%.02f", jogador.getSaldo()));
                             }
                         }
                     }

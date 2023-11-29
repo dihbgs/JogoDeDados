@@ -145,6 +145,7 @@ public abstract class Jogador implements Serializable {
     }
 
     // Verifica se ainda é possível adicionar algum jogo para o jogador. Retorna 'true' se pode e 'false' se não.
+    // Se não houver mais espaços livres para os jogos, definirá que o jogador está cheio / não pode jogar mais.
     public boolean verificaJogosLivres(){
         if(this.estaCheio == false){
             for(JogoDados jogo: jogosAdicionados){

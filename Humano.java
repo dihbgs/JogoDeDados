@@ -9,6 +9,8 @@ public class Humano extends Jogador implements JogarComoHumano{
         this.cpf = cpf;
     }
 
+    // Método setter:
+
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
@@ -41,12 +43,16 @@ public class Humano extends Jogador implements JogarComoHumano{
         return escolha;
     }
 
-    public String cartela(int i, JogoGeneral jogoG){ // Retorna a pontuação de uma jogada específica para a tabela final.
+    // Este método retorna a pontuação de uma jogada específica para a tabela final.
+    public String cartela(int i, JogoGeneral jogoG){ 
         String s = new String();
         s = jogoG.montarTabela(i);
         return s;
     }
 
+    // Implementação do método escolherJogada(), definido na interface JogarComoHumano.
+    // Vai mostrar as jogadas disponíveis do jogo general e pedir ao jogador humano o 
+    // que ele quer fazer (pular a vez, escolher uma jogada, ou rolar os dados de novo):
     public void escolherJogada(JogoGeneral jogoG){
         Scanner teclado = new Scanner(System.in);
         char confirma;
@@ -153,6 +159,7 @@ public class Humano extends Jogador implements JogarComoHumano{
         }
     } 
     
+    // Este método retorna 'true' no caso de vitória do jogador no Jogo de Azar ou 'false' no caso de derrota:
     public boolean executarJogoDeAzar(JogoAzar jogoA){
         return jogoA.executarRegrasJogo();
     }
