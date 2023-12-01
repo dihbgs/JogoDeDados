@@ -135,9 +135,7 @@ public abstract class Jogador implements Serializable {
 
     public void jogada(JogoGeneral jogo){ // Efetua uma jogada, rolando os dados e imprimindo.
         jogo.rolarDados();
-        String s = jogo.toString(); 
- 
-        System.out.printf(s);
+        jogo.imprimirResultado();
     }
 
     public boolean resultado(JogoGeneral jogoG){ // Retorna o resultado do Jogo General ('true' para vitória, 'false' para derota).

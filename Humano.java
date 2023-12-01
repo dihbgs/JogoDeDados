@@ -15,6 +15,12 @@ public class Humano extends Jogador implements JogarComoHumano{
         this.cpf = cpf;
     }
 
+    // Método getter:
+
+    public String getCpf(){
+        return this.cpf;
+    }
+
     // Implementação do método escolherJogo(), que está declarado na interface JogarComoHumano. 
     // Ele retornará o jogo escolhido pelo jogador, sendo 1 para o Jogo General e 2 para o Jogo de Azar:
     public int escolherJogo(){
@@ -41,6 +47,28 @@ public class Humano extends Jogador implements JogarComoHumano{
         }while(escolha != 1 && escolha != 2);
 
         return escolha;
+    }
+
+    // Este método pede ao jogador a quantidade de dinheiro que ele deseja apostar em uma rodada entre 0 e seu saldo
+    // e retorna o valor escolhido.
+    public float apostar(){
+        Scanner teclado = new Scanner(System.in);
+        float aposta = 0.0f;
+
+        if(super.getSaldo() > 0){
+            System.out.println("Insira o valor você gostaria de apostar nesta rodada do jogo escolhido (máximo de R$" + super.getSaldo() +  "): ");
+            do{
+                aposta = teclado.nextFloat(); 
+        
+                if(aposta  <= 0 || aposta > super.getSaldo()){
+                    System.out.println("Aposta inválida. Por favor, digite um número inteiro ou decimal entre 0 e o seu saldo.");
+                }
+            }while(aposta  <= 0 || aposta > super.getSaldo());
+        }
+
+        super.setApostas(getIndiceLivre(), aposta);
+
+        return aposta;
     }
 
     // Este método retorna a pontuação de uma jogada específica para a tabela final.
@@ -162,23 +190,5 @@ public class Humano extends Jogador implements JogarComoHumano{
     // Este método retorna 'true' no caso de vitória do jogador no Jogo de Azar ou 'false' no caso de derrota:
     public boolean executarJogoDeAzar(JogoAzar jogoA){
         return jogoA.executarRegrasJogo();
-    }
-
-    public float apostar(){
-        Scanner teclado = new Scanner(System.in);
-        float aposta = 0.0f;
-
-        System.out.println("Insira o valor você gostaria de apostar nesta rodada do jogo escolhido (máximo de R$" + super.getSaldo() +  "): ");
-        do{
-            aposta = teclado.nextFloat(); 
-    
-            if(aposta  <= 0 || aposta > super.getSaldo()){
-                System.out.println("Aposta inválida. Por favor, digite um número inteiro ou decimal entre 0 e o seu saldo.");
-            }
-        }while(aposta  <= 0 || aposta > super.getSaldo());
-
-        super.setApostas(getIndiceLivre(), aposta);
-
-        return aposta;
     }
 }

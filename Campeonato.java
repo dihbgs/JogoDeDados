@@ -29,6 +29,7 @@ public class Campeonato implements Serializable{
         return i;
     }
 
+    // Este método verifica se um nome já foi utilizado ou não por algum jogador já registrado:
     public int nomeLivre(String nome){
         int i = 0;
 
@@ -100,37 +101,18 @@ public class Campeonato implements Serializable{
         return false;
     }
 
-    // Mostra a lista de jogadores:
-    public void mostrarJogadores(){
-        int cont = 1;
-        String s = new String();
-        char tipo;
+    // Este método verifica se algum jogador registrado ainda pode executar jogos:
+    public boolean aindaHaJogosASeremExecutados(){
+        for(Jogador jogador: players){
+            if(jogador != null){
+                boolean verificador = jogador.verificaJogosLivres();
 
-        if(jogadorVazio()){ // Verifica se tem jogadores registrados.
-            System.out.println("\nNenhum jogador foi registrado\n");
-        }
-        else{
-            System.out.println("\n-------- JOGADORES -------\n");
-    
-            s = "-";
-            
-            for(int i = 0; i < players.length; i++){ // Percorre o array de Jogadores e imprime os registrados.
-                if(players[i]!=null){ 
-                    tipo = players[i].getTipo();
-                    if(tipo == 'h'){
-                        s = "Humano";
-                    }
-                    if(tipo == 'm'){
-                        s = "Maquina";
-                    }
-                    System.out.println(cont + " - " + players[i].getNome() + "\t" + s);
-                    s = "-";
-                    cont++;
+                if(verificador == true){
+                    return true;
                 }
             }
-            System.out.print("\n");;
         }
-        
+        return false;
     }
 
     // Inicia a partida, marcando o jogo que cada jogador escolheu e então, executando as rodadas:
@@ -243,7 +225,7 @@ public class Campeonato implements Serializable{
                 System.out.println("\nJogadores do Jogo de Azar se preparem...");
 
                 for(int i = 0; i < 10; i++){
-                    if(players[i] != null && players[i].getSaldo() > 0){
+                    if(players[i] != null && players[i].getSaldo() > 0 && !players[i].getEstaCheio()){
                         if(players[i].getEscolhaJogo() == 2){
                             System.out.println("\nÉ a vez de " + players[i].getNome() + ":");
 
@@ -268,12 +250,14 @@ public class Campeonato implements Serializable{
         }
     }
 
+    // Este método cria, para um jogador, uma nova instância de Jogo General:
     public JogoGeneral inicializarJogoG(Jogador j){
         JogoGeneral jogo = new JogoGeneral();
         j.adicionarJogoNoVetor(jogo);
         return jogo;
     }
 
+    // Este método cria, para um jogador, uma nova instância de Jogo de Azar:
     public JogoAzar inicializarJogoA(Jogador j){
         JogoAzar jogo = new JogoAzar();
         j.adicionarJogoNoVetor(jogo);
@@ -309,50 +293,65 @@ public class Campeonato implements Serializable{
 			players = (Jogador[])oin.readObject();
 			oin.close();
 			fin.close();
-            mostrarSaldosTotais();
+            mostrarSaldos(0);
 		}catch (Exception ex) {
 			System.err.println("erro: " + ex.toString());
 		}
     }
-    
-    public boolean aindaHaJogosASeremExecutados(){
-        for(Jogador jogador: players){
-            if(jogador != null){
-                boolean verificador = jogador.verificaJogosLivres();
 
-                if(verificador == true){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    // Mostra a lista de jogadores:
+    public void mostrarJogadores(){
+        int cont = 1;
+        String s = new String();
+        char tipo;
 
-    public void mostrarSaldosTotais(){
-        if(!this.jogadorVazio()){
-            System.out.println("\n=== SALDOS DOS JOGADORES ===");
-
-            for(Jogador jogador : players){
-                if(jogador != null){
-                    System.out.println(jogador.getNome() + ": " + String.format("%.02f", jogador.getSaldo()));
-                }
-            }
+        if(jogadorVazio()){ // Verifica se tem jogadores registrados.
+            System.out.println("\nNenhum jogador foi registrado\n");
         }
         else{
-            System.out.println("Não há nenhum saldo, pois não há jogadores registrados. ");
+            System.out.println("\n-------- JOGADORES -------\n");
+    
+            s = "-";
+            
+            for(int i = 0; i < players.length; i++){ // Percorre o array de Jogadores e imprime os registrados.
+                if(players[i]!=null){ 
+                    tipo = players[i].getTipo();
+                    if(tipo == 'h'){
+                        s = "Humano";
+                    }
+                    if(tipo == 'm'){
+                        s = "Máquina";
+                    }
+                    System.out.println(cont + " - " + players[i].getNome() + "\t" + s);
+                    s = "-";
+                    cont++;
+                }
+            }
         }
+        
     }
 
-    public void mostrarSaldosParciais(int escolha){
+    // Este método mostra os saldos de todos os jogadores, ou só dos humanos, ou só das máquinas:
+    public void mostrarSaldos(int escolha){
         int cont = 0;
 
         if(!this.jogadorVazio()){
-            if(escolha == 1){
+            if (escolha == 0){
+                System.out.println("\n=== SALDOS DOS JOGADORES ===");
+
+                for(Jogador jogador : players){
+                    if(jogador != null){
+                        System.out.println(jogador.getNome() + ": " + String.format("%.02f", jogador.getSaldo()));
+                    }
+                }
+            }
+            else if(escolha == 1){
                 System.out.println("\n=== SALDOS DOS JOGADORES HUMANOS ===");
                 for(Jogador jogador : players){
                     if(jogador != null){
                         if(jogador instanceof Humano){
-                            System.out.println(jogador.getNome() + ": " + String.format("%.02f", jogador.getSaldo()));
+                            Humano jog = (Humano) jogador;
+                            System.out.println(jog.getNome() + ": " + String.format("%.02f", jogador.getSaldo()));
                             cont ++;
                         }
                     }
@@ -370,7 +369,7 @@ public class Campeonato implements Serializable{
                 }
             }
 
-            if(cont == 0){
+            if(cont == 0 && (escolha == 2 || escolha == 1)){
                 System.out.println("Não há saldos disponíveis. ");
             }
         }else{
