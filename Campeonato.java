@@ -58,6 +58,36 @@ public class Campeonato implements Serializable{
         return x;
     }
 
+    // Verifica se ha jogadores humanos
+    public boolean semJogadorHumano(){
+        boolean x = true;
+
+        for(int i = 0; i < players.length; i++){
+            if(players[i] != null && players[i] instanceof Humano){
+                if(players[i].getNome() != null){
+                    x = false;
+                }
+            }
+        }
+        
+        return x;
+    }
+
+    // Verifica se ha jogadores maquinas
+    public boolean semJogadorMaquina(){
+        boolean x = true;
+
+        for(int i = 0; i < players.length; i++){
+            if(players[i] != null && players[i] instanceof Maquina){
+                if(players[i].getNome() != null){
+                    x = false;
+                }
+            }
+        }
+        
+        return x;
+    }
+
     // Inclui jogadores pelo indice encontrado por jogadorLivre():
     public void incluirJogadorHumano(String nome, char tipo, String cpf, int i){
         // Se a posicao ja estiver livre, cria um novo jogador.
@@ -406,103 +436,128 @@ public class Campeonato implements Serializable{
                         System.out.println("\n==== Extratos do jogador " + jogador.getNome() + " ======");
                         JogoDados[] jogos = jogador.getJogosAdicionados();
                         
-                        for(int k=0;k<jogador.getIndiceLivre();k++){
-                            
-                            if(jogos[k] instanceof JogoGeneral && (esc==0 || esc==1)){
-                                JogoGeneral j = (JogoGeneral)jogos[k];
-                                System.out.println("\nJOGO " + (k+1) + ": Jogo General\n");
-                                System.out.println(jogador.mostraJogadasExecutadas(j));
-                                System.out.println("\nFoi apostado R$" + String.format("%.02f", jogador.getApostas(k)) + " pelo jogador." );
-                                if(j.calculaResultado()){
-                                    System.out.println("O jogador ganhou a aposta!");
+                        if(jogador.getIndiceLivre()>0){
+                            for(int k=0;k<jogador.getIndiceLivre();k++){
+                                
+                                if(jogos[k] instanceof JogoGeneral && (esc==0 || esc==1)){
+                                    JogoGeneral j = (JogoGeneral)jogos[k];
+                                    System.out.println("\nJOGO " + (k+1) + ": Jogo General\n");
+                                    System.out.println(jogador.mostraJogadasExecutadas(j));
+                                    System.out.println("\nFoi apostado R$" + String.format("%.02f", jogador.getApostas(k)) + " pelo jogador." );
+                                    if(j.calculaResultado()){
+                                        System.out.println("O jogador ganhou a aposta!");
+                                    }
+                                    else{
+                                        System.out.println("O jogador perdeu a aposta.");
+                                    }
                                 }
-                                else{
-                                    System.out.println("O jogador perdeu a aposta.");
+                                if(jogos[k] instanceof JogoAzar && (esc==0 || esc==2)){
+                                    JogoAzar j = (JogoAzar)jogos[k];
+                                    System.out.println("\nJOGO " + (k+1) + ": Jogo Azar\n");
+                                    System.out.println("Foi apostado R$" + String.format("%.02f", jogador.getApostas(k)) + " pelo jogador." );
+                                    if(j.getResultado()){
+                                        System.out.println("O jogador ganhou a aposta!");
+                                    }
+                                    else{
+                                        System.out.println("O jogador perdeu a aposta.");
+                                    }
                                 }
                             }
-                            if(jogos[k] instanceof JogoAzar && (esc==0 || esc==2)){
-                                JogoAzar j = (JogoAzar)jogos[k];
-                                System.out.println("\nJOGO " + (k+1) + ": Jogo Azar\n");
-                                System.out.println("Foi apostado R$" + String.format("%.02f", jogador.getApostas(k)) + " pelo jogador." );
-                                if(j.getResultado()){
-                                    System.out.println("O jogador ganhou a aposta!");
-                                }
-                                else{
-                                    System.out.println("O jogador perdeu a aposta.");
-                                }
-                            }
+                        }
+                        else{
+                            System.out.println("Ainda não foi jogado.");
                         }
                     }
                 }
             }
             else if (escolha == 1){
-                for(Jogador jogador : players){
-                    if(jogador != null && jogador instanceof Humano){
-                        System.out.println("\n==== Extratos do jogador " + jogador.getNome() + " ======");
-                        JogoDados[] jogos = jogador.getJogosAdicionados();
-                        
-                        for(int k=0;k<jogador.getIndiceLivre();k++){
-                            
-                            if(jogos[k] instanceof JogoGeneral && (esc==0 || esc==1)){
-                                JogoGeneral j = (JogoGeneral)jogos[k];
-                                System.out.println("\nJOGO " + (k+1) + ": Jogo General\n");
-                                System.out.println(jogador.mostraJogadasExecutadas(j));
-                                System.out.println("\nFoi apostado R$" + String.format("%.02f", jogador.getApostas(k)) + " pelo jogador." );
-                                if(j.calculaResultado()){
-                                    System.out.println("O jogador ganhou a aposta!");
-                                }
-                                else{
-                                    System.out.println("O jogador perdeu a aposta.");
+                if(!semJogadorHumano()){
+                    for(Jogador jogador : players){
+                        if(jogador != null && jogador instanceof Humano){
+                            System.out.println("\n==== Extratos do jogador " + jogador.getNome() + " ======");
+                            JogoDados[] jogos = jogador.getJogosAdicionados();
+
+                            if(jogador.getIndiceLivre()>0){
+                                for(int k=0;k<jogador.getIndiceLivre();k++){
+                                    
+                                    if(jogos[k] instanceof JogoGeneral && (esc==0 || esc==1)){
+                                        JogoGeneral j = (JogoGeneral)jogos[k];
+                                        System.out.println("\nJOGO " + (k+1) + ": Jogo General\n");
+                                        System.out.println(jogador.mostraJogadasExecutadas(j));
+                                        System.out.println("\nFoi apostado R$" + String.format("%.02f", jogador.getApostas(k)) + " pelo jogador." );
+                                        if(j.calculaResultado()){
+                                            System.out.println("O jogador ganhou a aposta!");
+                                        }
+                                        else{
+                                            System.out.println("O jogador perdeu a aposta.");
+                                        }
+                                    }
+                                    if(jogos[k] instanceof JogoAzar && (esc==0 || esc==2)){
+                                        JogoAzar j = (JogoAzar)jogos[k];
+                                        System.out.println("\nJOGO " + (k+1) + ": Jogo Azar\n");
+                                        System.out.println("Foi apostado R$" + String.format("%.02f", jogador.getApostas(k)) + " pelo jogador." );
+                                        if(j.getResultado()){
+                                            System.out.println("O jogador ganhou a aposta!");
+                                        }
+                                        else{
+                                            System.out.println("O jogador perdeu a aposta.");
+                                        }
+                                    }
                                 }
                             }
-                            if(jogos[k] instanceof JogoAzar && (esc==0 || esc==2)){
-                                JogoAzar j = (JogoAzar)jogos[k];
-                                System.out.println("\nJOGO " + (k+1) + ": Jogo Azar\n");
-                                System.out.println("Foi apostado R$" + String.format("%.02f", jogador.getApostas(k)) + " pelo jogador." );
-                                if(j.getResultado()){
-                                    System.out.println("O jogador ganhou a aposta!");
-                                }
-                                else{
-                                    System.out.println("O jogador perdeu a aposta.");
-                                }
+                            else{
+                                System.out.println("Ainda não foi jogado.");
                             }
                         }
                     }
                 }
+                else{
+                    System.out.println("Não há jogadores humanos registrados.");
+                }
             }
             else if(escolha == 2){
-                for(Jogador jogador : players){
-                    if(jogador != null && jogador instanceof Maquina){
-                        System.out.println("\n==== Extratos do jogador " + jogador.getNome() + " ======");
-                        JogoDados[] jogos = jogador.getJogosAdicionados();
-                        
-                        for(int k=0;k<jogador.getIndiceLivre();k++){
+                if(!semJogadorMaquina()){
+                    for(Jogador jogador : players){
+                        if(jogador != null && jogador instanceof Maquina){
+                            System.out.println("\n==== Extratos do jogador " + jogador.getNome() + " ======");
+                            JogoDados[] jogos = jogador.getJogosAdicionados();
                             
-                            if(jogos[k] instanceof JogoGeneral && (esc==0 || esc==1)){
-                                JogoGeneral j = (JogoGeneral)jogos[k];
-                                System.out.println("\nJOGO " + (k+1) + ": Jogo General\n");
-                                System.out.println(jogador.mostraJogadasExecutadas(j));
-                                System.out.println("\nFoi apostado R$" + String.format("%.02f", jogador.getApostas(k)) + " pelo jogador." );
-                                if(j.calculaResultado()){
-                                    System.out.println("O jogador ganhou a aposta!");
-                                }
-                                else{
-                                    System.out.println("O jogador perdeu a aposta.");
+                            if(jogador.getIndiceLivre()>0){
+                                for(int k=0;k<jogador.getIndiceLivre();k++){
+                                    
+                                    if(jogos[k] instanceof JogoGeneral && (esc==0 || esc==1)){
+                                        JogoGeneral j = (JogoGeneral)jogos[k];
+                                        System.out.println("\nJOGO " + (k+1) + ": Jogo General\n");
+                                        System.out.println(jogador.mostraJogadasExecutadas(j));
+                                        System.out.println("\nFoi apostado R$" + String.format("%.02f", jogador.getApostas(k)) + " pelo jogador." );
+                                        if(j.calculaResultado()){
+                                            System.out.println("O jogador ganhou a aposta!");
+                                        }
+                                        else{
+                                            System.out.println("O jogador perdeu a aposta.");
+                                        }
+                                    }
+                                    if(jogos[k] instanceof JogoAzar && (esc==0 || esc==2)){
+                                        JogoAzar j = (JogoAzar)jogos[k];
+                                        System.out.println("\nJOGO " + (k+1) + ": Jogo Azar\n");
+                                        System.out.println("Foi apostado R$" + String.format("%.02f", jogador.getApostas(k)) + " pelo jogador." );
+                                        if(j.getResultado()){
+                                            System.out.println("O jogador ganhou a aposta!");
+                                        }
+                                        else{
+                                            System.out.println("O jogador perdeu a aposta.");
+                                        }
+                                    }
                                 }
                             }
-                            if(jogos[k] instanceof JogoAzar && (esc==0 || esc==2)){
-                                JogoAzar j = (JogoAzar)jogos[k];
-                                System.out.println("\nJOGO " + (k+1) + ": Jogo Azar\n");
-                                System.out.println("Foi apostado R$" + String.format("%.02f", jogador.getApostas(k)) + " pelo jogador." );
-                                if(j.getResultado()){
-                                    System.out.println("O jogador ganhou a aposta!");
-                                }
-                                else{
-                                    System.out.println("O jogador perdeu a aposta.");
-                                }
+                            else{
+                                System.out.println("Ainda não foi jogado.");
                             }
                         }
                     }
+                }
+                else{
+                    System.out.println("Não há jogadores maquinas registrados.");
                 }
             }
         }
