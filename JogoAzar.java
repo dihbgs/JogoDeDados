@@ -1,4 +1,10 @@
 public class JogoAzar extends JogoDados{
+    private boolean resultado;
+
+    public boolean getResultado(){
+        return this.resultado;
+    }
+
     // Método construtor da classe JogoAzar, inicializando sua superclasse JogoDados:
     public JogoAzar(){
         super(2);
@@ -28,10 +34,12 @@ public class JogoAzar extends JogoDados{
         // encontrar a soma do sorteio inicial. Se achar, ganha. Se não achar, perde.
         if(somaFaces == 7 || somaFaces == 11){
             System.out.println("O jogador ganhou a aposta! ");
+            resultado = true;
             return true;
         }
         else if(somaFaces == 2 || somaFaces == 3 || somaFaces == 12){ 
             System.out.println("Que pena... O jogador perdeu a aposta. ");
+            resultado = false;
             return false;
         }
         else{
@@ -49,11 +57,13 @@ public class JogoAzar extends JogoDados{
     
                 if(total == somaFaces){
                     System.out.println("Parabéns! O jogador ganhou! ");
+                    resultado = true;
                     return true;
                 }
             }
     
             System.out.println("Infelizmente, o jogador perdeu. ");
+            resultado = false;
             return false;
         }
     }

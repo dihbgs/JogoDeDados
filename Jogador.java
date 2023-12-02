@@ -50,6 +50,10 @@ public abstract class Jogador implements Serializable {
         return this.estaCheio;
     }
 
+    public float getApostas(int i) {
+        return apostas[i];
+    }
+
     // Métodos setters:
 
     public void setNome(String nome) { // Altera o nome.
@@ -156,5 +160,7 @@ public abstract class Jogador implements Serializable {
         this.estaCheio = true;
         return false;
     }
+
+    public abstract float apostar();
 
 }

@@ -113,11 +113,15 @@ public class UsaCampeonato {
                             escolha = tec.nextInt();
                             input = 1;
                         } catch (java.util.InputMismatchException e) {
-                            System.out.println("Erro: Entrada inválida. Por favor, digite 0, 1 ou 2. ");
+                            System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro. ");
                             tec.nextLine();
                             input = 0;
                         }
-                    }while(input == 0 && (escolha != 0 || escolha != 1 || escolha != 2));
+
+                        if(escolha != 0 && escolha != 1 && escolha != 2){
+                            System.out.println("Opção inválida. Por favor, digite 0, 1 ou 2: ");
+                        }
+                    }while(input == 0 || (escolha != 0 && escolha != 1 && escolha != 2));
 
                     league.mostrarSaldos(escolha);
                     
@@ -132,12 +136,16 @@ public class UsaCampeonato {
                             esc = tec.nextInt();
                             input2 = 1;
                         } catch (java.util.InputMismatchException e) {
-                            System.out.println("Erro: Entrada inválida. Por favor, digite 0, 1 ou 2.");
+                            System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro. ");
                             tec.nextLine();
                             input2 = 0;
                         }
-                    }while(input2 == 0 && (esc != 0 || esc != 1 || esc != 2));
 
+                        if(esc != 0 && esc != 1 && esc != 2){
+                            System.out.println("Opção inválida. Por favor, digite 0, 1 ou 2: ");
+                        }
+                    }while(input2 == 0 || (esc != 0 && esc != 1 && esc != 2));
+                    
                     league.mostrarExtratos(esc);
                     break;
                 case 'f': // Se a escolha foi 'd', imprimem-se as estatísticas:
