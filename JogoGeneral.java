@@ -1,9 +1,10 @@
+// A classe JogoGeneral herda da classe JogoDados, ou seja, possui todos os seus membros (campos e métodos).
 public class JogoGeneral extends JogoDados{
     private int[] jogadas;
 
     // Método construtor da classe JogoAzar, inicializando sua superclasse JogoDados, bem como seus próprios atributos:
     public JogoGeneral(){
-        super(5);
+        super(5, "Jogo General");
         this.jogadas = new int[13]; 
         
         for(int i = 0 ; i < 13 ; i++) { 
@@ -196,20 +197,6 @@ public class JogoGeneral extends JogoDados{
 
     // O seguinte metodo grava em string a pontuacao de uma jogada especifica:
     public String montarTabela(int i){
-        String s = new String();
-
-        if(jogadas[i - 1] == -1){
-            s = s + "-\t|\t";
-        }
-        else{
-            s = s + jogadas[i - 1] + "\t|\t";
-        }
-
-        return s;
-    }
-
-    // O seguinte método, como o anterior, grava em string a pontuacao de uma jogada, mas com uma formatação diferente:
-    public String montarTabela2(int i){
         String s = new String();
 
         if(jogadas[i - 1] == -1){

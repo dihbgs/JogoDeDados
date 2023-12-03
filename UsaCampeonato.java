@@ -104,52 +104,69 @@ public class UsaCampeonato {
                     }
                     break;
                 case 'd': // Se a escolha foi 'd', imprimem-se os saldos:
-                    System.out.print("Se você gostaria de ver os saldos de todos os jogadores, digite 0. \nSe quiser ver apenas dos jogadores humanos, digite 1. \nSe quiser ver apenas das máquinas, digite 2.\nSua escolha: ");
-                    int escolha = 0;
-                    int input = 0;
+                    if(!league.jogadorVazio()){
+                        System.out.print("Se você gostaria de ver os saldos de todos os jogadores, digite 0. \nSe quiser ver apenas dos jogadores humanos, digite 1. \nSe quiser ver apenas das máquinas, digite 2.\nSua escolha: ");
+                        int escolha = 0;
+                        int input = 0;
 
-                    do{
-                        try {
-                            escolha = tec.nextInt();
-                            input = 1;
-                        } catch (java.util.InputMismatchException e) {
-                            System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro. ");
-                            tec.nextLine();
-                            input = 0;
-                        }
+                        do{
+                            try {
+                                escolha = tec.nextInt();
+                                input = 1;
+                            } catch (java.util.InputMismatchException e) {
+                                System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro. ");
+                                tec.nextLine();
+                                input = 0;
+                            }
 
-                        if(escolha != 0 && escolha != 1 && escolha != 2){
-                            System.out.println("Opção inválida. Por favor, digite 0, 1 ou 2: ");
-                        }
-                    }while(input == 0 || (escolha != 0 && escolha != 1 && escolha != 2));
+                            if(escolha != 0 && escolha != 1 && escolha != 2){
+                                System.out.println("Opção inválida. Por favor, digite 0, 1 ou 2: ");
+                            }
+                        }while(input == 0 || (escolha != 0 && escolha != 1 && escolha != 2));
 
-                    league.mostrarSaldos(escolha);
-                    
+                        league.mostrarSaldos(escolha);
+                    }
+                    else{
+                        System.out.println("Não há jogadores registrados para a exibição de saldos. ");
+                    }
+                        
                     break;
                 case 'e': // Se a escolha foi 'e', imprimem-se os extratos:
-                    System.out.print("Se você gostaria de ver os extratos de jogos de todos os jogadores, digite 0. \nSe quiser ver apenas dos jogadores humanos, digite 1. \nSe quiser ver apenas das máquinas, digite 2.\nSua esolha: ");
-                    int esc = 0;
-                    int input2 = 0;
+                    if(!league.jogadorVazio()){
+                        System.out.print("Se você gostaria de ver os extratos de jogos de todos os jogadores, digite 0. \nSe quiser ver apenas dos jogadores humanos, digite 1. \nSe quiser ver apenas das máquinas, digite 2.\nSua escolha: ");
+                        int esc = 0;
+                        int input2 = 0;
 
-                    do{
-                        try {
-                            esc = tec.nextInt();
-                            input2 = 1;
-                        } catch (java.util.InputMismatchException e) {
-                            System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro. ");
-                            tec.nextLine();
-                            input2 = 0;
-                        }
+                        do{
+                            try {
+                                esc = tec.nextInt();
+                                input2 = 1;
+                            } catch (java.util.InputMismatchException e) {
+                                System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro. ");
+                                tec.nextLine();
+                                input2 = 0;
+                            }
 
-                        if(esc != 0 && esc != 1 && esc != 2){
-                            System.out.println("Opção inválida. Por favor, digite 0, 1 ou 2: ");
-                        }
-                    }while(input2 == 0 || (esc != 0 && esc != 1 && esc != 2));
-                    
-                    league.mostrarExtratos(esc);
+                            if(esc != 0 && esc != 1 && esc != 2){
+                                System.out.println("Opção inválida. Por favor, digite 0, 1 ou 2: ");
+                            }
+                        }while(input2 == 0 || (esc != 0 && esc != 1 && esc != 2));
+                        
+                        league.mostrarExtratos(esc);
+                    }
+                    else{
+                        System.out.println("Não há jogadores registrados para haver a impressão dos extratos. ");
+                    }
+
                     break;
                 case 'f': // Se a escolha foi 'd', imprimem-se as estatísticas:
-                    league.mostrarEstatisticas();
+                    if(!league.jogadorVazio()){
+                        league.mostrarEstatisticas();
+                    }
+                    else{
+                        System.out.println("Não há jogadores registrados para haver a impressão das estatísticas. ");
+                    }
+
                     break;
                 case 'g': // Se a escolha foi 'g', grava-se a partida em arquivo:
                     System.out.println("..::Gravando em arquivo::..");

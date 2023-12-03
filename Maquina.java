@@ -1,5 +1,6 @@
 import java.util.Random;
 
+// A classe Humano herda da classe Jogador, ou seja, possui todos os seus membros (campos e métodos).
 public class Maquina extends Jogador{
     public Maquina(String nome, char tipo){
         super(nome, tipo);
@@ -27,7 +28,9 @@ public class Maquina extends Jogador{
             Random random = new Random();
             float aposta = random.nextFloat(super.getSaldo()) + (float)0.1;
             System.out.println("A máquina " + super.getNome() + " apostou R$" + String.format("%.02f", aposta) + " nesta rodada. ");
-            super.setApostas(getIndiceLivre(), aposta);
+            super.setApostas(getIndiceLivre(), aposta); // Apesar de o método getIndiceLivre() estar definido para encontrar o
+                                                        // próximo índice livre no vetor de jogos, como as apostas são definidas
+                                                        // para cada um deles, também encontra o próximo índice livre das apostas.
 
             return aposta;
         }

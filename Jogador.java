@@ -26,53 +26,49 @@ public abstract class Jogador implements Serializable {
         return this.nome;
     }
 
-    public char getTipo(){
+    public char getTipo(){   // Retorna o tipo.
         return this.tipo;
     }
 
-    public JogoDados[] getJogosAdicionados() {
+    public JogoDados[] getJogosAdicionados() {   // Retorna o vetor de jogos.
         return this.jogosAdicionados;
     }
 
-    public int getEscolhaJogo() {
+    public int getEscolhaJogo() {       // Retorna a escolha do jogo (1-Jogo General ou 2-Jogo de Azar).
         return this.escolhaJogo;
     }
 
-    public float getSaldo(){
+    public float getSaldo(){            // Retorna o saldo atual do jogador.
         return this.saldo;
     }
 
-    public float getValorDaAposta(){
-        return this.valorDaAposta;
-    }
-
-    public boolean getEstaCheio(){
+    public boolean getEstaCheio(){      // Retorna se o jogador já atingiu ou não o limite de jogos.
         return this.estaCheio;
     }
 
-    public float getApostas(int i) {
+    public float getApostas(int i) {    // Retorna o vetor que guarga todos os valores de apostas do jogador.
         return apostas[i];
     }
 
     // Métodos setters:
 
-    public void setNome(String nome) { // Altera o nome.
+    public void setNome(String nome) {      // Altera o nome.
         this.nome = nome;
     }
 
-    public void setTipo(char tipo) {
+    public void setTipo(char tipo) {        // Altera o tipo.
         this.tipo = tipo;
     }
 
-    public void setEscolhaJogo(int escolhaJogo) {
+    public void setEscolhaJogo(int escolhaJogo) {       // Altera a escolha de jogo.
         this.escolhaJogo = escolhaJogo;
     }
 
-    public void setValorDaAposta(float aposta){
+    public void setValorDaAposta(float aposta){         // Altera o valor da aposta atual.
         this.valorDaAposta = aposta;
     }
     
-    public void setApostas(int i, float aposta){
+    public void setApostas(int i, float aposta){        // Adiciona um novo valor de aposta ao vetor de apostas realizadas.
         this.apostas[i] = aposta;
     }
 
@@ -88,6 +84,20 @@ public abstract class Jogador implements Serializable {
                 this.saldo = 0;
             }
         }
+    }
+
+    // Este método cria, para um jogador, uma nova instância de Jogo General:
+    public JogoGeneral inicializarJogoG(){
+        JogoGeneral jogo = new JogoGeneral();
+        this.adicionarJogoNoVetor(jogo);
+        return jogo;
+    }
+
+    // Este método cria, para um jogador, uma nova instância de Jogo de Azar:
+    public JogoAzar inicializarJogoA(){
+        JogoAzar jogo = new JogoAzar();
+        this.adicionarJogoNoVetor(jogo);
+        return jogo;
     }
 
     // Este método encontra o próximo índice livre do vetor jogosAdicionados:
@@ -110,7 +120,7 @@ public abstract class Jogador implements Serializable {
     }
 
     // Este método adiciona um novo jogo no vetor jogosAdcionados:
-    public void adicionarJogoNoVetor(JogoDados jogoAtual) {
+    public void adicionarJogoNoVetor(JogoDados jogoAtual){   // Como o jogoAtual vai ser ou JogoAzar ou JogoGeneral, aqui ocorre polimorfismo.       
         int i = getIndiceLivre();
 
         if (i >= 0 && i < 10 && this.jogosAdicionados[i] == null) {
@@ -119,9 +129,9 @@ public abstract class Jogador implements Serializable {
     }
 
     // Retorna pontuação de uma jogada específica para as tabelas intermediárias:
-    public String cartela2(JogoGeneral jogo, int i){ 
+    public String cartela(JogoGeneral jogo, int i){ 
         String s = new String();
-        s = jogo.montarTabela2(i);
+        s = jogo.montarTabela(i);
         return s;
     }
 
@@ -132,7 +142,7 @@ public abstract class Jogador implements Serializable {
         s = "1\t2\t3\t4\t5\t6\t7(T)\t8(Q)\t9(F)\t10(S+)\t11(S-)\t12(G)\t13(X)\n";
 
         for(int i = 1; i <= 13; i++){
-            s = s + this.cartela2(jogo, i);
+            s = s + this.cartela(jogo, i);
         }
         return s;
     }
@@ -161,6 +171,7 @@ public abstract class Jogador implements Serializable {
         return false;
     }
 
+    // Todas as suas subclasses deverão ter um método que retorne um valor float de aposta:
     public abstract float apostar();
 
 }

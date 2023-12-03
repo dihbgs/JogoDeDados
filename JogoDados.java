@@ -1,11 +1,15 @@
 import java.io.Serializable;
 
+// Nesta classe ocorre herança múltipla, pois ela implementa duas interfaces: Serializable, para poder ser
+// gravada posteriormente, e Estatistica, para implementar seus métodos.
 public abstract class JogoDados implements Serializable, Estatistica{
     private Dado[] dados;
+    private String nome;
     private int[] facesRoladas;
 
-    public JogoDados(int nDados) {
+    public JogoDados(int nDados, String nome) {
         this.dados = new Dado[nDados];
+        this.nome = nome;
 
         for (int i = 0; i < nDados; i++) {
             this.dados[i] = new Dado();
@@ -20,12 +24,16 @@ public abstract class JogoDados implements Serializable, Estatistica{
 
     // Métodos getters:
 
-    public int[] getFacesRoladas() {
-        return facesRoladas;
-    }
-
     public Dado[] getDados(){
         return this.dados;
+    }
+
+    public String getNome(){
+        return this.nome;
+    }
+
+    public int[] getFacesRoladas() {
+        return facesRoladas;
     }
 
     // Método que soma um ao índice representante de uma face do dado toda vez que ela é sorteada:

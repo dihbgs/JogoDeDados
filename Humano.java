@@ -1,22 +1,26 @@
 import java.util.Random;
 import java.util.Scanner;
 
+// A classe Humano herda da classe Jogador, ou seja, possui todos os seus membros (campos e métodos).
 public class Humano extends Jogador implements JogarComoHumano{
     private String cpf;
 
-    public Humano(String nome, char tipo, String cpf){
+    public Humano(){                                    // Construtor que atribui valores padrões para o jogador humano.
+        super("Anônimo", 'h');
+        this.cpf = "12345678910";
+    }
+
+    public Humano(String nome, char tipo, String cpf){  // Construtor que atribui valores passados pelos parâmetros para o humano.
         super(nome, tipo);
         this.cpf = cpf;
     }
 
-    // Método setter:
-
+    // Método setter que altera o cpf do jogador humano:
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    // Método getter:
-
+    // Método getter que retorna o cpf do jogador humano:
     public String getCpf(){
         return this.cpf;
     }
@@ -57,25 +61,30 @@ public class Humano extends Jogador implements JogarComoHumano{
 
         if(super.getSaldo() > 0){
             System.out.println("Insira o valor você gostaria de apostar nesta rodada do jogo escolhido (máximo de R$" + super.getSaldo() +  "): ");
+            int input = 0;
+
             do{
-                aposta = teclado.nextFloat(); 
+                try {
+                    aposta = teclado.nextFloat(); 
+                    input = 1;
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro ou decimal. ");
+                    teclado.nextLine();
+                    input = 0;
+                }
         
                 if(aposta  <= 0 || aposta > super.getSaldo()){
                     System.out.println("Aposta inválida. Por favor, digite um número inteiro ou decimal entre 0 e o seu saldo.");
+                    input = 0;
                 }
-            }while(aposta  <= 0 || aposta > super.getSaldo());
+            }while(input == 0 || (aposta  <= 0 || aposta > super.getSaldo()));
         }
 
-        super.setApostas(getIndiceLivre(), aposta);
+        super.setApostas(getIndiceLivre(), aposta);    // Apesar de o método getIndiceLivre() estar definido para encontrar o
+                                                       // próximo índice livre no vetor de jogos, como as apostas são definidas
+                                                       // para cada um deles, também encontra o próximo índice livre das apostas.
 
         return aposta;
-    }
-
-    // Este método retorna a pontuação de uma jogada específica para a tabela final.
-    public String cartela(int i, JogoGeneral jogoG){ 
-        String s = new String();
-        s = jogoG.montarTabela(i);
-        return s;
     }
 
     // Implementação do método escolherJogada(), definido na interface JogarComoHumano.

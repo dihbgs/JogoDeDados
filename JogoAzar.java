@@ -1,13 +1,16 @@
+// A classe JogoAzar herda da classe JogoDados, ou seja, possui todos os seus membros (campos e métodos).
 public class JogoAzar extends JogoDados{
     private boolean resultado;
 
-    public boolean getResultado(){
-        return this.resultado;
-    }
-
     // Método construtor da classe JogoAzar, inicializando sua superclasse JogoDados:
     public JogoAzar(){
-        super(2);
+        super(2, "Jogo de Azar");
+        this.resultado = false;
+    }
+
+    // Método getter que retorna o resultado (vitória-true ou derrota-false) do Jogo de Azar:
+    public boolean getResultado(){
+        return this.resultado;
     }
 
     // Método que efetivamente faz o Jogo de Azar ser executado, retornando 'true' no caso de uma vitória e 'false' no de uma derrota.

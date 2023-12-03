@@ -4,8 +4,12 @@ import java.io.Serializable;
 public class Dado implements Serializable{
     private int faceSup;
 
-    public Dado(){
+    public Dado(){          // Construtor padrão: vai inicializar o dado com a face superior sendo 1.
         faceSup = 1;
+    }
+
+    public Dado(int face){   // Sobrecarga do construtor: vai inicializar a face superior com o valor passado por parâmetro.
+        this.faceSup = face;
     }
 
     public int getFaceSuperior(){ // Retorna a face superior do dado.
