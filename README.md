@@ -72,4 +72,4 @@ Essa aplicação executa n (indeterminadas) partidas, cada uma com 13 rodadas, p
 
 (5) Se um determinado resultado não cumprir os requisitos para a jogada escolhida, o jogador zera a respectiva jogada. E ainda, se um determinado resultado não puder ser classificado como nenhuma das jogadas ainda restantes para aquele jogador, ele deverá escolher qual das jogadas restantes será descartada, marcando 0 (zero) para a jogada correspondente.
 
-(6) Ao final de 13 rodadas, com a cartela toda preenchida, somam-se os valores de cada coluna, e o jogador que obtiver mais pontos será considerado o vencedor.
+(6) Ao final dos 13 arremessos de dados, o jogador ganha o jogo se a soma dos valores das jogadas de 1 a 6, trinca, quadra, full-hand, sequências alta e baixa e general (jogadas de 1 a 12) for maior que o dobro do valor obtido na jogada aleatória (jogada 13).

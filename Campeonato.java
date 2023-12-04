@@ -591,14 +591,16 @@ public class Campeonato implements Serializable{
         System.out.println("d - Estatística dos jogadores humanos");
         System.out.println("e - Estatística dos jogadores máquinas");
         System.out.println("f - Estatística de cada jogador");
+        System.out.println("g- Estatística de um jogador específico");
+        System.out.println("Informe a sua escolha: ");
 
         do{
             op = tec.next().charAt(0);
 
-            if (op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e' && op != 'f'){
+            if (op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e' && op != 'f' && op != 'g'){
                 System.out.println("Opcao invalida! Tente novamente.");
             }
-        }while(op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e' && op != 'f');
+        }while(op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e' && op != 'f' && op != 'g');
         
         tec.nextLine();
 
@@ -673,7 +675,7 @@ public class Campeonato implements Serializable{
                         for(int k=0; k<jogador.getIndiceLivre(); k++){
                             if(jogos[k] instanceof JogoAzar){
                                 JogoDados j = jogos[k];
-                                for(int i=0;i<6;i++){
+                                for(int i = 0; i < 6;i++){
                                     dadosAzar[i] = dadosAzar[i] + j.getFacesRoladas()[i];
                                 }
                             }
@@ -730,7 +732,7 @@ public class Campeonato implements Serializable{
                     if(jogador != null && jogador instanceof Maquina && jogador.getIndiceLivre()>0){
                         JogoDados[] jogos = jogador.getJogosAdicionados();
                         
-                        for(int k=0;k<jogador.getIndiceLivre();k++){
+                        for(int k = 0; k < jogador.getIndiceLivre(); k++){
                             JogoDados j = jogos[k];
                             for(int i=0;i<6;i++){
                                 dadosMaquinas[i] = dadosMaquinas[i] + j.getFacesRoladas()[i];
@@ -738,7 +740,7 @@ public class Campeonato implements Serializable{
                         }
                     }
                 }
-                for(int i =0; i<6;i++){
+                for(int i = 0; i<6;i++){
                     total = total + dadosMaquinas[i];
                 }
                 if(total!=0){
@@ -753,10 +755,11 @@ public class Campeonato implements Serializable{
                 }
                 break;
             case 'f':
-                    if(players!=null && jogadorLivre()!=0){
-                        System.out.println("\nDados por jogador");
-                        for(Jogador jogador : players){
-                            total = 0;
+                if(players!=null && jogadorLivre()!=0){
+                    System.out.println("\nDados por jogador");
+
+                    for(Jogador jogador : players){
+                        total = 0;
                         if(jogador != null){
                             int[] dadosJogador = {0,0,0,0,0,0};
                             System.out.println("\nJogador " + jogador.getNome() + " - " + jogador.getTipo());
@@ -764,7 +767,7 @@ public class Campeonato implements Serializable{
                             
                             for(int k = 0; k < jogador.getIndiceLivre(); k++){
                                 JogoDados j = jogos[k];
-                                for(int i=0;i<6;i++){
+                                for(int i = 0; i < 6; i++){
                                     dadosJogador[i] = dadosJogador[i] + j.getFacesRoladas()[i];
                                 }
                             }
@@ -788,6 +791,61 @@ public class Campeonato implements Serializable{
                 else{
                     System.out.println("Nenhum jogador registrado.");
                 }
+                break;
+            case 'g':
+                System.out.println("Informe o nome do jogador procurado: ");
+                String nomeJogador = tec.nextLine();
+                boolean jogadorExiste = false;
+
+                if(this.players != null){
+                    for(Jogador jogador : players){
+                        if(jogador != null){
+                            if(jogador.getNome().equals(nomeJogador)){
+                                jogadorExiste = true;
+                                System.out.println("Você gostaria de ver as estatísticas de " + nomeJogador + " para o Jogo General(1) ou para o Jogo de Azar(2)? ");
+                                int choice = tec.nextInt();
+
+                                total = 0;
+                                int[] dadosJogadorEspecifico = {0,0,0,0,0,0};
+                                JogoDados[] jogos = jogador.getJogosAdicionados();
+
+                                for(int k = 0; k < jogador.getIndiceLivre(); k++){
+                                    if(jogos[k] instanceof JogoGeneral && choice == 1){
+                                        JogoDados j = jogos[k];
+                                        for(int i = 0; i < 6; i++){
+                                            dadosJogadorEspecifico[i] = dadosJogadorEspecifico[i] + j.getFacesRoladas()[i];
+                                        }
+                                    }
+                                    else if(jogos[k] instanceof JogoAzar && choice == 2){
+                                        JogoDados j = jogos[k];
+                                        for(int i = 0; i < 6; i++){
+                                            dadosJogadorEspecifico[i] = dadosJogadorEspecifico[i] + j.getFacesRoladas()[i];
+                                        }
+                                    }
+                                }
+        
+                                for(int i = 0; i < 6; i++){
+                                    total = total + dadosJogadorEspecifico[i];
+                                }
+                                if(total!=0){
+                                    System.out.println("Numero do dado\tQuantia rolada");
+                                    for(int i = 0; i < 6; i++){
+                                        valor = (double) dadosJogadorEspecifico[i] / total;
+                                        System.out.println("\t" + (i+1) + "\t\t" + dadosJogadorEspecifico[i] + " (" + String.format("%.02f", (valor*100)) + "% do total)");
+                                    }
+                                }
+                                else{
+                                    System.out.println("Ainda não jogado.");
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if(!jogadorExiste){
+                    System.out.println("Jogador não encontrado...");
+                }
+
                 break;
             default:
                 System.out.println("ERRO");
