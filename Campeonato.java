@@ -428,10 +428,10 @@ public class Campeonato implements Serializable{
                         JogoDados[] jogos = jogador.getJogosAdicionados();
                         cont = 0;
                         
-                        if(jogador.getIndiceLivre() > 0){ // Se tiver algum jogo adicionado.
+                        if(jogador.getIndiceLivre() > 0){ // Se tiver algum jogo adicionado...
                             for(int k = 0; k < jogador.getIndiceLivre(); k++){
-                                
-                                if(jogos[k] instanceof JogoGeneral && (esc==0 || esc==1)){
+                                // ...imprime os extratos(nome, valor da aposta, derrota ou vitória) desses jogos.
+                                if(jogos[k] instanceof JogoGeneral && (esc == 0 || esc == 1)){
                                     JogoGeneral j = (JogoGeneral)jogos[k];
                                     System.out.println("\nJOGO " + (k+1) + ": " + j.getNome() + "\n");
                                     System.out.println(jogador.mostraJogadasExecutadas(j));
@@ -444,7 +444,7 @@ public class Campeonato implements Serializable{
                                     }
                                     cont++;
                                 }
-                                if(jogos[k] instanceof JogoAzar && (esc==0 || esc==2)){
+                                if(jogos[k] instanceof JogoAzar && (esc == 0 || esc == 2)){
                                     JogoAzar j = (JogoAzar)jogos[k];
                                     System.out.println("\nJOGO " + (k+1) + ": " + j.getNome() + "\n");
                                     System.out.println("O valor apostado foi de R$" + String.format("%.02f", jogador.getApostas(k)) + " pelo jogador." );
@@ -572,11 +572,11 @@ public class Campeonato implements Serializable{
     // Este método imprime as estatísticas do campeonato na tela:
     public void mostrarEstatisticas(){
         
-        int[] dadosJogos = {0,0,0,0,0,0};
-        int[] dadosGeneral = {0,0,0,0,0,0};
-        int[] dadosAzar = {0,0,0,0,0,0};
-        int[] dadosHumanos = {0,0,0,0,0,0};
-        int[] dadosMaquinas = {0,0,0,0,0,0};
+        int[] dadosJogos = {0,0,0,0,0,0};       // Guardará as quantidades de cada dado rolado em todo o campeonato.
+        int[] dadosGeneral = {0,0,0,0,0,0};     // Guardará as quantidades de cada dado rolado para o jogo general.
+        int[] dadosAzar = {0,0,0,0,0,0};        // Guardará as quantidades de cada dado rolado para o jogo de azar.
+        int[] dadosHumanos = {0,0,0,0,0,0};     // Guardará as quantidades de cada dado rolado para os jogadores humanos.
+        int[] dadosMaquinas = {0,0,0,0,0,0};    // Guardará as quantidades de cada dado rolado para os jogadores máquinas.
 
         Scanner tec = new Scanner(System.in);
         char op;
@@ -612,7 +612,7 @@ public class Campeonato implements Serializable{
                     if(jogador != null && jogador.getIndiceLivre()>0){
                         JogoDados[] jogos = jogador.getJogosAdicionados();
                         
-                        for(int k=0;k<jogador.getIndiceLivre();k++){
+                        for(int k = 0; k < jogador.getIndiceLivre(); k++){
                             JogoDados j = jogos[k];
                             for(int i=0;i<6;i++){
                                 dadosJogos[i] = dadosJogos[i] + j.getFacesRoladas()[i];
@@ -658,7 +658,7 @@ public class Campeonato implements Serializable{
                     System.out.println("Numero do dado\tQuantia rolada");
                     for(int i =0; i<6;i++){
                         valor = (double) dadosGeneral[i] / total;
-                        System.out.println("\t" + (i+1) + "\t\t" + dadosJogos[i] + " (" + String.format("%.02f", (valor*100)) + "% do total)");
+                        System.out.println("\t" + (i+1) + "\t\t" + dadosGeneral[i] + " (" + String.format("%.02f", (valor*100)) + "% do total)");
                     }
                 }
                 else{
@@ -672,7 +672,7 @@ public class Campeonato implements Serializable{
                     if(jogador != null && jogador.getIndiceLivre()>0){
                         JogoDados[] jogos = jogador.getJogosAdicionados();
                         
-                        for(int k=0; k<jogador.getIndiceLivre(); k++){
+                        for(int k = 0; k < jogador.getIndiceLivre(); k++){
                             if(jogos[k] instanceof JogoAzar){
                                 JogoDados j = jogos[k];
                                 for(int i = 0; i < 6;i++){
@@ -689,7 +689,7 @@ public class Campeonato implements Serializable{
                     System.out.println("Numero do dado\tQuantia rolada");
                     for(int i =0; i<6;i++){
                         valor = (double) dadosAzar[i] / total;
-                        System.out.println("\t" + (i+1) + "\t\t" + dadosJogos[i] + " (" + String.format("%.02f", (valor*100)) + "% do total)");
+                        System.out.println("\t" + (i+1) + "\t\t" + dadosAzar[i] + " (" + String.format("%.02f", (valor*100)) + "% do total)");
                     }
                 }
                 else{
@@ -718,7 +718,7 @@ public class Campeonato implements Serializable{
                     System.out.println("Numero do dado\tQuantia rolada");
                     for(int i =0; i<6;i++){
                         valor = (double) dadosHumanos[i] / total;
-                        System.out.println("\t" + (i+1) + "\t\t" + dadosJogos[i] + " (" + String.format("%.02f", (valor*100)) + "% do total)");
+                        System.out.println("\t" + (i+1) + "\t\t" + dadosHumanos[i] + " (" + String.format("%.02f", (valor*100)) + "% do total)");
                     }
                 }
                 else{
@@ -747,7 +747,7 @@ public class Campeonato implements Serializable{
                     System.out.println("Numero do dado\tQuantia rolada");
                     for(int i =0; i<6;i++){
                         valor = (double) dadosMaquinas[i] / total;
-                        System.out.println("\t" + (i+1) + "\t\t" + dadosJogos[i] + " (" + String.format("%.02f", (valor*100)) + "% do total)");
+                        System.out.println("\t" + (i+1) + "\t\t" + dadosMaquinas[i] + " (" + String.format("%.02f", (valor*100)) + "% do total)");
                     }
                 }
                 else{
