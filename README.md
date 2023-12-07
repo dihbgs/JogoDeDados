@@ -3,7 +3,7 @@ Projeto de programação em Java referente à disciplina de Programação Orient
 
 ## Diagrama UML:
 
-
+https://github.com/Carweni/Campeonato_de_Jogos_de_Dados/blob/main/Diagrama_UML.jpeg
 
 ## Regras do Campeonato:
 • O campeonato permitirá no máximo dez jogadores (humano/máquina) e cada jogador poderá realizar até dez apostas nos jogos de sua escolha, enquanto houver saldo suficientepara tal.
