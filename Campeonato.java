@@ -8,9 +8,11 @@ import java.util.Scanner;
 
 public class Campeonato implements Serializable{
     private Jogador[] players;
+    private Scanner teclado;
 
-    public Campeonato(){
+    public Campeonato(Scanner teclado){
         players = new Jogador[10];
+        this.teclado = teclado;
     }
 
     // Retorna o tamanho do vetor players(a quantidade de jogadores que eh permitido adicionar):
@@ -92,7 +94,7 @@ public class Campeonato implements Serializable{
     public void incluirJogadorHumano(String nome, char tipo, String cpf, int i){
         // Se a posição já estiver livre, cria um novo jogador.
         if(players[i] == null && i < 10){
-            players[i] = new Humano(nome, tipo, cpf);   // Ocorrência de polimorfismo, onde Jogador é declarado Humano.
+            players[i] = new Humano(nome, tipo, cpf, teclado);   // Ocorrência de polimorfismo, onde Jogador é declarado Humano.
         } 
         // Caso contrario, sobrescreve:
         else if((players[i] != null && i < players.length) || i==10){
@@ -398,7 +400,6 @@ public class Campeonato implements Serializable{
 
     // Este método imprime os extratos de acordo com a escolha do usário (escolha: 0-todos, 1-humanos, 2-máquina):
     public void mostrarExtratos(int escolha){
-        Scanner tec = new Scanner(System.in);
         System.out.print("Se você gostaria de ver os extratos relacionados aos dois jogos, digite 0. \nSe quiser ver apenas do jogo general, digite 1. \nSe quiser ver apenas do jogo de azar, digite 2.\nSua escolha: ");
         int esc = 0;
         int input = 0;
@@ -406,11 +407,11 @@ public class Campeonato implements Serializable{
 
         do{
             try {
-                esc = tec.nextInt();
+                esc = teclado.nextInt();
                 input = 1;
             } catch (java.util.InputMismatchException e) {
                 System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro. ");
-                tec.nextLine();
+                teclado.nextLine();
                 input = 0;
             }
 
@@ -578,7 +579,6 @@ public class Campeonato implements Serializable{
         int[] dadosHumanos = {0,0,0,0,0,0};     // Guardará as quantidades de cada dado rolado para os jogadores humanos.
         int[] dadosMaquinas = {0,0,0,0,0,0};    // Guardará as quantidades de cada dado rolado para os jogadores máquinas.
 
-        Scanner tec = new Scanner(System.in);
         char op;
         int total;
         double valor;
@@ -595,14 +595,14 @@ public class Campeonato implements Serializable{
         System.out.println("Informe a sua escolha: ");
 
         do{
-            op = tec.next().charAt(0);
+            op = teclado.next().charAt(0);
 
             if (op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e' && op != 'f' && op != 'g'){
                 System.out.println("Opcao invalida! Tente novamente.");
             }
         }while(op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e' && op != 'f' && op != 'g');
         
-        tec.nextLine();
+        teclado.nextLine();
 
         switch(op){
             case 'a': 
@@ -794,7 +794,7 @@ public class Campeonato implements Serializable{
                 break;
             case 'g':
                 System.out.println("Informe o nome do jogador procurado: ");
-                String nomeJogador = tec.nextLine();
+                String nomeJogador = teclado.nextLine();
                 boolean jogadorExiste = false;
 
                 if(this.players != null){
@@ -803,7 +803,7 @@ public class Campeonato implements Serializable{
                             if(jogador.getNome().equals(nomeJogador)){
                                 jogadorExiste = true;
                                 System.out.println("Você gostaria de ver as estatísticas de " + nomeJogador + " para o Jogo General(1) ou para o Jogo de Azar(2)? ");
-                                int choice = tec.nextInt();
+                                int choice = teclado.nextInt();
 
                                 total = 0;
                                 int[] dadosJogadorEspecifico = {0,0,0,0,0,0};

@@ -2,11 +2,11 @@ import java.util.Scanner;
 
 public class UsaCampeonato {
     public static void main(String []args){
-        Scanner tec = new Scanner(System.in);
+        Scanner teclado = new Scanner(System.in);
         char op;
         int sair = 0;
         
-        Campeonato league = new Campeonato();
+        Campeonato league = new Campeonato(teclado);
 
         System.out.println(":..::..: Menu interativo :..::..: ");
         System.out.println("a - Incluir jogador"); 
@@ -25,14 +25,14 @@ public class UsaCampeonato {
             // Escolhe-se uma opcao do menu. Se for invalida, informa-se o usuario e esse informa uma nova escolha.
             do{
                 System.out.println("\nEscolha a sua opcao (m mostra o menu novamente): ");
-                op = tec.next().charAt(0);
+                op = teclado.next().charAt(0);
     
                 if (op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e' && op != 'f' && op != 'g' && op != 'h' && op != 'i' && op != 'j' && op != 'k' && op != 'm'){
                     System.out.println("Opcao invalida! Tente novamente.");
                 }
             }while(op != 'a' && op != 'b' && op != 'c' && op != 'd' && op != 'e' && op != 'f' && op != 'g' && op != 'h' && op != 'i' && op != 'j' && op != 'k' && op != 'm');
             
-            tec.nextLine(); // Limpa o buffer do teclado.
+            teclado.nextLine(); // Limpa o buffer do teclado.
     
             switch(op){
                 case 'a': // Se a escolha foi 'a', inclui-se um jogador:
@@ -45,7 +45,7 @@ public class UsaCampeonato {
                         System.out.println("Informe o apelido(nickname) do jogador a ser adicionado: ");
                         int livre;
                         do{
-                            nome = tec.nextLine();
+                            nome = teclado.nextLine();
                             livre = league.nomeLivre(nome);
 
                             if(livre != 1){
@@ -56,18 +56,18 @@ public class UsaCampeonato {
                            
                         do{
                             System.out.println("Informe o tipo do jogador(H - Humano ou M - Maquina): ");
-                            tipo = tec.next().charAt(0);
+                            tipo = teclado.next().charAt(0);
         
                             if (tipo != 'M' && tipo != 'm' && tipo != 'H' && tipo != 'h'){
                                 System.out.println("Tipo invalido! Tente novamente.");
-                                tec.nextLine();
+                                teclado.nextLine();
                             }
                         }while(tipo != 'M' && tipo != 'm' && tipo != 'H' && tipo != 'h');
 
-                        tec.nextLine();
+                        teclado.nextLine();
                         if(tipo == 'h' || tipo == 'H'){
                             System.out.println("Informe o seu cpf para cadastro: ");
-                            cpf = tec.nextLine();
+                            cpf = teclado.nextLine();
                             
                             league.incluirJogadorHumano(nome, tipo, cpf, n);
                         }
@@ -83,7 +83,7 @@ public class UsaCampeonato {
                 case 'b': // Se a escolha foi 'b', remove-se um jogador:
 
                     System.out.println("Informe o apelido(nickname) do jogador a ser excluido: ");
-                    String name = tec.nextLine();
+                    String name = teclado.nextLine();
                     
                     boolean foiExcluido = league.removerJogador(name);
     
@@ -111,11 +111,11 @@ public class UsaCampeonato {
 
                         do{
                             try {
-                                escolha = tec.nextInt();
+                                escolha = teclado.nextInt();
                                 input = 1;
                             } catch (java.util.InputMismatchException e) {
                                 System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro. ");
-                                tec.nextLine();
+                                teclado.nextLine();
                                 input = 0;
                             }
 
@@ -139,11 +139,11 @@ public class UsaCampeonato {
 
                         do{
                             try {
-                                esc = tec.nextInt();
+                                esc = teclado.nextInt();
                                 input2 = 1;
                             } catch (java.util.InputMismatchException e) {
                                 System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro. ");
-                                tec.nextLine();
+                                teclado.nextLine();
                                 input2 = 0;
                             }
 
@@ -252,7 +252,7 @@ public class UsaCampeonato {
         }
 
         // Fecha-se o teclado:
-        tec.close();
+        teclado.close();
     }
     
 }

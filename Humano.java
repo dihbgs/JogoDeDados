@@ -3,15 +3,16 @@ import java.util.Scanner;
 
 // A classe Humano herda da classe Jogador, ou seja, possui todos os seus membros (campos e métodos).
 public class Humano extends Jogador implements JogarComoHumano{
+    private Scanner teclado;
     private String cpf;
 
-    public Humano(){                                    // Construtor que atribui valores padrões para o jogador humano.
-        super("Anônimo", 'h');
-        this.cpf = "12345678910";
+    public Humano(Scanner teclado){    // Construtor que atribui valores padrões para o jogador humano.
+        this("Anônimo", 'h', "12345678910", teclado);
     }
 
-    public Humano(String nome, char tipo, String cpf){  // Construtor que atribui valores passados pelos parâmetros para o humano.
+    public Humano(String nome, char tipo, String cpf, Scanner teclado){  // Construtor que atribui valores passados pelos parâmetros para o humano.
         super(nome, tipo);
+        this.teclado = teclado;
         this.cpf = cpf;
     }
 
@@ -28,7 +29,6 @@ public class Humano extends Jogador implements JogarComoHumano{
     // Implementação do método escolherJogo(), que está declarado na interface JogarComoHumano. 
     // Ele retornará o jogo escolhido pelo jogador, sendo 1 para o Jogo General e 2 para o Jogo de Azar:
     public int escolherJogo(){
-        Scanner tec = new Scanner(System.in);
         int escolha = 0;
         int input = 0;
 
@@ -36,11 +36,11 @@ public class Humano extends Jogador implements JogarComoHumano{
         do{
             do{
                 try {
-                    escolha = tec.nextInt();
+                    escolha = teclado.nextInt();
                     input = 1;
                 } catch (java.util.InputMismatchException e) {
                     System.out.println("Erro: Entrada inválida. Por favor, digite um número inteiro.");
-                    tec.nextLine();
+                    teclado.nextLine();
                     input = 0;
                 }
             }while(input == 0);
@@ -56,7 +56,6 @@ public class Humano extends Jogador implements JogarComoHumano{
     // Este método pede ao jogador a quantidade de dinheiro que ele deseja apostar em uma rodada entre 0 e seu saldo
     // e retorna o valor escolhido.
     public float apostar(){
-        Scanner teclado = new Scanner(System.in);
         float aposta = 0.0f;
 
         if(super.getSaldo() > 0){
@@ -91,7 +90,6 @@ public class Humano extends Jogador implements JogarComoHumano{
     // Vai mostrar as jogadas disponíveis do jogo general e pedir ao jogador humano o 
     // que ele quer fazer (pular a vez, escolher uma jogada, ou rolar os dados de novo):
     public void escolherJogada(JogoGeneral jogoG){
-        Scanner teclado = new Scanner(System.in);
         char confirma;
         Random random = new Random();
 
