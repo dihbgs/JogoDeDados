@@ -3,8 +3,8 @@ package src.graphics;
 import javax.swing.Timer;
 import javax.swing.JPanel;
 
-import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Graphics2D;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
@@ -13,6 +13,8 @@ public class Canvas extends JPanel {
 
 	private int width;
 	private int height;
+
+	private Die die;
 
 	private static long elapsedTime;
 	private static long currentTime;
@@ -27,6 +29,41 @@ public class Canvas extends JPanel {
 		Timer timer = new Timer(1000 / frameRate, (event) -> gameLoop());
 
 		timer.start();
+
+		setup();
+	}
+
+	private void setup() {
+		die = new Die(32, 0, 0);
+		die.roll();
+	}
+
+	private void gameLoop() {
+		currentTime = System.currentTimeMillis();
+		elapsedTime = currentTime - previousTime;
+
+		if (elapsedTime >= 1000 / frameRate) {
+			previousTime = currentTime;
+			repaint();
+		}
+	}
+
+	public void paintComponent(Graphics context) {
+		Graphics2D graphics = (Graphics2D) context;
+
+		super.paintComponent(graphics);
+		this.setPreferredSize(new Dimension(1024, this.getHeight()));
+		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		int x = (int) (Math.random() * this.getWidth());
+		int y = (int) (Math.random() * this.getHeight());
+		die.setX(x);
+		die.setY(y);
+
+		die.draw(graphics);
+		die.roll();
+
+		graphics.drawString("Frame rate: " + 1000 / elapsedTime + " fps", 32, 32);
 	}
 
 	public Canvas(int width, int height) {
@@ -50,33 +87,6 @@ public class Canvas extends JPanel {
 
 	public int getHeight() {
 		return this.height;
-	}
-
-	public void paintComponent(Graphics context) {
-		Graphics2D graphics = (Graphics2D) context;
-
-		super.paintComponent(graphics);
-		this.setPreferredSize(new Dimension(1024, this.getHeight()));
-		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-		int x = (int) (Math.random() * this.getWidth());
-		int y = (int) (Math.random() * this.getHeight());
-
-		graphics.setColor(java.awt.Color.WHITE);
-		graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
-		graphics.setColor(java.awt.Color.BLACK);
-		graphics.fillRect(x, y, 50, 50);
-		graphics.drawString("Frame rate: " + 1000 / elapsedTime + " fps", 32, 32);
-	}
-
-	private void gameLoop() {
-		currentTime = System.currentTimeMillis();
-		elapsedTime = currentTime - previousTime;
-
-		if (elapsedTime >= 1000 / frameRate) {
-			previousTime = currentTime;
-			repaint();
-		}
 	}
 
 	public Dimension getMaximumSize() {
