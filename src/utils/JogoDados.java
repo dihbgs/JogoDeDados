@@ -1,9 +1,10 @@
 package src.utils;
+
 import java.io.Serializable;
 
 // Nesta classe ocorre herança múltipla, pois ela implementa duas interfaces: Serializable, para poder ser
 // gravada posteriormente, e Estatistica, para implementar seus métodos.
-public abstract class JogoDados implements Serializable, Estatistica{
+public abstract class JogoDados implements Serializable, Estatistica {
     private Dado[] dados;
     private String nome;
     private int[] facesRoladas;
@@ -18,18 +19,18 @@ public abstract class JogoDados implements Serializable, Estatistica{
 
         this.facesRoladas = new int[numFaces];
 
-        for(int i = 0; i < numFaces; i++){
+        for (int i = 0; i < numFaces; i++) {
             facesRoladas[i] = 0;
         }
     }
 
     // Métodos getters:
 
-    public Dado[] getDados(){
+    public Dado[] getDados() {
         return this.dados;
     }
 
-    public String getNome(){
+    public String getNome() {
         return this.nome;
     }
 
@@ -37,19 +38,22 @@ public abstract class JogoDados implements Serializable, Estatistica{
         return facesRoladas;
     }
 
-    // Método que soma um ao índice representante de uma face do dado toda vez que ela é sorteada:
-    public void somarFacesSorteadas(int i){
+    // Método que soma um ao índice representante de uma face do dado toda vez que
+    // ela é sorteada:
+    public void somarFacesSorteadas(int i) {
         this.facesRoladas[i - 1] = this.facesRoladas[i - 1] + 1;
     }
 
-    // Método que rola os dados e grava seus resultado no vetor facesRoladas para futuro cálculo de estatística:
+    // Método que rola os dados e grava seus resultado no vetor facesRoladas para
+    // futuro cálculo de estatística:
     public void rolarDados() {
         for (Dado dado : dados) {
             dado.roll();
-            somarFacesSorteadas(dado.getFaceSuperior());
+            somarFacesSorteadas(dado.getValue());
         }
     }
 
-    // Método abstrato que imprime os resultados do sorteio dos dados, a ser implementado por suas subclasses:
+    // Método abstrato que imprime os resultados do sorteio dos dados, a ser
+    // implementado por suas subclasses:
     public abstract void imprimirResultado();
 }
