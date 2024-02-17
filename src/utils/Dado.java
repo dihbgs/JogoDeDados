@@ -1,29 +1,27 @@
 package src.utils;
-import java.util.Random;
+
 import java.io.Serializable;
 
-public class Dado implements Serializable{
-    private int faceSup;
+public class Dado implements Serializable {
+	private int value;
 
-    public Dado(){          // Construtor padrão: vai inicializar o dado com a face superior sendo 1.
-        faceSup = 1;
-    }
+	public Dado() {
+		this(1);
+	}
 
-    public Dado(int face){   // Sobrecarga do construtor: vai inicializar a face superior com o valor passado por parâmetro.
-        this.faceSup = face;
-    }
+	public Dado(int value) {
+		this.value = value;
+	}
 
-    public int getFaceSuperior(){ // Retorna a face superior do dado.
-        return  faceSup;
-    }
+	public int getvalueerior() {
+		return value;
+	}
 
-    public void roll(){          // Rola o dado. Para sua face superior sera atribuido um valor entre 1 e 6.
-        Random random = new Random();
-        this.faceSup = random.nextInt(6) + 1;
-    }
+	public void roll() {
+		this.value = 1 + (int) (Math.random() * 5);
+	}
 
-    public String toString(){    // Imprime a face superior do dado.  
-        return Integer.toString(faceSup);
-    }
-    
+	public String toString() {
+		return Integer.toString(value);
+	}
 }
