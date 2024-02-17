@@ -7,35 +7,34 @@ import javax.swing.JPanel;
 import src.graphics.Canvas;
 
 public class Game extends JFrame {
-    private Canvas canvas;
+	private Canvas canvas;
 
-    public static void main(String[] args) {
-        Game game = new Game();
+	public static void main(String[] args) {
+		Game game = new Game();
 
-        game.setVisible(true);
-        
-    }
+		game.setVisible(true);
+	}
 
-    public Game() {
-        canvas = new Canvas();
+	public Game() {
+		canvas = new Canvas();
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Jogo General");
-        setSize(1024, 640);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Dice Game");
+		setSize(1024, 640);
 
-        JPanel mainPanel = new JPanel();
+		JPanel mainPanel = new JPanel();
 
-        mainPanel.setLayout(new BorderLayout());
+		mainPanel.setLayout(new BorderLayout());
 
-        canvas.setPreferredSize(new Dimension(1024, 640));
+		canvas.setPreferredSize(new Dimension(1024, 640));
 
-        mainPanel.add(canvas, BorderLayout.CENTER);
+		mainPanel.add(canvas, BorderLayout.CENTER);
 
-        add(mainPanel);
+		add(mainPanel);
 
-        this.pack();
-        this.setLocationRelativeTo(null);
-        this.setSize(this.getWidth(), 640);
-        this.setResizable(false);
-    }
+		this.pack();
+		this.setLocationRelativeTo(null);
+		this.setSize(this.getWidth(), 640);
+		this.setResizable(false);
+	}
 }

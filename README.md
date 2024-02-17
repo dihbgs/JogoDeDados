@@ -1,4 +1,5 @@
 # Campeonato_de_Jogos_de_Dados
+
 Projeto de programação em Java referente à disciplina de Programação Orientada a Objetos no qual um simulador de campeonato de apostas em jogos de dados é desenvolvido, permitindo aos jogadores presentes realizar apostas em dois tipos de jogos de dados, o Jogo de Azar e o Jogo General.
 
 ## Diagrama UML:
@@ -6,6 +7,7 @@ Projeto de programação em Java referente à disciplina de Programação Orient
 https://github.com/Carweni/Campeonato_de_Jogos_de_Dados/blob/main/Diagrama_UML.jpeg
 
 ## Regras do Campeonato:
+
 • O campeonato permitirá no máximo dez jogadores (humano/máquina) e cada jogador poderá realizar até dez apostas nos jogos de sua escolha, enquanto houver saldo suficientepara tal.
 
 • Para a execução de uma rodada de apostas é necessário ao menos UM jogador participante, com saldo disponível para realização de aposta (até no máximo dez) em jogos de sua escolha (um jogo por aposta).
