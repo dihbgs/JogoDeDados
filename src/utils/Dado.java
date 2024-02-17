@@ -13,7 +13,7 @@ public class Dado implements Serializable {
 		this.value = value;
 	}
 
-	public int getvalueerior() {
+	public int getValue() {
 		return value;
 	}
 
