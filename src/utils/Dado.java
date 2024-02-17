@@ -18,7 +18,7 @@ public class Dado implements Serializable {
 	}
 
 	public void roll() {
-		this.value = 1 + (int) (Math.random() * 5);
+		this.value = (int) (Math.random() * 6 + 1);
 	}
 
 	public String toString() {
