@@ -6,6 +6,7 @@ import java.awt.Image;
 import src.utils.Dado;
 
 public class Die extends Dado {
+	private static ResourceLoader resourceLoader = new ResourceLoader();
 	private static int total = 0;
 
 	private Image sprite;
@@ -19,7 +20,7 @@ public class Die extends Dado {
 	}
 
 	public Die(int size, int x, int y) {
-		this.sprite = ResourceLoader.loadImage(ResourceLoader.DICE_SPRITE);
+		this.sprite = resourceLoader.loadImage(ResourceLoader.DICE_SPRITE);
 		this.skin = Die.total;
 		this.size = size;
 		Die.total++;
